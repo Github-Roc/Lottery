@@ -1,0 +1,217 @@
+package com.peng.lottery.app.widget;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.Scroller;
+
+import com.peng.lottery.R;
+
+
+public class SlidingLayout extends FrameLayout {
+    // 页面边缘阴影的宽度默认值
+    private static final int SHADOW_WIDTH = 16;
+    private Activity mActivity;
+    private Scroller mScroller;
+    // 页面边缘的阴影图
+    private Drawable mLeftShadow;
+    // 页面边缘阴影的宽度
+    private int mShadowWidth;
+    private int mInterceptDownX;
+    private int mLastInterceptX;
+    private int mLastInterceptY;
+    private int mTouchDownX;
+    private int mLastTouchX;
+    private int mLastTouchY;
+    private boolean isConsumed = false;
+
+    private int mPointerId;
+    private VelocityTracker mVelocityTracker;
+
+    public SlidingLayout(Context context) {
+        this(context, null);
+    }
+
+    public SlidingLayout(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public SlidingLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView(context);
+    }
+
+    private void initView(Context context) {
+        mScroller = new Scroller(context);
+        mLeftShadow = getResources().getDrawable(R.drawable.left_shadow);
+        int density = (int) getResources().getDisplayMetrics().density;
+        mShadowWidth = SHADOW_WIDTH * density;
+    }
+
+    /**
+     * 绑定Activity
+     */
+    public void bindActivity(Activity activity) {
+        mActivity = activity;
+        ViewGroup decorView = (ViewGroup) mActivity.getWindow().getDecorView();
+        View child = decorView.getChildAt(0);
+        decorView.removeView(child);
+        addView(child);
+        decorView.addView(this);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        boolean intercept = false;
+        int x = (int) ev.getX();
+        int y = (int) ev.getY();
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                intercept = false;
+                mInterceptDownX = x;
+                mLastInterceptX = x;
+                mLastInterceptY = y;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int deltaX = x - mLastInterceptX;
+                int deltaY = y - mLastInterceptY;
+                // 手指处于屏幕边缘，且横向滑动距离大于纵向滑动距离时，拦截事件
+                intercept = mInterceptDownX < (getWidth() / 10) && Math.abs(deltaX) > Math.abs(deltaY);
+                mLastInterceptX = x;
+                mLastInterceptY = y;
+                break;
+            case MotionEvent.ACTION_UP:
+                intercept = false;
+                mInterceptDownX = mLastInterceptX = mLastInterceptY = 0;
+                break;
+        }
+        return intercept;
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        int x = (int) ev.getX();
+        int y = (int) ev.getY();
+        if (mVelocityTracker == null){
+            mVelocityTracker = VelocityTracker.obtain();
+        }
+        mVelocityTracker.addMovement(ev);
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                //求第一个触点的id， 此时可能有多个触点，但至少一个
+                mPointerId = ev.getPointerId(0);
+
+                mTouchDownX = x;
+                mLastTouchX = x;
+                mLastTouchY = y;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int deltaX = x - mLastTouchX;
+                int deltaY = y - mLastTouchY;
+
+                if (!isConsumed && mTouchDownX < (getWidth() / 10) && Math.abs(deltaX) > Math.abs(deltaY)) {
+                    isConsumed = true;
+                }
+
+                if (isConsumed) {
+                    int rightMovedX = mLastTouchX - (int) ev.getX();
+                    // 左侧即将滑出屏幕
+                    if (getScrollX() + rightMovedX >= 0) {
+                        scrollTo(0, 0);
+                    } else {
+                        scrollBy(rightMovedX, 0);
+                    }
+                }
+                mLastTouchX = x;
+                mLastTouchY = y;
+                break;
+            case MotionEvent.ACTION_UP:
+                isConsumed = false;
+                mTouchDownX = mLastTouchX = mLastTouchY = 0;
+                //求伪瞬时速度
+                mVelocityTracker.computeCurrentVelocity(1000);
+                final float velocityX = mVelocityTracker.getXVelocity(mPointerId);
+                if (velocityX > 6000f) {
+                    scrollClose();
+                } else {
+                    // 根据手指释放时的位置决定回弹还是关闭
+                    if (-getScrollX() < getWidth() / 2) {
+                        scrollBack();
+                    } else {
+                        scrollClose();
+                    }
+                    clearVelocityTracker();
+                }
+                break;
+        }
+        return true;
+    }
+
+    /**
+     * 滑动返回
+     */
+    private void scrollBack() {
+        int startX = getScrollX();
+        int dx = -getScrollX();
+        mScroller.startScroll(startX, 0, dx, 0, 300);
+        invalidate();
+    }
+
+    /**
+     * 滑动关闭
+     */
+    private void scrollClose() {
+        int startX = getScrollX();
+        int dx = -getScrollX() - getWidth();
+        mScroller.startScroll(startX, 0, dx, 0, 300);
+        invalidate();
+    }
+
+    /**
+     * 释放VelocityTracker
+     */
+    private void clearVelocityTracker() {
+        if(mVelocityTracker != null) {
+            mVelocityTracker.clear();
+            mVelocityTracker.recycle();
+            mVelocityTracker = null;
+        }
+    }
+
+    @Override
+    public void computeScroll() {
+        if (mScroller.computeScrollOffset()) {
+            scrollTo(mScroller.getCurrX(), 0);
+            postInvalidate();
+        } else if (-getScrollX() >= getWidth()) {
+            mActivity.finish();
+            mActivity.overridePendingTransition(0, 0);
+        }
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+        drawShadow(canvas);
+    }
+
+    /**
+     * 绘制边缘的阴影
+     */
+    private void drawShadow(Canvas canvas) {
+        mLeftShadow.setBounds(0, 0, mShadowWidth, getHeight());
+        canvas.save();
+        canvas.translate(-mShadowWidth, 0);
+        mLeftShadow.draw(canvas);
+        canvas.restore();
+    }
+}

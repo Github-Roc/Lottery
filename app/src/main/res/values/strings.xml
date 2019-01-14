@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">大乐透抽号</string>
+    <string name="app_tip_text">提示</string>
+    <string name="app_save_text">保存</string>
+    <string name="app_confirm_text">确定</string>
+    <string name="app_cancel_text">取消</string>
+    <string name="app_input_text">请输入内容</string>
+
+    <!-- activity标题 -->
+
+
+    <string name="text_get_number">抽号</string>
+</resources>

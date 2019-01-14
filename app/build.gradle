@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    defaultConfig {
+        applicationId "com.peng.lottery"
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "HebeiBusiness_${variant.versionName}-${variant.buildType.name}.apk"
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file('../keystore/android.keystore')
+            storePassword '111111'
+            keyAlias 'android.keystore'
+            keyPassword '111111'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    /* Support */
+    implementation rootProject.ext.dependencies["appcompat-v7"]
+    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["recyclerview"]
+    implementation rootProject.ext.dependencies["multidex"]
+    /* RRD(RxJava + Retrofit + Dagger) */
+    implementation rootProject.ext.dependencies["rxjava"]
+    implementation(rootProject.ext.dependencies["rxandroid"])
+    api rootProject.ext.dependencies["rxpermissions"]
+    api rootProject.ext.dependencies['rxerrorhandler']
+    implementation rootProject.ext.dependencies["retrofit"]
+    implementation rootProject.ext.dependencies["retrofit-converter-gson"]
+    implementation rootProject.ext.dependencies["retrofit-adapter-rxjava"]
+    implementation rootProject.ext.dependencies["dagger2"]
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+    /* ButterKnife */
+    implementation rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    /* AgentWeb */
+    implementation rootProject.ext.dependencies["agentweb"]
+    /* 沉浸式状态栏 */
+    implementation rootProject.ext.dependencies["immersionbar"]
+
+    /* test */
+    testImplementation rootProject.ext.dependencies["junit"]
+}

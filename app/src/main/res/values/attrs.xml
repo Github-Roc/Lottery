@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MaxHeightLayout">
+        <attr name="maxHeight" format="reference|dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="HandIconView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="NiceSpinner">
+        <attr name="arrowTint" format="color" />
+        <attr name="hideArrow" format="boolean" />
+        <attr name="arrowDrawable" format="reference|color"/>
+        <attr name="dropDownListPaddingBottom" format="dimension"/>
+        <attr name="backgroundSelector" format="integer"/>
+        <attr name="textTint" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ProgressView">
+        <attr name="progress_current" format="integer" />
+        <attr name="progress_max" format="integer" />
+        <attr name="progress_unreached_color" format="color" />
+        <attr name="progress_reached_color" format="color" />
+        <attr name="progress_reached_bar_height" format="dimension" />
+        <attr name="progress_unreached_bar_height" format="dimension" />
+        <attr name="progress_text_size" format="dimension" />
+        <attr name="progress_text_color" format="color" />
+        <attr name="progress_text_offset" format="dimension" />
+        <attr name="progress_text_visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>

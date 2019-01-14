@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".mvp.ui.activity.MainActivity">
+
+    <Button
+        android:id="@+id/bt_get_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_24"
+        android:background="@drawable/selector_confirm_button"
+        android:text="@string/text_get_number"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_big" />
+
+    <LinearLayout
+        android:id="@+id/layout_lottery_number"
+        style="@style/view_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_red_one"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:background="@drawable/shape_red_round"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_medium" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_2"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_red_two"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:background="@drawable/shape_red_round"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_medium" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_2"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_red_three"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:background="@drawable/shape_red_round"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_medium" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_2"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_red_four"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:background="@drawable/shape_red_round"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_medium" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_2"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_red_five"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:background="@drawable/shape_red_round"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_medium" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_2"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_blue_one"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:background="@drawable/shape_blue_round"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_medium" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_2"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_blue_two"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:background="@drawable/shape_blue_round"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_medium" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
