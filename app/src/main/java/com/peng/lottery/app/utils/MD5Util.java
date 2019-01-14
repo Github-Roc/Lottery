@@ -10,11 +10,11 @@ public class MD5Util {
     /**
      * 进行md5的加密运算
      */
-    public static String encode(String str) {
+    public static String encode(String password) {
         // MessageDigest专门用于加密的类
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            byte[] result = messageDigest.digest(str.getBytes()); // 得到加密后的字符组数
+            byte[] result = messageDigest.digest(password.getBytes()); // 得到加密后的字符组数
             StringBuffer sb = new StringBuffer();
             for (byte b : result) {
                 int num = b & 0xff; // 这里的是为了将原本是byte型的数向上提升为int型，从而使得原本的负数转为了正数
