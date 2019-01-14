@@ -6,13 +6,34 @@
     android:orientation="vertical"
     tools:context=".mvp.ui.activity.MainActivity">
 
-    <Button
-        android:id="@+id/bt_get_number"
+    <EditText
+        android:id="@+id/et_lucky_str"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_24"
+        android:textColor="@color/black"
+        android:hint="@string/hint_lucky_str"
+        android:textSize="@dimen/text_medium" />
+
+    <Button
+        android:id="@+id/bt_get_lucky_number"
+        style="@style/view_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_24"
         android:background="@drawable/selector_confirm_button"
-        android:text="@string/text_get_number"
+        android:text="@string/text_get_lucky_number"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_big" />
+
+    <Button
+        android:id="@+id/bt_get_random_number"
+        style="@style/view_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:background="@drawable/selector_confirm_button"
+        android:text="@string/text_get_random_number"
         android:textColor="@color/white"
         android:textSize="@dimen/text_big" />
 
