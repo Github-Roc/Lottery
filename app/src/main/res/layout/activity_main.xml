@@ -37,6 +37,17 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text_big" />
 
+    <Button
+        android:id="@+id/bt_lottery_record"
+        style="@style/view_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_24"
+        android:background="@drawable/selector_confirm_button"
+        android:text="@string/text_lottery_record"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_big" />
+
     <LinearLayout
         android:id="@+id/layout_lottery_number"
         style="@style/view_margin"

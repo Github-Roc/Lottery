@@ -27,6 +27,8 @@ public class MainActivity extends SimpleBaseActivity {
     Button btGetLuckyNumber;
     @BindView(R.id.bt_get_random_number)
     Button btGetRandomNumber;
+    @BindView(R.id.bt_lottery_record)
+    Button btLotteryRecord;
     @BindView(R.id.tv_red_one)
     TextView tvRedOne;
     @BindView(R.id.tv_red_two)
@@ -67,6 +69,9 @@ public class MainActivity extends SimpleBaseActivity {
         btGetRandomNumber.setOnClickListener(v -> {
             checkShowLayout();
             setDataToLayout(getRedNumbers(false, ""), getBlueNumbers(false, ""));
+        });
+        btLotteryRecord.setOnClickListener(v -> {
+            WebActivity.start(mActivity, "http://kaijiang.500.com/shtml/dlt/19006.shtml");
         });
     }
 

@@ -8,7 +8,8 @@
 
     <!-- activity标题 -->
 
+    <string name="hint_lucky_str">请输入姓名、手机或生日来生成幸运号码</string>
     <string name="text_get_lucky_number">获取幸运号码</string>
     <string name="text_get_random_number">获取随机号码</string>
-    <string name="hint_lucky_str">请输入姓名、手机或生日来生成幸运号码</string>
+    <string name="text_lottery_record">查看中奖记录</string>
 </resources>
