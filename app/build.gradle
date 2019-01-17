@@ -68,6 +68,8 @@ dependencies {
     /* ButterKnife */
     implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    /* EditText */
+    implementation rootProject.ext.dependencies["materialedittext"]
     /* AgentWeb */
     implementation rootProject.ext.dependencies["agentweb"]
     /* 沉浸式状态栏 */

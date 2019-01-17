@@ -16,8 +16,7 @@
         android:roundIcon="@mipmap/app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        tools:replace="android:allowBackup">
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".mvp.ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,8 +27,18 @@
 
         <activity
             android:name=".mvp.ui.activity.WebActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/TransparentTheme" />
+
+        <!-- android7.0 FileProvider -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="cn.tofirst.health.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

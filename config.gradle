@@ -48,6 +48,7 @@ ext {
             "autolayout"               : "com.zhy:autolayout:1.4.5",
             "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
             "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
+            "materialedittext"         : "com.rengwuxian.materialedittext:library:2.1.4",
             "agentweb"                 : "com.just.agentweb:agentweb:4.0.2",
             "superweb"                 : "com.github.Victory-Over:SuperWeb:v1.0.2",
             "bottomBar"                : "com.roughike:bottom-bar:2.3.1",
