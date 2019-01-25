@@ -4,187 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".mvp.ui.activity.MainActivity">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/app_toolbar" />
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/main_drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:layout_margin="@dimen/dp_20"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        tools:openDrawer="start">
 
-        <Button
-            android:id="@+id/bt_type_daletou"
-            android:layout_width="0dp"
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/main_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabTextColor="@color/white"
+                    app:tabIndicatorColor="@color/text_red" />
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/main_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </android.support.design.widget.CoordinatorLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/main_navigation_view"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/selector_button_left_round"
-            android:text="@string/text_type_daletou"
-            android:textColor="@color/selector_supervise_record_text"
-            android:textSize="@dimen/text_big" />
+            android:layout_gravity="start"
+            app:headerLayout="@layout/layout_menu_main"
+            app:menu="@menu/activity_main" />
 
-        <Button
-            android:id="@+id/bt_type_shuangseqiu"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/selector_button_right_round"
-            android:text="@string/text_type_shuangseqiu"
-            android:textColor="@color/selector_supervise_record_text"
-            android:textSize="@dimen/text_big" />
-
-    </LinearLayout>
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/et_lucky_str"
-        style="@style/view_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_24"
-        android:hint="@string/hint_lucky_str"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_medium"
-        app:met_clearButton="true"
-        app:met_floatingLabel="highlight"
-        app:met_floatingLabelText="@string/hint_lucky_str"
-        app:met_primaryColor="@color/colorPrimary" />
-
-    <Button
-        android:id="@+id/bt_get_lucky_number"
-        style="@style/view_margin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:layout_marginBottom="@dimen/dp_24"
-        android:background="@drawable/selector_confirm_button"
-        android:text="@string/text_get_lucky_number"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_big" />
-
-    <Button
-        android:id="@+id/bt_get_random_number"
-        style="@style/view_margin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:layout_marginBottom="@dimen/dp_24"
-        android:background="@drawable/selector_confirm_button"
-        android:text="@string/text_get_random_number"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_big" />
-
-    <Button
-        android:id="@+id/bt_lottery_record"
-        style="@style/view_margin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
-        android:layout_marginBottom="@dimen/dp_24"
-        android:background="@drawable/selector_confirm_button"
-        android:text="@string/text_lottery_record"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_big" />
-
-    <LinearLayout
-        android:id="@+id/layout_lottery_number"
-        style="@style/view_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/tv_ball_one"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_red_round"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_2"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tv_ball_two"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_red_round"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_2"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tv_ball_three"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_red_round"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_2"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tv_ball_four"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_red_round"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_2"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tv_ball_five"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_red_round"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_2"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tv_ball_six"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_blue_round"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_2"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/tv_ball_seven"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_blue_round"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium" />
-
-    </LinearLayout>
-
+    </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>

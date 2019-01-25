@@ -5,8 +5,10 @@
 
     <!-- 网络权限,允许程序访问网络 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--用于获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Android8.0 安装权限 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".app.MyApplication"
@@ -26,13 +28,23 @@
         </activity>
 
         <activity
+            android:name=".mvp.ui.activity.MineLotteryActivity"
+            android:theme="@style/TransparentTheme" />
+        <activity
+            android:name=".mvp.ui.activity.AboutActivity"
+            android:theme="@style/TransparentTheme" />
+        <activity
+            android:name=".mvp.ui.activity.SettingActivity"
+            android:theme="@style/TransparentTheme" />
+
+        <activity
             android:name=".mvp.ui.activity.WebActivity"
             android:theme="@style/TransparentTheme" />
 
         <!-- android7.0 FileProvider -->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="cn.tofirst.health.fileprovider"
+            android:authorities="com.peng.lottery.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

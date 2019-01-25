@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -46,10 +47,17 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.peng.lottery.mvp.model.db.bean'
+        targetGenDir 'src/main/java'
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     /* Support */
     implementation rootProject.ext.dependencies["appcompat-v7"]
     implementation rootProject.ext.dependencies["design"]
@@ -68,10 +76,14 @@ dependencies {
     /* ButterKnife */
     implementation rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-    /* EditText */
-    implementation rootProject.ext.dependencies["materialedittext"]
+    /* greenDAO */
+    implementation rootProject.ext.dependencies["greendao"]
     /* AgentWeb */
     implementation rootProject.ext.dependencies["agentweb"]
+    /* EditText */
+    implementation rootProject.ext.dependencies["materialedittext"]
+    /* RecyclerViewAdapter */
+    implementation rootProject.ext.dependencies["recycler-adapter"]
     /* 沉浸式状态栏 */
     implementation rootProject.ext.dependencies["immersionbar"]
 

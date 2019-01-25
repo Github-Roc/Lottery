@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/main_menu_mine_lottery"
+            android:icon="@mipmap/icon_main_menu_mine_lottery"
+            android:title="@string/text_main_menu_mine_lottery" />
+    </group>
+
+    <group android:id="@+id/group_about">
+        <item
+            android:id="@+id/main_menu_about"
+            android:icon="@mipmap/icon_main_menu_about"
+            android:title="@string/text_main_menu_about" />
+        <item
+            android:id="@+id/main_menu_setting"
+            android:icon="@mipmap/icon_main_menu_settings"
+            android:title="@string/text_main_menu_setting" />
+    </group>
+
+</menu>

@@ -1,13 +1,19 @@
 package com.peng.lottery.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.peng.lottery.R;
 import com.peng.lottery.app.MyApplication;
+import com.peng.lottery.app.config.AppConfig;
 import com.peng.lottery.app.utils.InstallApkUtil;
 import com.peng.lottery.app.webview.AgentWebHelper;
 import com.peng.lottery.app.widget.SlidingLayout;
@@ -33,8 +39,9 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
     protected SimpleBaseActivity mActivity;
     /** 加载中Dialog */
     public LoadingDialog mLoadingDialog;
-    /** 是否检测有安装权限 android8.0安装适配 */
-    public boolean isCheckInstallApkPermission = false;
+
+    protected Toolbar mToolbar;
+    protected TextView mActivityTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,18 +59,6 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         super.onResume();
         if (mAgentWebHelper != null) {
             mAgentWebHelper.onResume();
-        }
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-        if (isCheckInstallApkPermission){
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && getPackageManager().canRequestPackageInstalls()) {
-                InstallApkUtil.startInstall(this);
-                isCheckInstallApkPermission = false;
-            }
         }
     }
 
@@ -88,12 +83,20 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         if (enableImmersionBar()) {
             ImmersionBar.with(this).destroy();
         }
-        dismissLoadingDialog();
         MyApplication.activityStack.remove(this);
+        dismissLoadingDialog();
         mActivity = null;
     }
 
-    protected AgentWebHelper getWebHelper(){
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == AppConfig.REQUEST_INSTALL) {
+            InstallApkUtil.install(this, null);
+        }
+    }
+
+    public AgentWebHelper getWebHelper(){
         if (mAgentWebHelper == null) {
             mAgentWebHelper = new AgentWebHelper(mActivity);
         }
@@ -128,6 +131,22 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
     }
 
     /**
+     * 初始化界面ToolBar
+     */
+    private void initToolBar() {
+        mToolbar = findViewById(R.id.app_toolbar);
+        mActivityTitle = findViewById(R.id.tv_activity_title);
+
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+    }
+
+    /**
      * 初始化
      * @des 子类可选择复写，进行一些初始化操作，会在setLayoutResID()方法前执行。
      */
@@ -152,6 +171,9 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         }
         if (enableImmersionBar()) {
             ImmersionBar.with(this).init();
+        }
+        if (enableInitToolBar()) {
+            initToolBar();
         }
     }
 
@@ -183,6 +205,14 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
      */
     protected boolean enableImmersionBar() {
         return false;
+    }
+
+    /**
+     * 是否初始化ToolBar
+     * @return true 是 false 否
+     */
+    protected boolean enableInitToolBar() {
+        return true;
     }
 
     /**

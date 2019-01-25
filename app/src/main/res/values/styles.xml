@@ -15,7 +15,7 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/app_color</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
@@ -36,7 +36,7 @@
     <style name="horizontal_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.1dp</item>
-        <item name="android:background">@color/line_gray</item>
+        <item name="android:background">@color/app_bg</item>
     </style>
 
     <style name="vertical_line">

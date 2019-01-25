@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import com.peng.lottery.R;
@@ -22,6 +24,15 @@ public class WebActivity extends SimpleBaseActivity {
     LinearLayout mWebLayout;
 
     private String url;
+    private WebChromeClient mWebChromeClient = new WebChromeClient() {
+        @Override
+        public void onReceivedTitle(WebView view, String title) {
+            super.onReceivedTitle(view, title);
+            if (mActivityTitle != null) {
+                mActivityTitle.setText(title);
+            }
+        }
+    };
 
     @Override
     protected void init() {
@@ -42,7 +53,7 @@ public class WebActivity extends SimpleBaseActivity {
     protected void initView() {
         super.initView();
 
-        getWebHelper().initWeb(mWebLayout, url);
+        getWebHelper().initWeb(mWebLayout, mWebChromeClient, url);
     }
 
     @Override

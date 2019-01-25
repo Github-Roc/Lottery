@@ -7,6 +7,16 @@
     <string name="app_input_text">请输入内容</string>
 
     <!-- activity标题 -->
+    <string name="title_mine_lottery">我的彩票</string>
+    <string name="title_about">关于</string>
+    <string name="title_setting">设置</string>
+
+    <!-- 首页菜单 -->
+    <string name="main_menu_open">Open Menu</string>
+    <string name="main_menu_close">Close Menu</string>
+    <string name="text_main_menu_mine_lottery">我的彩票</string>
+    <string name="text_main_menu_setting">设置</string>
+    <string name="text_main_menu_about">关于</string>
 
 
     <string name="hint_lucky_str">请输入内容生成幸运号码</string>
@@ -15,4 +25,6 @@
     <string name="text_get_lucky_number">获取幸运号码</string>
     <string name="text_get_random_number">获取随机号码</string>
     <string name="text_lottery_record">查看开奖记录</string>
+    <string name="text_save_lottery_number">保存号码</string>
+
 </resources>
