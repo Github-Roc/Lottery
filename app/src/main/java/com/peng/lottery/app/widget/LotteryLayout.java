@@ -40,6 +40,10 @@ public class LotteryLayout extends LinearLayout {
     }
 
     public void setLotteryData(LotteryData lottery) {
+        if (mView != null) {
+            removeAllViews();
+            mView = null;
+        }
         setLotteryValue(lottery.getLotteryValue(), lottery.getLotteryType());
     }
 
@@ -56,8 +60,8 @@ public class LotteryLayout extends LinearLayout {
         }
         if (layoutRes != 0) {
             if (mView == null) {
-                mView = inflate(getContext(), layoutRes, null);
-                addView(mView);
+               mView = inflate(getContext(), layoutRes, null);
+               addView(mView);
             }
             if (mView != null) {
                 setValueToView(lotteryValue);
@@ -68,7 +72,9 @@ public class LotteryLayout extends LinearLayout {
     private void setValueToView(List<LotteryNumber> lotteryValue) {
         for (int i = 0; i < lotteryValue.size(); i++) {
             TextView tv = mView.findViewById(mViewIds[i]);
-            tv.setText(lotteryValue.get(i).getNumberValue());
+            if (tv != null) {
+                tv.setText(lotteryValue.get(i).getNumberValue());
+            }
         }
     }
 }

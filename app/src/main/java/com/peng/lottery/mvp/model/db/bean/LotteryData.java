@@ -19,8 +19,10 @@ public class LotteryData {
 
     // 彩票类型
     private String lotteryType;
-    // 是否是幸运号码
-    private String luckyType;
+    // 彩票标签
+    private String lotteryLabel;
+    // 彩票幸运字符串
+    private String luckyStr;
     // 创建时间
     private String createData;
     /** Used to resolve relations */
@@ -29,12 +31,13 @@ public class LotteryData {
     /** Used for active entity operations. */
     @Generated(hash = 460360553)
     private transient LotteryDataDao myDao;
-    @Generated(hash = 1038688054)
-    public LotteryData(Long Id, String lotteryType, String luckyType,
-            String createData) {
+    @Generated(hash = 1693893768)
+    public LotteryData(Long Id, String lotteryType, String lotteryLabel,
+            String luckyStr, String createData) {
         this.Id = Id;
         this.lotteryType = lotteryType;
-        this.luckyType = luckyType;
+        this.lotteryLabel = lotteryLabel;
+        this.luckyStr = luckyStr;
         this.createData = createData;
     }
     @Generated(hash = 1125241785)
@@ -52,11 +55,17 @@ public class LotteryData {
     public void setLotteryType(String lotteryType) {
         this.lotteryType = lotteryType;
     }
-    public String getLuckyType() {
-        return this.luckyType;
+    public String getLotteryLabel() {
+        return this.lotteryLabel;
     }
-    public void setLuckyType(String luckyType) {
-        this.luckyType = luckyType;
+    public void setLotteryLabel(String lotteryLabel) {
+        this.lotteryLabel = lotteryLabel;
+    }
+    public String getLuckyStr() {
+        return this.luckyStr;
+    }
+    public void setLuckyStr(String luckyStr) {
+        this.luckyStr = luckyStr;
     }
     public String getCreateData() {
         return this.createData;

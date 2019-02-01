@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_DALETOU;
 import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_PKSHI;
 
 /**
@@ -52,8 +53,8 @@ public class PkShiFragment extends BaseFragment<PkShiPresenter> {
             layoutPkShi.setLotteryValue(mLotteryValue, LOTTERY_TYPE_PKSHI.type);
         });
         btSaveLotteryNumber.setOnClickListener(v -> {
-            mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_PKSHI);
-            ToastUtil.showToast(mActivity, "保存成功!");
+            String result = mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_PKSHI);
+            ToastUtil.showToast(mActivity, result);
         });
     }
 

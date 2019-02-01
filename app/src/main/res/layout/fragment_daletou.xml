@@ -27,7 +27,7 @@
                 app:met_clearButton="true"
                 app:met_floatingLabel="highlight"
                 app:met_floatingLabelText="@string/hint_lucky_str"
-                app:met_primaryColor="@color/colorPrimary" />
+                app:met_primaryColor="@color/app_color" />
 
             <android.support.design.button.MaterialButton
                 android:id="@+id/bt_get_lucky_number"

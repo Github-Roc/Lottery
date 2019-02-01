@@ -41,7 +41,7 @@ public class DaLeDouFragment extends BaseFragment<DaLeDouPresenter> {
     @BindView(R.id.bt_save_lottery_number)
     MaterialButton btSaveLotteryNumber;
 
-    private String isLucky;
+    private String mLuckyStr;
     private List<LotteryNumber> mLotteryValue;
 
     @Override
@@ -57,19 +57,18 @@ public class DaLeDouFragment extends BaseFragment<DaLeDouPresenter> {
     @Override
     protected void initListener() {
         btGetLuckyNumber.setOnClickListener(v -> {
-            String luckyStr = etLuckyStr.getText().toString().trim();
-            if (TextUtils.isEmpty(luckyStr)) {
+            mLuckyStr = etLuckyStr.getText().toString().trim();
+            if (TextUtils.isEmpty(mLuckyStr)) {
                 ToastUtil.showToast(mActivity, "请先输入一些内容吧！");
                 return;
             }
 
-            isLucky = "幸运号码";
             checkShowLayout();
-            mLotteryValue = mPresenter.getLotteryNumber(true, luckyStr);
+            mLotteryValue = mPresenter.getLotteryNumber(mLuckyStr);
             layoutDaLeTou.setLotteryValue(mLotteryValue, LOTTERY_TYPE_DALETOU.type);
         });
         btGetRandomNumber.setOnClickListener(v -> {
-            isLucky = "";
+            mLuckyStr = "";
             checkShowLayout();
             mLotteryValue = mPresenter.getRandomLottery();
             layoutDaLeTou.setLotteryValue(mLotteryValue, LOTTERY_TYPE_DALETOU.type);
@@ -79,8 +78,8 @@ public class DaLeDouFragment extends BaseFragment<DaLeDouPresenter> {
             WebActivity.start(mActivity, url);
         });
         btSaveLotteryNumber.setOnClickListener(v -> {
-            mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_DALETOU, isLucky);
-            ToastUtil.showToast(mActivity, "保存成功!");
+            String result = mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_DALETOU, mLuckyStr);
+            ToastUtil.showToast(mActivity, result);
         });
     }
 

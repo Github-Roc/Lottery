@@ -23,10 +23,10 @@ public class LotteryListAdapter extends BaseQuickAdapter<LotteryData, BaseViewHo
         lotteryLayout.setLotteryData(item);
 
         helper.setText(R.id.tv_lottery_date, item.getCreateData());
-        helper.setText(R.id.tv_lucky_lottery, item.getLuckyType());
+        helper.setText(R.id.tv_lucky_lottery, item.getLuckyStr());
         helper.setText(R.id.tv_lottery_type, item.getLotteryType());
 
-        helper.setGone(R.id.tv_lucky_lottery, !TextUtils.isEmpty(item.getLuckyType()));
+        helper.setGone(R.id.tv_lucky_lottery, !TextUtils.isEmpty(item.getLuckyStr()));
     }
 
 }

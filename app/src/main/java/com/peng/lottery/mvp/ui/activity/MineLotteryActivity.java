@@ -2,8 +2,11 @@ package com.peng.lottery.mvp.ui.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.peng.lottery.R;
+import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.base.BaseActivity;
 import com.peng.lottery.mvp.contract.activity.MineLotteryContract;
 import com.peng.lottery.mvp.model.db.bean.LotteryData;
@@ -39,6 +42,23 @@ public class MineLotteryActivity extends BaseActivity<MineLotteryPresenter> impl
         mActivityTitle.setText(R.string.title_mine_lottery);
 
         initRecycler();
+    }
+
+    @Override
+    protected void initListener() {
+        mLotteryListAdapter.setOnItemLongClickListener((adapter, view, position) -> {
+            showTipDialog("您确定要删除该号码吗？", v -> {
+                LotteryData lottery = mLotteryList.get(position);
+                mPresenter.deleteLottery(lottery);
+                mLotteryList.remove(lottery);
+                mLotteryListAdapter.notifyDataSetChanged();
+
+                if (mLotteryList.size() == 0) {
+                    mLotteryListAdapter.setEmptyView(R.layout.layout_empty_page);
+                }
+            });
+            return true;
+        });
     }
 
     @Override

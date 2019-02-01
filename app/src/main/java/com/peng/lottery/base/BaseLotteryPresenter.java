@@ -1,5 +1,7 @@
 package com.peng.lottery.base;
 
+import android.text.TextUtils;
+
 import com.peng.lottery.app.utils.DateFormatUtil;
 import com.peng.lottery.mvp.model.DataManager;
 import com.peng.lottery.mvp.model.db.bean.LotteryData;
@@ -21,20 +23,28 @@ public abstract class BaseLotteryPresenter<V extends IView> extends BasePresente
         mLotteryNumberDao = mSQLiteHelper.getLotteryNumberDao();
     }
 
-    public void saveLottery(List<LotteryNumber> lotteryNumbers, LotteryType lotteryType) {
-        saveLottery(lotteryNumbers, lotteryType, "");
+    public String saveLottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
+        return saveLottery(lotteryValue, lotteryType, "");
     }
 
-    public void saveLottery(List<LotteryNumber> lotteryNumbers, LotteryType lotteryType, String luckyType) {
-        LotteryData lottery = new LotteryData();
-        lottery.setLotteryType(lotteryType.type);
-        lottery.setLuckyType(luckyType);
-        lottery.setCreateData(DateFormatUtil.getSysDate());
-        mLotteryDataDao.insert(lottery);
+    public String saveLottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType, String luckyStr) {
+        if (lotteryValue.get(0).getId() == null) {
+            LotteryData lottery = new LotteryData();
+            lottery.setLotteryType(lotteryType.type);
+            lottery.setCreateData(DateFormatUtil.getSysDate());
+            if (!TextUtils.isEmpty(luckyStr)) {
+                lottery.setLuckyStr(luckyStr);
+                lottery.setLotteryLabel("幸运号码");
+            }
+            mLotteryDataDao.insert(lottery);
 
-        for (LotteryNumber lotteryNumber : lotteryNumbers) {
-            lotteryNumber.setLotteryId(lottery.getId());
-            mLotteryNumberDao.insert(lotteryNumber);
+            for (LotteryNumber lotteryNumber : lotteryValue) {
+                lotteryNumber.setLotteryId(lottery.getId());
+                mLotteryNumberDao.insert(lotteryNumber);
+            }
+            return "保存成功！";
+        } else {
+            return "该号码以保存！";
         }
     }
 

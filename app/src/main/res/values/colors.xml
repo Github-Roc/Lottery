@@ -16,14 +16,18 @@
 
     <color name="app_color">#0082E6</color>
     <color name="app_bg">#D1D1D1</color>
-    <color name="text_gray">#A5A5A5</color>
+    <color name="text_gray">#5E616D</color>
     <color name="text_red">#FF4043</color>
-    <color name="text_blue">#0050AB</color>
+    <color name="text_yellow">#F9D367</color>
+    <color name="text_blue">#2177B8</color>
     <color name="dialog_loading_bg">#AA358BC9</color>
     <color name="dialog_title_bg">#F3F3F3</color>
     <color name="btn_confirm_normal">#0072BF</color>
     <color name="btn_confirm_pressed">#358BC9</color>
     <color name="btn_cancel_normal">#DFDFDF</color>
     <color name="btn_cancel_pressed">#C6C6C6</color>
+
+    <color name="bg_ball_red">#F54646</color>
+    <color name="bg_ball_blue">#3399FF</color>
 
 </resources>

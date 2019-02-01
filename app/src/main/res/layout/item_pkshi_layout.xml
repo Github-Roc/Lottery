@@ -13,7 +13,7 @@
             android:id="@+id/tv_ball_one"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_red_round"
+            android:background="@drawable/shape_blue_round"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/text_medium" />
@@ -41,7 +41,7 @@
             android:id="@+id/tv_ball_three"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_red_round"
+            android:background="@drawable/shape_blue_round"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/text_medium" />
@@ -69,7 +69,7 @@
             android:id="@+id/tv_ball_five"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_red_round"
+            android:background="@drawable/shape_blue_round"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/text_medium" />
@@ -101,7 +101,7 @@
             android:id="@+id/tv_ball_seven"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_red_round"
+            android:background="@drawable/shape_blue_round"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/text_medium" />
@@ -129,7 +129,7 @@
             android:id="@+id/tv_ball_nine"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
-            android:background="@drawable/shape_red_round"
+            android:background="@drawable/shape_blue_round"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/text_medium" />

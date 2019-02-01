@@ -25,4 +25,8 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
         List<LotteryData> lotteryList = mLotteryDataDao.loadAll();
         mView.onLoadFinish(lotteryList);
     }
+
+    public void deleteLottery(LotteryData lottery) {
+        mLotteryDataDao.delete(lottery);
+    }
 }

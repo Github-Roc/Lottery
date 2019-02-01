@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/view_margin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/dp_2"
-    android:layout_marginBottom="@dimen/dp_12">
+    android:layout_marginTop="@dimen/dp_12">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,17 +23,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_12">
 
-            <TextView
+            <com.peng.lottery.app.widget.RoundTextView
                 android:id="@+id/tv_lottery_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/text_gray"
                 android:padding="@dimen/dp_2"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_medium" />
+                android:textSize="@dimen/text_small"
+                app:rtvBgColor="@color/text_gray"
+                app:rtvRadius="@dimen/dp_8" />
 
-
-            <TextView
+            <com.peng.lottery.app.widget.RoundTextView
                 android:id="@+id/tv_lucky_lottery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,22 +41,24 @@
                 android:layout_marginRight="@dimen/dp_8"
                 android:layout_toStartOf="@id/tv_lottery_type"
                 android:layout_toLeftOf="@id/tv_lottery_type"
-                android:background="@color/text_red"
                 android:padding="@dimen/dp_2"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_medium"
+                android:textSize="@dimen/text_small"
+                app:rtvBgColor="@color/text_red"
+                app:rtvRadius="@dimen/dp_8"
                 tools:ignore="RelativeOverlap" />
 
-            <TextView
+            <com.peng.lottery.app.widget.RoundTextView
                 android:id="@+id/tv_lottery_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:background="@color/text_blue"
                 android:padding="@dimen/dp_2"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_medium" />
+                android:textSize="@dimen/text_small"
+                app:rtvBgColor="@color/text_yellow"
+                app:rtvRadius="@dimen/dp_8" />
         </RelativeLayout>
 
     </LinearLayout>

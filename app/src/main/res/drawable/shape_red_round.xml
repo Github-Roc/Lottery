@@ -4,7 +4,7 @@
     android:useLevel="false" >
 
     <solid
-        android:color="#f54646" />
+        android:color="@color/bg_ball_red" />
 
     <!--这里宽高要一样 -->
     <size android:width="10dp"

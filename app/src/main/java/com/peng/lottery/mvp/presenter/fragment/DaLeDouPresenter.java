@@ -1,5 +1,8 @@
 package com.peng.lottery.mvp.presenter.fragment;
 
+import android.text.TextUtils;
+
+import com.peng.lottery.app.utils.DateFormatUtil;
 import com.peng.lottery.app.utils.MD5Util;
 import com.peng.lottery.base.BaseLotteryPresenter;
 import com.peng.lottery.mvp.model.DataManager;
@@ -27,18 +30,18 @@ public class DaLeDouPresenter extends BaseLotteryPresenter {
 
     @Override
     public List<LotteryNumber> getRandomLottery() {
-        return getLotteryNumber(false, "");
+        return getLotteryNumber("");
     }
 
-    public List<LotteryNumber> getLotteryNumber(boolean isLucky, String luckyStr) {
+    public List<LotteryNumber> getLotteryNumber(String luckyStr) {
         List<LotteryNumber> lotteryNumbers = new ArrayList<>();
-        for (String value : getLotteryValue(NUMBER_TYPE_RED, isLucky, luckyStr)) {
+        for (String value : getLotteryValue(NUMBER_TYPE_RED, luckyStr)) {
             LotteryNumber lotteryNumber = new LotteryNumber();
             lotteryNumber.setNumberValue(value);
             lotteryNumber.setNumberType(NUMBER_TYPE_RED.type);
             lotteryNumbers.add(lotteryNumber);
         }
-        for (String value : getLotteryValue(NUMBER_TYPE_BLUE, isLucky, luckyStr)) {
+        for (String value : getLotteryValue(NUMBER_TYPE_BLUE, luckyStr)) {
             LotteryNumber lotteryNumber = new LotteryNumber();
             lotteryNumber.setNumberValue(value);
             lotteryNumber.setNumberType(NUMBER_TYPE_BLUE.type);
@@ -47,12 +50,16 @@ public class DaLeDouPresenter extends BaseLotteryPresenter {
         return lotteryNumbers;
     }
 
-    private List<String> getLotteryValue(NumberType numberType, boolean isLucky, String luckyStr) {
+    private List<String> getLotteryValue(NumberType numberType, String luckyStr) {
         List<String> numberBox = new ArrayList<>();
-        int luckyIndex = 0;
-        byte[] luckyByte = MD5Util.encode(luckyStr).getBytes();
         int length = numberType == NUMBER_TYPE_RED ? 5 : 2;
         String[] valueBox = numberType == NUMBER_TYPE_RED ? mRedValues : mBlueValues;
+
+        boolean isLucky = !TextUtils.isEmpty(luckyStr);
+        luckyStr += DateFormatUtil.getDate();
+        int luckyIndex = 0;
+        byte[] luckyByte = MD5Util.encode(luckyStr).getBytes();
+
         while (numberBox.size() < length) {
             String number;
             if (isLucky) {
