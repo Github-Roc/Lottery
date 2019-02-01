@@ -18,6 +18,12 @@
     <string name="text_main_menu_setting">设置</string>
     <string name="text_main_menu_about">关于</string>
 
+    <!-- 关于 -->
+    <string name="text_about_project_url">项目地址:\n<u>https://github.com/</u></string>
+    <string name="text_about_author_url">作者博客:\n<u>http://pengblog.club/</u></string>
+    <string name="text_about_project_info">项目简介:\n一款帮你选彩票号码的工具软件，工作再忙也别忘了来注大乐透，毕竟你挣一千万比你中一千万难太多了！</string>
+    <string name="text_about_award">请作者吃糖(￣▽￣)</string>
+    <string name="text_about_version">Lottery\t\tV1.0.0</string>
 
     <string name="hint_lucky_str">请输入内容生成幸运号码</string>
     <string name="text_type_daletou">大乐透</string>
