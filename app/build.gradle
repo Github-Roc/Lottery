@@ -30,10 +30,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('../keystore/android.keystore')
-            storePassword '111111'
-            keyAlias 'android.keystore'
-            keyPassword '111111'
+            storeFile file('../keystore/peng.jks')
+            storePassword '000000'
+            keyAlias 'pengKey'
+            keyPassword '000000'
         }
     }
     buildTypes {
@@ -84,8 +84,14 @@ dependencies {
     implementation rootProject.ext.dependencies["materialedittext"]
     /* RecyclerViewAdapter */
     implementation rootProject.ext.dependencies["recycler-adapter"]
+    /* RecyclerViewAdapter */
+    implementation rootProject.ext.dependencies["picture-selector"]
     /* 沉浸式状态栏 */
     implementation rootProject.ext.dependencies["immersionbar"]
+
+    /* bugly */
+    implementation rootProject.ext.dependencies["bugly-upgrade"]
+    implementation rootProject.ext.dependencies["bugly-native"]
 
     /* test */
     testImplementation rootProject.ext.dependencies["junit"]

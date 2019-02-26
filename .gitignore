@@ -3,4 +3,5 @@
 /.idea/
 /build
 /keystore
+/release
 /local.properties

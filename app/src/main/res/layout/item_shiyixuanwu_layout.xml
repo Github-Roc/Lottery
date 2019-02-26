@@ -14,6 +14,7 @@
         android:textSize="@dimen/text_medium" />
 
     <View
+        android:id="@+id/view_one"
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_2"
         android:layout_weight="1" />
@@ -28,6 +29,7 @@
         android:textSize="@dimen/text_medium" />
 
     <View
+        android:id="@+id/view_two"
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_2"
         android:layout_weight="1" />
@@ -42,6 +44,7 @@
         android:textSize="@dimen/text_medium" />
 
     <View
+        android:id="@+id/view_three"
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_2"
         android:layout_weight="1" />
@@ -56,6 +59,7 @@
         android:textSize="@dimen/text_medium" />
 
     <View
+        android:id="@+id/view_four"
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_2"
         android:layout_weight="1" />
@@ -68,4 +72,65 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/text_medium" />
+
+    <View
+        android:id="@+id/view_five"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_2"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_ball_six"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:background="@drawable/shape_blue_round"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_medium" />
+
+    <View
+        android:id="@+id/view_six"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_2"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_ball_seven"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:background="@drawable/shape_blue_round"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_medium" />
+
+    <View
+        android:id="@+id/view_seven"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_2"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_ball_eight"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:background="@drawable/shape_blue_round"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_medium" />
+
+    <View
+        android:id="@+id/view_eight"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_2"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/tv_ball_nine"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:background="@drawable/shape_blue_round"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_medium" />
+
 </LinearLayout>

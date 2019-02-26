@@ -34,7 +34,7 @@
                 app:rtvRadius="@dimen/dp_8" />
 
             <com.peng.lottery.app.widget.RoundTextView
-                android:id="@+id/tv_lucky_lottery"
+                android:id="@+id/tv_lottery_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dp_8"

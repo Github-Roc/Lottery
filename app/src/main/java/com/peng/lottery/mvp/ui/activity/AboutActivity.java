@@ -1,8 +1,11 @@
 package com.peng.lottery.mvp.ui.activity;
 
+import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.widget.TextView;
 
 import com.peng.lottery.R;
+import com.peng.lottery.app.utils.LogUtil;
 import com.peng.lottery.base.SimpleBaseActivity;
 
 import butterknife.BindView;
@@ -21,11 +24,13 @@ public class AboutActivity extends SimpleBaseActivity {
         return R.layout.activity_about;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void initView() {
         super.initView();
 
         mActivityTitle.setText(R.string.title_about);
+        tvAboutVersion.setText("Lottery\t\t" + getVersionName());
     }
 
     @Override
@@ -37,6 +42,16 @@ public class AboutActivity extends SimpleBaseActivity {
     @Override
     protected boolean enableSlidingFinish() {
         return true;
+    }
+
+    private String getVersionName() {
+        String versionName = "";
+        try {
+            versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            LogUtil.e(e.getMessage());
+        }
+        return versionName;
     }
 
 }

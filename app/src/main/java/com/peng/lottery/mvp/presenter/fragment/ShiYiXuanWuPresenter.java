@@ -17,16 +17,47 @@ public class ShiYiXuanWuPresenter extends BaseLotteryPresenter {
 
     private String[] mValueBox = new String[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11"};
 
+    private int maxSize;
+
     @Inject
     public ShiYiXuanWuPresenter(DataManager dataManager) {
         super(dataManager);
+    }
+
+    public void setMaxSize(String type) {
+        switch (type) {
+            case "任选二":
+                maxSize = 2;
+                break;
+            case "任选三":
+                maxSize = 3;
+                break;
+            case "任选四":
+                maxSize = 4;
+                break;
+            case "任选五":
+                maxSize = 5;
+                break;
+            case "任选六":
+                maxSize = 6;
+                break;
+            case "任选七":
+                maxSize = 7;
+                break;
+            case "任选八":
+                maxSize = 8;
+                break;
+            case "任选九":
+                maxSize = 9;
+                break;
+        }
     }
 
     @Override
     public List<LotteryNumber> getRandomLottery() {
         List<LotteryNumber> lotteryNumbers = new ArrayList<>();
         List<String> numberBox = new ArrayList<>();
-        while (numberBox.size() < 5) {
+        while (numberBox.size() < maxSize) {
             String number = mValueBox[new Random().nextInt(mValueBox.length)];
             if (!numberBox.contains(number)) {
                 numberBox.add(number);

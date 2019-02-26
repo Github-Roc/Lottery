@@ -18,11 +18,10 @@ public class AppConfig {
 
     /** 本地文件根路径 */
     public static final String BASE_PATH = Environment.getExternalStorageDirectory().getPath() + "/lottery/";
-    /** 软件更新本地apk路径 */
-    public static final String APK_PATH = BASE_PATH + "Lottery.apk";
 
     /** Activity请求码 */
-    public static int REQUEST_INSTALL = 10000;
+    public static final int REQUEST_INSTALL = 1000;
+    public static final int REQUEST_INPUT_SLOGAN = 10000;
 
     /** 结果状态码 */
     public static final int RESULT_SUCCESS = 200;

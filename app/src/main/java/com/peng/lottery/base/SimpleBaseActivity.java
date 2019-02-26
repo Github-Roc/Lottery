@@ -73,8 +73,8 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //解绑ButterKnife
-        if(mUnBinder != null){
+        // 解绑ButterKnife
+        if (mUnBinder != null) {
             mUnBinder.unbind();
         }
         if (mAgentWebHelper != null) {
@@ -96,7 +96,7 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         }
     }
 
-    public AgentWebHelper getWebHelper(){
+    public AgentWebHelper getWebHelper() {
         if (mAgentWebHelper == null) {
             mAgentWebHelper = new AgentWebHelper(mActivity);
         }
@@ -112,8 +112,8 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         }
     }
 
-    public void showLoadingDialog(int type, String text){
-        if (mActivity != null){
+    public void showLoadingDialog(int type, String text) {
+        if (mActivity != null) {
             if (mLoadingDialog == null) {
                 mLoadingDialog = new LoadingDialog(mActivity, type, text);
                 mLoadingDialog.show();
@@ -123,8 +123,8 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         }
     }
 
-    public void dismissLoadingDialog(){
-        if (mLoadingDialog != null){
+    public void dismissLoadingDialog() {
+        if (mLoadingDialog != null) {
             mLoadingDialog.close();
             mLoadingDialog = null;
         }
@@ -139,7 +139,7 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
 
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);
         }
@@ -148,6 +148,7 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
 
     /**
      * 初始化
+     *
      * @des 子类可选择复写，进行一些初始化操作，会在setLayoutResID()方法前执行。
      */
     protected void init() {
@@ -159,6 +160,7 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
 
     /**
      * 初始化界面视图
+     *
      * @des 子类可选择复，写初始化视图，会在initInject()方法后执行。
      */
     protected void initView() {
@@ -179,13 +181,15 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
 
     /**
      * 初始化监听器
-     * @des 子类可选择复写,初始化界面内的监听，会在initView()方法后执行
+     *
+     * @des 子类可选择复写, 初始化界面内的监听，会在initView()方法后执行
      */
     protected void initListener() {
     }
 
     /**
      * 加载数据
+     *
      * @des 子类可选择复写，用来加载界面数据，会在initListener()方法后执行
      */
     protected void loadData() {
@@ -193,6 +197,7 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
 
     /**
      * 是否打开左滑关闭页面
+     *
      * @return true 是 false 否
      */
     protected boolean enableSlidingFinish() {
@@ -201,6 +206,7 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
 
     /**
      * 是否显示为沉浸式状态栏
+     *
      * @return true 是 false 否
      */
     protected boolean enableImmersionBar() {
@@ -209,6 +215,7 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
 
     /**
      * 是否初始化ToolBar
+     *
      * @return true 是 false 否
      */
     protected boolean enableInitToolBar() {
@@ -217,6 +224,7 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
 
     /**
      * 设置该页面的布局文件资源ID
+     *
      * @return 布局文件资源ID
      */
     protected abstract int setLayoutResID();

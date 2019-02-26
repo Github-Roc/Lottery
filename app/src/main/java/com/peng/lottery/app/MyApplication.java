@@ -6,7 +6,9 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 
+import com.peng.lottery.app.config.AppConfig;
 import com.peng.lottery.base.SimpleBaseActivity;
+import com.tencent.bugly.Bugly;
 
 import java.util.Stack;
 
@@ -23,6 +25,12 @@ public class MyApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         mContent = this;
+
+        initBugly();
+    }
+
+    private void initBugly() {
+        Bugly.init(getApplicationContext(), "b610428b73", AppConfig.isDebug);
     }
 
     @Override

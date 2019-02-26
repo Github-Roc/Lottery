@@ -6,7 +6,7 @@ ext {
             targetSdkVersion : 28,
             minSdkVersion    : 16,
             versionCode      : 1,
-            versionName      : '1.0',
+            versionName      : '1.0.0',
     ]
 
     // version配置
@@ -68,6 +68,7 @@ ext {
             "picture-selector"         : 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3',
 
             // tools
+            "gson"                     : "com.google.code.gson:gson:2.8.2",
             "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
             "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
             "okhttp3"                  : "com.squareup.okhttp3:okhttp:3.10.0",
@@ -78,9 +79,11 @@ ext {
             "picasso"                  : "com.squareup.picasso:picasso:2.5.2",
             "greendao"                 : "org.greenrobot:greendao:3.2.2",
             "eventbus"                 : "org.greenrobot:eventbus:3.1.1",
-            "gson"                     : "com.google.code.gson:gson:2.8.2",
-            "retrofit-url-manager"     : "me.jessyan:retrofit-url-manager:1.4.0",
+            "bugly"                    : "com.tencent.bugly:crashreport:2.6.6.1",
+            "bugly-native"             : "com.tencent.bugly:nativecrashreport:3.3.1",
+            "bugly-upgrade"            : "com.tencent.bugly:crashreport_upgrade:1.2.0",
             "lifecyclemodel"           : "me.jessyan:lifecyclemodel:1.0.1",
+            "retrofit-url-manager"     : "me.jessyan:retrofit-url-manager:1.4.0",
 
             // test
             "junit"                    : "junit:junit:4.12",

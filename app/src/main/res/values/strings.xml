@@ -5,16 +5,29 @@
     <string name="app_confirm_text">确定</string>
     <string name="app_cancel_text">取消</string>
     <string name="app_input_text">请输入内容</string>
+    <string name="app_empty_text">暂无数据</string>
 
     <!-- activity标题 -->
-    <string name="title_mine_lottery">我的彩票</string>
+    <string name="title_mine_lottery">我的号码</string>
     <string name="title_about">关于</string>
     <string name="title_setting">设置</string>
+
+    <!-- 启动页 -->
+    <string name="splash_next_text">跳过</string>
+
+    <!-- 主页 -->
+    <string name="hint_lucky_str">请输入内容生成幸运号码</string>
+    <string name="text_type_daletou">大乐透</string>
+    <string name="text_type_shuangseqiu">双色球</string>
+    <string name="text_get_lucky_number">获取幸运号码</string>
+    <string name="text_get_random_number">获取随机号码</string>
+    <string name="text_lottery_record">查看开奖记录</string>
+    <string name="text_save_lottery_number">保存号码</string>
 
     <!-- 首页菜单 -->
     <string name="main_menu_open">Open Menu</string>
     <string name="main_menu_close">Close Menu</string>
-    <string name="text_main_menu_mine_lottery">我的彩票</string>
+    <string name="text_main_menu_mine_lottery">我的号码</string>
     <string name="text_main_menu_setting">设置</string>
     <string name="text_main_menu_about">关于</string>
 
@@ -23,14 +36,12 @@
     <string name="text_about_author_url">作者博客:\n<u>http://pengblog.club/</u></string>
     <string name="text_about_project_info">项目简介:\n一款帮你选彩票号码的工具软件，工作再忙也别忘了来注大乐透，毕竟你挣一千万比你中一千万难太多了！</string>
     <string name="text_about_award">请作者吃糖(￣▽￣)</string>
+    <string name="text_about_zfb">支付宝</string>
+    <string name="text_about_wx">微信</string>
     <string name="text_about_version">Lottery\t\tV1.0.0</string>
 
-    <string name="hint_lucky_str">请输入内容生成幸运号码</string>
-    <string name="text_type_daletou">大乐透</string>
-    <string name="text_type_shuangseqiu">双色球</string>
-    <string name="text_get_lucky_number">获取幸运号码</string>
-    <string name="text_get_random_number">获取随机号码</string>
-    <string name="text_lottery_record">查看开奖记录</string>
-    <string name="text_save_lottery_number">保存号码</string>
+    <!-- 设置 -->
+    <string name="text_setting_image">设置启动图片</string>
+    <string name="text_setting_slogan">设置启动标语</string>
 
 </resources>

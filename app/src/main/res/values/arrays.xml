@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="type_11_choose_5">
+        <item>任选二</item>
+        <item>任选三</item>
+        <item>任选四</item>
+        <item>任选五</item>
+        <item>任选六</item>
+        <item>任选七</item>
+        <item>任选八</item>
+        <item>任选九</item>
+    </string-array>
+
+</resources>

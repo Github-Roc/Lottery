@@ -24,17 +24,31 @@ public abstract class BaseLotteryPresenter<V extends IView> extends BasePresente
     }
 
     public String saveLottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
-        return saveLottery(lotteryValue, lotteryType, "");
+        return saveLottery("", lotteryValue, lotteryType, "");
     }
 
     public String saveLottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType, String luckyStr) {
+        if (TextUtils.isEmpty(luckyStr)) {
+            return saveLottery("", lotteryValue, lotteryType, "");
+        } else {
+            return saveLottery("幸运号码", lotteryValue, lotteryType, luckyStr);
+        }
+    }
+
+    public String saveLottery(String lotteryLabel, List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
+        return saveLottery(lotteryLabel, lotteryValue, lotteryType, "");
+    }
+
+    private String saveLottery(String lotteryLabel, List<LotteryNumber> lotteryValue, LotteryType lotteryType, String luckyStr) {
         if (lotteryValue.get(0).getId() == null) {
             LotteryData lottery = new LotteryData();
             lottery.setLotteryType(lotteryType.type);
             lottery.setCreateData(DateFormatUtil.getSysDate());
             if (!TextUtils.isEmpty(luckyStr)) {
                 lottery.setLuckyStr(luckyStr);
-                lottery.setLotteryLabel("幸运号码");
+            }
+            if (!TextUtils.isEmpty(lotteryLabel)) {
+                lottery.setLotteryLabel(lotteryLabel);
             }
             mLotteryDataDao.insert(lottery);
 

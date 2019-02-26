@@ -71,12 +71,11 @@ public class MainActivity extends SimpleBaseActivity {
     }
 
     @Override
-    protected boolean enableImmersionBar() {
-        return false;
-    }
-
-    @Override
     public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(mNavigationView)) {
+            mDrawerLayout.closeDrawers();
+            return;
+        }
         if (!isExit) {
             // 准备退出
             isExit = true;

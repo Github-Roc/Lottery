@@ -1,6 +1,7 @@
 package com.peng.lottery.mvp.ui.fragment;
 
 import android.support.design.button.MaterialButton;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.CardView;
 import android.view.View;
 
@@ -15,7 +16,6 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_DALETOU;
 import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_SHIYIXUANWU;
 
 /**
@@ -24,6 +24,8 @@ import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYP
  */
 public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
 
+    @BindView(R.id.spinner_type_11_choose_5)
+    AppCompatSpinner spinnerShiYiXuanWu;
     @BindView(R.id.bt_get_random_number)
     MaterialButton btGetRandomNumber;
     @BindView(R.id.layout_lottery_number)
@@ -34,6 +36,7 @@ public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
     MaterialButton btSaveLotteryNumber;
 
     private List<LotteryNumber> mLotteryValue;
+    private String mLotteryLabel;
 
     @Override
     public void initInject() {
@@ -49,11 +52,13 @@ public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
     protected void initListener() {
         btGetRandomNumber.setOnClickListener(v -> {
             checkShowLayout();
+            mLotteryLabel = (String) spinnerShiYiXuanWu.getSelectedItem();
+            mPresenter.setMaxSize(mLotteryLabel);
             mLotteryValue = mPresenter.getRandomLottery();
             layoutShiYiXuanWu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_SHIYIXUANWU.type);
         });
         btSaveLotteryNumber.setOnClickListener(v -> {
-            String result = mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_SHIYIXUANWU);
+            String result = mPresenter.saveLottery(mLotteryLabel, mLotteryValue, LOTTERY_TYPE_SHIYIXUANWU);
             ToastUtil.showToast(mActivity, result);
         });
     }
