@@ -47,8 +47,17 @@ public class ShiYiXuanWuPresenter extends BaseLotteryPresenter {
             case "任选八":
                 maxSize = 8;
                 break;
-            case "任选九":
-                maxSize = 9;
+            case "前二组选":
+                maxSize = 2;
+                break;
+            case "前三组选":
+                maxSize = 3;
+                break;
+            case "前二直选":
+                maxSize = 2;
+                break;
+            case "前三直选":
+                maxSize = 3;
                 break;
         }
     }

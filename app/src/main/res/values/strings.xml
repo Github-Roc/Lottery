@@ -19,9 +19,10 @@
     <string name="hint_lucky_str">请输入内容生成幸运号码</string>
     <string name="text_type_daletou">大乐透</string>
     <string name="text_type_shuangseqiu">双色球</string>
-    <string name="text_get_lucky_number">获取幸运号码</string>
-    <string name="text_get_random_number">获取随机号码</string>
+    <string name="text_get_lucky_number">生成号码</string>
+    <string name="text_get_random_number">获取号码</string>
     <string name="text_lottery_record">查看开奖记录</string>
+    <string name="text_lottery_chart">查看走势图</string>
     <string name="text_save_lottery_number">保存号码</string>
 
     <!-- 首页菜单 -->

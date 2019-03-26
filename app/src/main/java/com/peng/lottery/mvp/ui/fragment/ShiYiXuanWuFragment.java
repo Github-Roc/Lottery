@@ -11,6 +11,7 @@ import com.peng.lottery.app.widget.LotteryLayout;
 import com.peng.lottery.base.BaseFragment;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
 import com.peng.lottery.mvp.presenter.fragment.ShiYiXuanWuPresenter;
+import com.peng.lottery.mvp.ui.activity.WebActivity;
 
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
     AppCompatSpinner spinnerShiYiXuanWu;
     @BindView(R.id.bt_get_random_number)
     MaterialButton btGetRandomNumber;
+    @BindView(R.id.bt_chart_11_choose_5)
+    MaterialButton btLotteryChart;
     @BindView(R.id.layout_lottery_number)
     CardView layoutLotteryNumber;
     @BindView(R.id.layout_lottery_shiyixuanwu)
@@ -60,6 +63,10 @@ public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
         btSaveLotteryNumber.setOnClickListener(v -> {
             String result = mPresenter.saveLottery(mLotteryLabel, mLotteryValue, LOTTERY_TYPE_SHIYIXUANWU);
             ToastUtil.showToast(mActivity, result);
+        });
+        btLotteryChart.setOnClickListener(v -> {
+            String url = "http://heb11x5.icaile.com/";
+            WebActivity.start(mActivity, url);
         });
     }
 
