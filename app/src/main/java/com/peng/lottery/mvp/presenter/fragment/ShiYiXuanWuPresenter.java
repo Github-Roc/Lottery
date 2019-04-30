@@ -11,7 +11,7 @@ import java.util.Random;
 
 import javax.inject.Inject;
 
-import static com.peng.lottery.base.BaseLotteryPresenter.NumberType.NUMBER_TYPE_OTHER;
+import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_OTHER;
 
 public class ShiYiXuanWuPresenter extends BaseLotteryPresenter {
 
@@ -62,7 +62,6 @@ public class ShiYiXuanWuPresenter extends BaseLotteryPresenter {
         }
     }
 
-    @Override
     public List<LotteryNumber> getRandomLottery() {
         List<LotteryNumber> lotteryNumbers = new ArrayList<>();
         List<String> numberBox = new ArrayList<>();
@@ -76,7 +75,7 @@ public class ShiYiXuanWuPresenter extends BaseLotteryPresenter {
         for (String value : numberBox) {
             LotteryNumber lotteryNumber = new LotteryNumber();
             lotteryNumber.setNumberValue(value);
-            lotteryNumber.setNumberType(NUMBER_TYPE_OTHER.type);
+            lotteryNumber.setNumberType(NUMBER_BALL_TYPE_OTHER.type);
             lotteryNumbers.add(lotteryNumber);
         }
         return lotteryNumbers;

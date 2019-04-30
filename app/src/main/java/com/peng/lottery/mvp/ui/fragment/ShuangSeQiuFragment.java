@@ -18,7 +18,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_SHUANGSEQIU;
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
+
 
 /**
  * Created by Peng on 2019/01/24.
@@ -65,20 +66,20 @@ public class ShuangSeQiuFragment extends BaseFragment<ShuangSeQiuPresenter> {
 
             checkShowLayout();
             mLotteryValue = mPresenter.getLotteryNumber(mLuckyStr);
-            layoutShuangSeQiu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_SHUANGSEQIU.type);
+            layoutShuangSeQiu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_SSQ.type);
         });
         btGetRandomNumber.setOnClickListener(v -> {
             mLuckyStr = "";
             checkShowLayout();
             mLotteryValue = mPresenter.getRandomLottery();
-            layoutShuangSeQiu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_SHUANGSEQIU.type);
+            layoutShuangSeQiu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_SSQ.type);
         });
         btLotteryRecord.setOnClickListener(v -> {
             String url = "http://kaijiang.500.com/ssq.shtml";
             WebActivity.start(mActivity, url);
         });
         btSaveLotteryNumber.setOnClickListener(v -> {
-            String result = mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_SHUANGSEQIU, mLuckyStr);
+            String result = mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_SSQ, mLuckyStr);
             ToastUtil.showToast(mActivity, result);
         });
     }

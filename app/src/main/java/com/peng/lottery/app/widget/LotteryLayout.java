@@ -12,10 +12,11 @@ import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
 
 import java.util.List;
 
-import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_DALETOU;
-import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_PKSHI;
-import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_SHIYIXUANWU;
-import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_SHUANGSEQIU;
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_11X5;
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_PK10;
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
+
 
 public class LotteryLayout extends LinearLayout {
 
@@ -53,13 +54,13 @@ public class LotteryLayout extends LinearLayout {
 
     public void setLotteryValue(List<LotteryNumber> lotteryValue, String lotteryType) {
         int layoutRes = 0;
-        if (LOTTERY_TYPE_DALETOU.type.equals(lotteryType)) {
+        if (LOTTERY_TYPE_DLT.type.equals(lotteryType)) {
             layoutRes = R.layout.item_daletou_layout;
-        } else if (LOTTERY_TYPE_SHUANGSEQIU.type.equals(lotteryType)) {
+        } else if (LOTTERY_TYPE_SSQ.type.equals(lotteryType)) {
             layoutRes = R.layout.item_shuangseqiu_layout;
-        } else if (LOTTERY_TYPE_SHIYIXUANWU.type.equals(lotteryType)) {
+        } else if (LOTTERY_TYPE_11X5.type.equals(lotteryType)) {
             layoutRes = R.layout.item_shiyixuanwu_layout;
-        } else if (LOTTERY_TYPE_PKSHI.type.equals(lotteryType)) {
+        } else if (LOTTERY_TYPE_PK10.type.equals(lotteryType)) {
             layoutRes = R.layout.item_pkshi_layout;
         }
         if (layoutRes != 0) {
@@ -74,7 +75,10 @@ public class LotteryLayout extends LinearLayout {
     }
 
     private void setValueToView(List<LotteryNumber> lotteryValue, String lotteryType) {
-        int length = LOTTERY_TYPE_SHIYIXUANWU.type.equals(lotteryType) ? 9 : lotteryValue.size();
+        if (lotteryValue == null) {
+            return;
+        }
+        int length = LOTTERY_TYPE_11X5.type.equals(lotteryType) ? 9 : lotteryValue.size();
         for (int i = 0; i < length; i++) {
             LotteryNumber lotteryNumber = null;
             TextView tv = mView.findViewById(mTextViewIds[i]);
@@ -82,7 +86,7 @@ public class LotteryLayout extends LinearLayout {
                 if (i < lotteryValue.size()) {
                     lotteryNumber = lotteryValue.get(i);
                 }
-                if (LOTTERY_TYPE_SHIYIXUANWU.type.equals(lotteryType)) {
+                if (LOTTERY_TYPE_11X5.type.equals(lotteryType)) {
                     tv.setVisibility(lotteryNumber == null ? View.GONE : View.VISIBLE);
                     if (i > 0) {
                         View view = mView.findViewById(mViewIds[i - 1]);

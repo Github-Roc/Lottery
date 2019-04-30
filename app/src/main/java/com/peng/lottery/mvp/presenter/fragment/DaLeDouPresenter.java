@@ -2,6 +2,7 @@ package com.peng.lottery.mvp.presenter.fragment;
 
 import android.text.TextUtils;
 
+import com.peng.lottery.app.config.ActionConfig;
 import com.peng.lottery.app.utils.DateFormatUtil;
 import com.peng.lottery.app.utils.MD5Util;
 import com.peng.lottery.base.BaseLotteryPresenter;
@@ -15,8 +16,9 @@ import java.util.Random;
 
 import javax.inject.Inject;
 
-import static com.peng.lottery.base.BaseLotteryPresenter.NumberType.NUMBER_TYPE_BLUE;
-import static com.peng.lottery.base.BaseLotteryPresenter.NumberType.NUMBER_TYPE_RED;
+import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_BLUE;
+import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED;
+
 
 public class DaLeDouPresenter extends BaseLotteryPresenter {
 
@@ -28,32 +30,31 @@ public class DaLeDouPresenter extends BaseLotteryPresenter {
         super(dataManager);
     }
 
-    @Override
     public List<LotteryNumber> getRandomLottery() {
         return getLotteryNumber("");
     }
 
     public List<LotteryNumber> getLotteryNumber(String luckyStr) {
         List<LotteryNumber> lotteryNumbers = new ArrayList<>();
-        for (String value : getLotteryValue(NUMBER_TYPE_RED, luckyStr)) {
+        for (String value : getLotteryValue(NUMBER_BALL_TYPE_RED, luckyStr)) {
             LotteryNumber lotteryNumber = new LotteryNumber();
             lotteryNumber.setNumberValue(value);
-            lotteryNumber.setNumberType(NUMBER_TYPE_RED.type);
+            lotteryNumber.setNumberType(NUMBER_BALL_TYPE_RED.type);
             lotteryNumbers.add(lotteryNumber);
         }
-        for (String value : getLotteryValue(NUMBER_TYPE_BLUE, luckyStr)) {
+        for (String value : getLotteryValue(NUMBER_BALL_TYPE_BLUE, luckyStr)) {
             LotteryNumber lotteryNumber = new LotteryNumber();
             lotteryNumber.setNumberValue(value);
-            lotteryNumber.setNumberType(NUMBER_TYPE_BLUE.type);
+            lotteryNumber.setNumberType(NUMBER_BALL_TYPE_BLUE.type);
             lotteryNumbers.add(lotteryNumber);
         }
         return lotteryNumbers;
     }
 
-    private List<String> getLotteryValue(NumberType numberType, String luckyStr) {
+    private List<String> getLotteryValue(ActionConfig.NumberBallType numberType, String luckyStr) {
         List<String> numberBox = new ArrayList<>();
-        int length = numberType == NUMBER_TYPE_RED ? 5 : 2;
-        String[] valueBox = numberType == NUMBER_TYPE_RED ? mRedValues : mBlueValues;
+        int length = numberType == NUMBER_BALL_TYPE_RED ? 5 : 2;
+        String[] valueBox = numberType == NUMBER_BALL_TYPE_RED ? mRedValues : mBlueValues;
 
         boolean isLucky = !TextUtils.isEmpty(luckyStr);
         luckyStr += DateFormatUtil.getDate();

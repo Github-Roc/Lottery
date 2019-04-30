@@ -17,7 +17,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_SHIYIXUANWU;
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_11X5;
+
 
 /**
  * Created by Peng on 2019/01/24.
@@ -58,10 +59,10 @@ public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
             mLotteryLabel = (String) spinnerShiYiXuanWu.getSelectedItem();
             mPresenter.setMaxSize(mLotteryLabel);
             mLotteryValue = mPresenter.getRandomLottery();
-            layoutShiYiXuanWu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_SHIYIXUANWU.type);
+            layoutShiYiXuanWu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_11X5.type);
         });
         btSaveLotteryNumber.setOnClickListener(v -> {
-            String result = mPresenter.saveLottery(mLotteryLabel, mLotteryValue, LOTTERY_TYPE_SHIYIXUANWU);
+            String result = mPresenter.saveLottery(mLotteryLabel, mLotteryValue, LOTTERY_TYPE_11X5);
             ToastUtil.showToast(mActivity, result);
         });
         btLotteryChart.setOnClickListener(v -> {

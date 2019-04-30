@@ -2,6 +2,7 @@ package com.peng.lottery.base;
 
 import android.text.TextUtils;
 
+import com.peng.lottery.app.config.ActionConfig.LotteryType;
 import com.peng.lottery.app.utils.DateFormatUtil;
 import com.peng.lottery.mvp.model.DataManager;
 import com.peng.lottery.mvp.model.db.bean.LotteryData;
@@ -59,33 +60,6 @@ public abstract class BaseLotteryPresenter<V extends IView> extends BasePresente
             return "保存成功！";
         } else {
             return "该号码以保存！";
-        }
-    }
-
-    public abstract List<LotteryNumber> getRandomLottery();
-
-    public enum LotteryType {
-        LOTTERY_TYPE_DALETOU("大乐透"),
-        LOTTERY_TYPE_SHUANGSEQIU("双色球"),
-        LOTTERY_TYPE_SHIYIXUANWU("11选5"),
-        LOTTERY_TYPE_PKSHI("PK拾");
-
-        public String type;
-
-        LotteryType(String type) {
-            this.type = type;
-        }
-    }
-
-    public enum NumberType {
-        NUMBER_TYPE_RED("红球"),
-        NUMBER_TYPE_BLUE("蓝球"),
-        NUMBER_TYPE_OTHER("其他");
-
-        public String type;
-
-        NumberType(String type) {
-            this.type = type;
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.peng.lottery.mvp.ui.activity;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -26,6 +27,8 @@ public class MainActivity extends SimpleBaseActivity {
     TabLayout mTabLayout;
     @BindView(R.id.main_view_pager)
     ViewPager mViewPager;
+    @BindView(R.id.main_fab_add_lottery)
+    FloatingActionButton mButtonAddLottery;
     @BindView(R.id.main_navigation_view)
     NavigationView mNavigationView;
 
@@ -52,10 +55,15 @@ public class MainActivity extends SimpleBaseActivity {
     protected void initListener() {
         mNavigationView.setNavigationItemSelectedListener(
                 menuItem -> {
+                    boolean isStart = true;
                     Intent intent = new Intent();
                     switch (menuItem.getItemId()) {
                         case R.id.main_menu_mine_lottery:
                             intent.setClass(mActivity, MineLotteryActivity.class);
+                            break;
+                        case R.id.main_menu_browser:
+                            isStart = false;
+                            WebActivity.start(mActivity, "https://www.baidu.com");
                             break;
                         case R.id.main_menu_about:
                             intent.setClass(mActivity, AboutActivity.class);
@@ -64,10 +72,16 @@ public class MainActivity extends SimpleBaseActivity {
                             intent.setClass(mActivity, SettingActivity.class);
                             break;
                     }
-                    startActivity(intent);
+                    if (isStart) {
+                        startActivity(intent);
+                    }
                     mDrawerLayout.closeDrawers();
                     return true;
                 });
+        mButtonAddLottery.setOnClickListener(v -> {
+            Intent intent = new Intent(mActivity, AddLotteryActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override

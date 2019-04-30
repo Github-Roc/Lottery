@@ -18,7 +18,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_DALETOU;
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
+
 
 /**
  * Created by Peng on 2019/01/24.
@@ -65,20 +66,20 @@ public class DaLeDouFragment extends BaseFragment<DaLeDouPresenter> {
 
             checkShowLayout();
             mLotteryValue = mPresenter.getLotteryNumber(mLuckyStr);
-            layoutDaLeTou.setLotteryValue(mLotteryValue, LOTTERY_TYPE_DALETOU.type);
+            layoutDaLeTou.setLotteryValue(mLotteryValue, LOTTERY_TYPE_DLT.type);
         });
         btGetRandomNumber.setOnClickListener(v -> {
             mLuckyStr = "";
             checkShowLayout();
             mLotteryValue = mPresenter.getRandomLottery();
-            layoutDaLeTou.setLotteryValue(mLotteryValue, LOTTERY_TYPE_DALETOU.type);
+            layoutDaLeTou.setLotteryValue(mLotteryValue, LOTTERY_TYPE_DLT.type);
         });
         btLotteryRecord.setOnClickListener(v -> {
             String url = "http://kaijiang.500.com/dlt.shtml";
             WebActivity.start(mActivity, url);
         });
         btSaveLotteryNumber.setOnClickListener(v -> {
-            String result = mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_DALETOU, mLuckyStr);
+            String result = mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_DLT, mLuckyStr);
             ToastUtil.showToast(mActivity, result);
         });
     }

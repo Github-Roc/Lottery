@@ -15,8 +15,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_DALETOU;
-import static com.peng.lottery.base.BaseLotteryPresenter.LotteryType.LOTTERY_TYPE_PKSHI;
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_PK10;
+
 
 /**
  * Created by Peng on 2019/01/24.
@@ -50,10 +50,10 @@ public class PkShiFragment extends BaseFragment<PkShiPresenter> {
         btGetRandomNumber.setOnClickListener(v -> {
             checkShowLayout();
             mLotteryValue = mPresenter.getRandomLottery();
-            layoutPkShi.setLotteryValue(mLotteryValue, LOTTERY_TYPE_PKSHI.type);
+            layoutPkShi.setLotteryValue(mLotteryValue, LOTTERY_TYPE_PK10.type);
         });
         btSaveLotteryNumber.setOnClickListener(v -> {
-            String result = mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_PKSHI);
+            String result = mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_PK10);
             ToastUtil.showToast(mActivity, result);
         });
     }

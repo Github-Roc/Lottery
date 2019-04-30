@@ -8,6 +8,7 @@
     <string name="app_empty_text">暂无数据</string>
 
     <!-- activity标题 -->
+    <string name="title_add_lottery">自选号码</string>
     <string name="title_mine_lottery">我的号码</string>
     <string name="title_about">关于</string>
     <string name="title_setting">设置</string>
@@ -29,8 +30,12 @@
     <string name="main_menu_open">Open Menu</string>
     <string name="main_menu_close">Close Menu</string>
     <string name="text_main_menu_mine_lottery">我的号码</string>
-    <string name="text_main_menu_setting">设置</string>
+    <string name="text_main_menu_browser">浏览器</string>
     <string name="text_main_menu_about">关于</string>
+    <string name="text_main_menu_setting">设置</string>
+
+    <!-- 自选号码 -->
+    <string name="text_complement_lottery">补全号码</string>
 
     <!-- 关于 -->
     <string name="text_about_project_url">项目地址:\n<u>https://github.com/</u></string>

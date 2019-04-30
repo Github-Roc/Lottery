@@ -28,15 +28,34 @@
                     android:id="@+id/main_tab_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:tabTextColor="@color/white"
-                    app:tabIndicatorColor="@color/text_red" />
+                    app:tabIndicatorColor="@color/text_red"
+                    app:tabTextColor="@color/white" />
             </android.support.design.widget.AppBarLayout>
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/main_view_pager"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/main_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/main_fab_add_lottery"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="@dimen/dp_24"
+                    android:src="@mipmap/icon_white_add"
+                    app:backgroundTint="@color/btn_confirm_normal"
+                    app:elevation="@dimen/dp_6"
+                    app:fabSize="normal"
+                    app:rippleColor="@color/btn_confirm_pressed" />
+            </RelativeLayout>
 
         </android.support.design.widget.CoordinatorLayout>
 

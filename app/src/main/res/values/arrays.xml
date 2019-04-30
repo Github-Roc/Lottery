@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="type_lottery">
+        <item>大乐透</item>
+        <item>双色球</item>
+        <item>11选5</item>
+    </string-array>
+
     <string-array name="type_11_choose_5">
         <item>任选二</item>
         <item>任选三</item>

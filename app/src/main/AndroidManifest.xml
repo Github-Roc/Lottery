@@ -47,6 +47,9 @@
             android:name=".mvp.ui.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".mvp.ui.activity.AddLotteryActivity"
+            android:theme="@style/TransparentTheme" />
+        <activity
             android:name=".mvp.ui.activity.MineLotteryActivity"
             android:theme="@style/TransparentTheme" />
         <activity

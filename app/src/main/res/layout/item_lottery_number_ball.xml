@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_lottery_number_ball"
+    android:layout_width="@dimen/dp_30"
+    android:layout_height="@dimen/dp_30"
+    android:layout_marginTop="@dimen/dp_12"
+    android:background="@drawable/shape_red_round"
+    android:gravity="center"
+    android:textColor="@color/white"
+    android:textSize="@dimen/text_medium" />
