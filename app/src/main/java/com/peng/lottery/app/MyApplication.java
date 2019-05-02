@@ -18,8 +18,6 @@ public class MyApplication extends MultiDexApplication {
     public final static Stack<SimpleBaseActivity> activityStack = new Stack<>();
     /** 全局的上下文 */
     public static MyApplication mContent;
-    /** 当前登录用户 */
-//    public static AppUserBean appUser;
 
     @Override
     public void onCreate() {

@@ -35,6 +35,7 @@
     <string name="text_main_menu_setting">设置</string>
 
     <!-- 自选号码 -->
+    <string name="text_clean_lottery">清空号码</string>
     <string name="text_complement_lottery">补全号码</string>
 
     <!-- 关于 -->

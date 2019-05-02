@@ -14,6 +14,7 @@ import com.peng.lottery.mvp.presenter.fragment.DaLeDouPresenter;
 import com.peng.lottery.mvp.ui.activity.WebActivity;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,6 +47,13 @@ public class DaLeDouFragment extends BaseFragment<DaLeDouPresenter> {
     private List<LotteryNumber> mLotteryValue;
 
     @Override
+    protected void init() {
+        super.init();
+
+        mLotteryValue = new ArrayList<>();
+    }
+
+    @Override
     public void initInject() {
         getFragmentComponent().inject(this);
     }
@@ -57,23 +65,8 @@ public class DaLeDouFragment extends BaseFragment<DaLeDouPresenter> {
 
     @Override
     protected void initListener() {
-        btGetLuckyNumber.setOnClickListener(v -> {
-            mLuckyStr = etLuckyStr.getText().toString().trim();
-            if (TextUtils.isEmpty(mLuckyStr)) {
-                ToastUtil.showToast(mActivity, "请先输入一些内容吧！");
-                return;
-            }
-
-            checkShowLayout();
-            mLotteryValue = mPresenter.getLotteryNumber(mLuckyStr);
-            layoutDaLeTou.setLotteryValue(mLotteryValue, LOTTERY_TYPE_DLT.type);
-        });
-        btGetRandomNumber.setOnClickListener(v -> {
-            mLuckyStr = "";
-            checkShowLayout();
-            mLotteryValue = mPresenter.getRandomLottery();
-            layoutDaLeTou.setLotteryValue(mLotteryValue, LOTTERY_TYPE_DLT.type);
-        });
+        btGetLuckyNumber.setOnClickListener(v -> createLotteryToView(true));
+        btGetRandomNumber.setOnClickListener(v -> createLotteryToView(false));
         btLotteryRecord.setOnClickListener(v -> {
             String url = "http://kaijiang.500.com/dlt.shtml";
             WebActivity.start(mActivity, url);
@@ -88,5 +81,18 @@ public class DaLeDouFragment extends BaseFragment<DaLeDouPresenter> {
         if (layoutLotteryNumber.getVisibility() == View.GONE) {
             layoutLotteryNumber.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void createLotteryToView(boolean isLucky) {
+        mLuckyStr = isLucky ? etLuckyStr.getText().toString() : "";
+        if (isLucky && TextUtils.isEmpty(mLuckyStr)) {
+            ToastUtil.showToast(mActivity, "请先输入一些内容吧！");
+            return;
+        }
+
+        checkShowLayout();
+        mPresenter.setLuckyStr(mLuckyStr);
+        mPresenter.getRandomLottery(mLotteryValue, LOTTERY_TYPE_DLT);
+        layoutDaLeTou.setLotteryValue(mLotteryValue, LOTTERY_TYPE_DLT.type);
     }
 }

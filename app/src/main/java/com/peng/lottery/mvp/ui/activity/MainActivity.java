@@ -78,8 +78,25 @@ public class MainActivity extends SimpleBaseActivity {
                     mDrawerLayout.closeDrawers();
                     return true;
                 });
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
         mButtonAddLottery.setOnClickListener(v -> {
             Intent intent = new Intent(mActivity, AddLotteryActivity.class);
+
             startActivity(intent);
         });
     }

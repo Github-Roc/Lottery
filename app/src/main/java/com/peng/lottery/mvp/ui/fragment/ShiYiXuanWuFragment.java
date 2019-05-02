@@ -13,6 +13,7 @@ import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
 import com.peng.lottery.mvp.presenter.fragment.ShiYiXuanWuPresenter;
 import com.peng.lottery.mvp.ui.activity.WebActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,8 +40,15 @@ public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
     @BindView(R.id.bt_save_lottery_number)
     MaterialButton btSaveLotteryNumber;
 
-    private List<LotteryNumber> mLotteryValue;
     private String mLotteryLabel;
+    private List<LotteryNumber> mLotteryValue;
+
+    @Override
+    protected void init() {
+        super.init();
+
+        mLotteryValue = new ArrayList<>();
+    }
 
     @Override
     public void initInject() {
@@ -57,8 +65,8 @@ public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
         btGetRandomNumber.setOnClickListener(v -> {
             checkShowLayout();
             mLotteryLabel = (String) spinnerShiYiXuanWu.getSelectedItem();
-            mPresenter.setMaxSize(mLotteryLabel);
-            mLotteryValue = mPresenter.getRandomLottery();
+            layoutShiYiXuanWu.set11x5Size(mPresenter.set11x5Type(mLotteryLabel));
+            mPresenter.getRandomLottery(mLotteryValue, LOTTERY_TYPE_11X5);
             layoutShiYiXuanWu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_11X5.type);
         });
         btSaveLotteryNumber.setOnClickListener(v -> {

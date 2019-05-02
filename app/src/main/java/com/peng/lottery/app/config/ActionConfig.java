@@ -21,51 +21,74 @@ import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BAL
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED;
 
 public class ActionConfig {
+    private static List<LotteryNumber> dltNumberBalls;
+    private static List<LotteryNumber> ssqNumberBalls;
+    private static List<LotteryNumber> syxwNumberBalls;
+    private static List<LotteryNumber> pksNumberBalls;
 
     /**
      * 获取对应彩票类型的可选号码球
      */
     public static List<LotteryNumber> getLotteryNumberBallList(LotteryType lotteryType) {
-        List<LotteryNumber> numberBallList = new ArrayList<>();
         switch (lotteryType) {
             case LOTTERY_TYPE_DLT:
-                for (int number = 1; number <= 35; number++) {
-                    LotteryNumber lotteryNumber = new LotteryNumber();
-                    lotteryNumber.setNumberValue(number < 10 ? "0" + number : "" + number);
-                    lotteryNumber.setNumberType(NUMBER_BALL_TYPE_RED.type);
-                    numberBallList.add(lotteryNumber);
+                if (dltNumberBalls == null) {
+                    dltNumberBalls = new ArrayList<>();
+                    for (int number = 1; number <= 35; number++) {
+                        LotteryNumber lotteryNumber = new LotteryNumber();
+                        lotteryNumber.setNumberValue(number < 10 ? "0" + number : "" + number);
+                        lotteryNumber.setNumberType(NUMBER_BALL_TYPE_RED.type);
+                        dltNumberBalls.add(lotteryNumber);
+                    }
+                    for (int number = 1; number <= 12; number++) {
+                        LotteryNumber lotteryNumber = new LotteryNumber();
+                        lotteryNumber.setNumberValue(number < 10 ? "0" + number : "" + number);
+                        lotteryNumber.setNumberType(NUMBER_BALL_TYPE_BLUE.type);
+                        dltNumberBalls.add(lotteryNumber);
+                    }
                 }
-                for (int number = 1; number <= 12; number++) {
-                    LotteryNumber lotteryNumber = new LotteryNumber();
-                    lotteryNumber.setNumberValue(number < 10 ? "0" + number : "" + number);
-                    lotteryNumber.setNumberType(NUMBER_BALL_TYPE_BLUE.type);
-                    numberBallList.add(lotteryNumber);
-                }
-                break;
+                return dltNumberBalls;
             case LOTTERY_TYPE_SSQ:
-                for (int number = 1; number <= 35; number++) {
-                    LotteryNumber lotteryNumber = new LotteryNumber();
-                    lotteryNumber.setNumberValue(number < 10 ? "0" + number : "" + number);
-                    lotteryNumber.setNumberType(number <= 33 ? NUMBER_BALL_TYPE_RED.type : NUMBER_BALL_TYPE_NULL.type);
-                    numberBallList.add(lotteryNumber);
+                if (ssqNumberBalls == null) {
+                    ssqNumberBalls = new ArrayList<>();
+                    for (int number = 1; number <= 35; number++) {
+                        LotteryNumber lotteryNumber = new LotteryNumber();
+                        lotteryNumber.setNumberValue(number < 10 ? "0" + number : "" + number);
+                        lotteryNumber.setNumberType(number <= 33 ? NUMBER_BALL_TYPE_RED.type : NUMBER_BALL_TYPE_NULL.type);
+                        ssqNumberBalls.add(lotteryNumber);
+                    }
+                    for (int number = 1; number <= 16; number++) {
+                        LotteryNumber lotteryNumber = new LotteryNumber();
+                        lotteryNumber.setNumberValue(number < 10 ? "0" + number : "" + number);
+                        lotteryNumber.setNumberType(NUMBER_BALL_TYPE_BLUE.type);
+                        ssqNumberBalls.add(lotteryNumber);
+                    }
                 }
-                for (int number = 1; number <= 16; number++) {
-                    LotteryNumber lotteryNumber = new LotteryNumber();
-                    lotteryNumber.setNumberValue(number < 10 ? "0" + number : "" + number);
-                    lotteryNumber.setNumberType(NUMBER_BALL_TYPE_BLUE.type);
-                    numberBallList.add(lotteryNumber);
-                }
-                break;
+                return ssqNumberBalls;
             case LOTTERY_TYPE_11X5:
-                for (int number = 1; number <= 11; number++) {
-                    LotteryNumber lotteryNumber = new LotteryNumber();
-                    lotteryNumber.setNumberValue(number < 10 ? "0" : "" + number);
-                    lotteryNumber.setNumberType(NUMBER_BALL_TYPE_OTHER.type);
-                    numberBallList.add(lotteryNumber);
+                if (syxwNumberBalls == null) {
+                    syxwNumberBalls = new ArrayList<>();
+                    for (int number = 1; number <= 11; number++) {
+                        LotteryNumber lotteryNumber = new LotteryNumber();
+                        lotteryNumber.setNumberValue(number < 10 ? "0" + number : "" + number);
+                        lotteryNumber.setNumberType(NUMBER_BALL_TYPE_OTHER.type);
+                        syxwNumberBalls.add(lotteryNumber);
+                    }
                 }
-                break;
+                return syxwNumberBalls;
+            case LOTTERY_TYPE_PK10:
+                if (pksNumberBalls == null) {
+                    pksNumberBalls = new ArrayList<>();
+                    for (int number = 1; number <= 10; number++) {
+                        LotteryNumber lotteryNumber = new LotteryNumber();
+                        lotteryNumber.setNumberValue(number < 10 ? "0" + number : "" + number);
+                        lotteryNumber.setNumberType(NUMBER_BALL_TYPE_OTHER.type);
+                        pksNumberBalls.add(lotteryNumber);
+                    }
+                }
+                return pksNumberBalls;
         }
-        return numberBallList;
+        return new ArrayList<>();
     }
 
     /**
@@ -112,10 +135,10 @@ public class ActionConfig {
      * 彩票号码球类型
      */
     public enum NumberBallType {
-        NUMBER_BALL_TYPE_RED("red"),
-        NUMBER_BALL_TYPE_BLUE("blue"),
-        NUMBER_BALL_TYPE_NULL("null"),
-        NUMBER_BALL_TYPE_OTHER("other");
+        NUMBER_BALL_TYPE_RED("红球"),
+        NUMBER_BALL_TYPE_BLUE("蓝球"),
+        NUMBER_BALL_TYPE_NULL("空球"),
+        NUMBER_BALL_TYPE_OTHER("其他");
 
         public String type;
 

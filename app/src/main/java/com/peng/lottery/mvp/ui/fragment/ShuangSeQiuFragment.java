@@ -14,10 +14,12 @@ import com.peng.lottery.mvp.presenter.fragment.ShuangSeQiuPresenter;
 import com.peng.lottery.mvp.ui.activity.WebActivity;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
 
 
@@ -46,6 +48,13 @@ public class ShuangSeQiuFragment extends BaseFragment<ShuangSeQiuPresenter> {
     private List<LotteryNumber> mLotteryValue;
 
     @Override
+    protected void init() {
+        super.init();
+
+        mLotteryValue = new ArrayList<>();
+    }
+
+    @Override
     public void initInject() {
         getFragmentComponent().inject(this);
     }
@@ -57,23 +66,8 @@ public class ShuangSeQiuFragment extends BaseFragment<ShuangSeQiuPresenter> {
 
     @Override
     protected void initListener() {
-        btGetLuckyNumber.setOnClickListener(v -> {
-            mLuckyStr = etLuckyStr.getText().toString().trim();
-            if (TextUtils.isEmpty(mLuckyStr)) {
-                ToastUtil.showToast(mActivity, "请先输入一些内容吧！");
-                return;
-            }
-
-            checkShowLayout();
-            mLotteryValue = mPresenter.getLotteryNumber(mLuckyStr);
-            layoutShuangSeQiu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_SSQ.type);
-        });
-        btGetRandomNumber.setOnClickListener(v -> {
-            mLuckyStr = "";
-            checkShowLayout();
-            mLotteryValue = mPresenter.getRandomLottery();
-            layoutShuangSeQiu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_SSQ.type);
-        });
+        btGetLuckyNumber.setOnClickListener(v -> createLotteryToView(true));
+        btGetRandomNumber.setOnClickListener(v -> createLotteryToView(false));
         btLotteryRecord.setOnClickListener(v -> {
             String url = "http://kaijiang.500.com/ssq.shtml";
             WebActivity.start(mActivity, url);
@@ -88,6 +82,19 @@ public class ShuangSeQiuFragment extends BaseFragment<ShuangSeQiuPresenter> {
         if (layoutLotteryNumber.getVisibility() == View.GONE) {
             layoutLotteryNumber.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void createLotteryToView(boolean isLucky) {
+        mLuckyStr = isLucky ? etLuckyStr.getText().toString() : "";
+        if (isLucky && TextUtils.isEmpty(mLuckyStr)) {
+            ToastUtil.showToast(mActivity, "请先输入一些内容吧！");
+            return;
+        }
+
+        checkShowLayout();
+        mPresenter.setLuckyStr(mLuckyStr);
+        mPresenter.getRandomLottery(mLotteryValue, LOTTERY_TYPE_SSQ);
+        layoutShuangSeQiu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_SSQ.type);
     }
 }
 

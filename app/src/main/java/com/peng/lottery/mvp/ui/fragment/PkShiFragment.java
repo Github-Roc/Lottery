@@ -11,6 +11,7 @@ import com.peng.lottery.base.BaseFragment;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
 import com.peng.lottery.mvp.presenter.fragment.PkShiPresenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,6 +37,13 @@ public class PkShiFragment extends BaseFragment<PkShiPresenter> {
     private List<LotteryNumber> mLotteryValue;
 
     @Override
+    protected void init() {
+        super.init();
+
+        mLotteryValue = new ArrayList<>();
+    }
+
+    @Override
     protected int setLayoutResID() {
         return R.layout.fragment_pkshi;
     }
@@ -49,7 +57,7 @@ public class PkShiFragment extends BaseFragment<PkShiPresenter> {
     protected void initListener() {
         btGetRandomNumber.setOnClickListener(v -> {
             checkShowLayout();
-            mLotteryValue = mPresenter.getRandomLottery();
+            mPresenter.getRandomLottery(mLotteryValue, LOTTERY_TYPE_PK10);
             layoutPkShi.setLotteryValue(mLotteryValue, LOTTERY_TYPE_PK10.type);
         });
         btSaveLotteryNumber.setOnClickListener(v -> {

@@ -15,8 +15,8 @@
         <item>任选六</item>
         <item>任选七</item>
         <item>任选八</item>
-        <item>前二组选</item>
-        <item>前三组选</item>
+        <!--<item>前二组选</item>-->
+        <!--<item>前三组选</item>-->
         <item>前二直选</item>
         <item>前三直选</item>
     </string-array>
