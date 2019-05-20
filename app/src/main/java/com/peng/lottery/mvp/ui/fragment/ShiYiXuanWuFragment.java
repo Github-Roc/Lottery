@@ -74,7 +74,8 @@ public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
             ToastUtil.showToast(mActivity, result);
         });
         btLotteryChart.setOnClickListener(v -> {
-            String url = "http://heb11x5.icaile.com/";
+//            String url = "http://heb11x5.icaile.com/";
+            String url = "https://chart.ydniu.com/trend/syx5heb/";
             WebActivity.start(mActivity, url);
         });
     }

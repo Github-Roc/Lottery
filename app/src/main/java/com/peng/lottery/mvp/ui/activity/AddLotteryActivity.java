@@ -49,6 +49,14 @@ public class AddLotteryActivity extends BaseActivity<AddLotteryPresenter> {
     private LotteryNumberBallAdapter mLotteryNumberBallAdapter;
 
     @Override
+    protected void init() {
+        super.init();
+
+        mLotteryType = LOTTERY_TYPE_DLT;
+        mLotteryValue = new ArrayList<>();
+    }
+
+    @Override
     protected void initInject() {
         getActivityComponent().inject(this);
     }
@@ -70,8 +78,6 @@ public class AddLotteryActivity extends BaseActivity<AddLotteryPresenter> {
         lotteryBallRecycle.setLayoutManager(new GridLayoutManager(mActivity, 7));
         lotteryBallRecycle.setAdapter(mLotteryNumberBallAdapter);
         // 初始化彩票数据
-        mLotteryType = LOTTERY_TYPE_DLT;
-        mLotteryValue = new ArrayList<>();
         layoutLotteryNumber.setLotteryValue(mLotteryValue, mLotteryType.type);
     }
 
@@ -160,5 +166,6 @@ public class AddLotteryActivity extends BaseActivity<AddLotteryPresenter> {
         mLotteryValue.clear();
         String type11x5 = (String) spinnerType11x5.getSelectedItem();
         layoutLotteryNumber.set11x5Size(mPresenter.set11x5Type(type11x5));
+        layoutLotteryNumber.setLotteryValue(mLotteryValue, mLotteryType.type);
     }
 }
