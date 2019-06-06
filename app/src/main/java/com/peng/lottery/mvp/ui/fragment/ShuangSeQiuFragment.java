@@ -19,7 +19,6 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
 
 

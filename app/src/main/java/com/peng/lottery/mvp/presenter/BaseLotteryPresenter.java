@@ -23,6 +23,7 @@ import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_PK10;
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
+import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_NULL;
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED;
 
 public class BaseLotteryPresenter<V extends IView> extends BasePresenter<V> {
@@ -149,18 +150,21 @@ public class BaseLotteryPresenter<V extends IView> extends BasePresenter<V> {
                         numberBall = numberBallList.get((luckyByte[luckyIndex] % blueBallSize) + 35);
                     }
                     luckyIndex++;
-                    if (!lotteryValue.contains(numberBall)) {
+                    if (!NUMBER_BALL_TYPE_NULL.type.equals(numberBall.getNumberType())
+                            && !lotteryValue.contains(numberBall)) {
                         lotteryValue.add(numberBall);
                     }
                 } else {
                     LotteryNumber numberBall = numberBallList.get(new Random().nextInt(numberBallList.size()));
-                    if (NUMBER_BALL_TYPE_RED.type.equals(numberBall.getNumberType())) {
-                        if (!redBallList.contains(numberBall) && redBallList.size() < redBallLength) {
-                            redBallList.add(numberBall);
-                        }
-                    } else {
-                        if (!blueBallList.contains(numberBall) && blueBallList.size() < blueBallLength) {
-                            blueBallList.add(numberBall);
+                    if (!NUMBER_BALL_TYPE_NULL.type.equals(numberBall.getNumberType())) {
+                        if (NUMBER_BALL_TYPE_RED.type.equals(numberBall.getNumberType())) {
+                            if (!redBallList.contains(numberBall) && redBallList.size() < redBallLength) {
+                                redBallList.add(numberBall);
+                            }
+                        } else {
+                            if (!blueBallList.contains(numberBall) && blueBallList.size() < blueBallLength) {
+                                blueBallList.add(numberBall);
+                            }
                         }
                     }
                 }

@@ -25,6 +25,7 @@
     <string name="text_lottery_record">查看开奖记录</string>
     <string name="text_lottery_chart">查看走势图</string>
     <string name="text_save_lottery_number">保存号码</string>
+    <string name="text_analyse_lottery_number">中奖率分析</string>
 
     <!-- 首页菜单 -->
     <string name="main_menu_open">Open Menu</string>

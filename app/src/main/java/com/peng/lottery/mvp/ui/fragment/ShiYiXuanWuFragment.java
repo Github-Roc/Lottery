@@ -8,6 +8,7 @@ import android.view.View;
 import com.peng.lottery.R;
 import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.app.widget.LotteryLayout;
+import com.peng.lottery.app.widget.dialog.ShowInfoDialog;
 import com.peng.lottery.base.BaseFragment;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
 import com.peng.lottery.mvp.presenter.fragment.ShiYiXuanWuPresenter;
@@ -37,6 +38,8 @@ public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
     CardView layoutLotteryNumber;
     @BindView(R.id.layout_lottery_shiyixuanwu)
     LotteryLayout layoutShiYiXuanWu;
+    @BindView(R.id.bt_analyse_lottery_number)
+    MaterialButton btAnalyseLotteryNumber;
     @BindView(R.id.bt_save_lottery_number)
     MaterialButton btSaveLotteryNumber;
 
@@ -68,6 +71,14 @@ public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
             layoutShiYiXuanWu.set11x5Size(mPresenter.set11x5Type(mLotteryLabel));
             mPresenter.getRandomLottery(mLotteryValue, LOTTERY_TYPE_11X5);
             layoutShiYiXuanWu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_11X5.type);
+        });
+        btAnalyseLotteryNumber.setOnClickListener(v -> {
+            String stringBuilder = "中奖几率：" +
+                    mPresenter.getLotteryProbability(mLotteryLabel) +
+                    "%\n中奖金额：" +
+                    mPresenter.getLotteryPrice(mLotteryLabel) +
+                    "元";
+            new ShowInfoDialog(mActivity, stringBuilder).show();
         });
         btSaveLotteryNumber.setOnClickListener(v -> {
             String result = mPresenter.saveLottery(mLotteryLabel, mLotteryValue, LOTTERY_TYPE_11X5);
