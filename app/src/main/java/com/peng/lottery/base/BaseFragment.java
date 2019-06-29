@@ -4,6 +4,9 @@ package com.peng.lottery.base;
 import android.support.annotation.NonNull;
 
 import com.peng.lottery.app.utils.ToastUtil;
+import com.peng.lottery.mvp.injector.component.DaggerFragmentComponent;
+import com.peng.lottery.mvp.injector.component.FragmentComponent;
+import com.peng.lottery.mvp.injector.module.FragmentModule;
 
 import javax.inject.Inject;
 
@@ -56,6 +59,12 @@ public abstract class BaseFragment<P extends BasePresenter> extends SimpleBaseFr
     @Override
     public void showToast(@NonNull String message) {
         ToastUtil.showToast(mActivity, message);
+    }
+
+    protected FragmentComponent getFragmentComponent(){
+        return DaggerFragmentComponent.builder()
+                .fragmentModule(new FragmentModule(this))
+                .build();
     }
 
     /**
