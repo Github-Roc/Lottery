@@ -63,6 +63,9 @@
             android:name=".mvp.ui.activity.WebActivity"
             android:theme="@style/TransparentTheme" />
         <activity
+            android:name=".mvp.ui.activity.WebCollectorActivity"
+            android:theme="@style/TransparentTheme" />
+        <activity
             android:name=".mvp.ui.activity.InputTextActivity"
             android:theme="@style/TransparentTheme" />
 

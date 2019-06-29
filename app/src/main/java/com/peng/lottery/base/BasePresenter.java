@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.peng.lottery.mvp.model.DataManager;
 import com.peng.lottery.mvp.model.db.DataBaseHelper;
-import com.peng.lottery.mvp.model.http.RetrofitHelper;
+import com.peng.lottery.mvp.model.web.RetrofitHelper;
 import com.peng.lottery.mvp.model.sp.SharedPreferencesHelper;
 
 import io.reactivex.Observable;

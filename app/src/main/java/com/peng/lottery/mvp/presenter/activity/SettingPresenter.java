@@ -2,7 +2,6 @@ package com.peng.lottery.mvp.presenter.activity;
 
 import android.text.TextUtils;
 
-import com.peng.lottery.app.MyApplication;
 import com.peng.lottery.app.config.SharedPreferencesConfig;
 import com.peng.lottery.app.utils.DateFormatUtil;
 import com.peng.lottery.base.BasePresenter;
@@ -18,16 +17,16 @@ public class SettingPresenter extends BasePresenter {
     }
 
     public String getSlogan() {
-        return (String) mSpHelper.get(MyApplication.mContent, SharedPreferencesConfig.SPLASH_SLOGAN, "");
+        return (String) mSpHelper.get(SharedPreferencesConfig.SPLASH_SLOGAN, "");
     }
 
     public void saveSlogan(String slogan) {
         String date = TextUtils.isEmpty(slogan) ? "" : DateFormatUtil.getSysDate();
-        mSpHelper.put(MyApplication.mContent, SharedPreferencesConfig.SPLASH_SLOGAN, slogan);
-        mSpHelper.put(MyApplication.mContent, SharedPreferencesConfig.SPLASH_ENDING, date);
+        mSpHelper.put(SharedPreferencesConfig.SPLASH_SLOGAN, slogan);
+        mSpHelper.put(SharedPreferencesConfig.SPLASH_ENDING, date);
     }
 
     public void saveImagePath(String path) {
-        mSpHelper.put(MyApplication.mContent, SharedPreferencesConfig.SPLASH_IMAGE, path);
+        mSpHelper.put(SharedPreferencesConfig.SPLASH_IMAGE, path);
     }
 }

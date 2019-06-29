@@ -15,8 +15,8 @@
             android:id="@+id/iv_splash_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/bg_app_splash"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_app_splash" />
 
         <TextView
             android:id="@+id/tv_start_next"
@@ -25,12 +25,14 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/dp_12"
-            android:background="@drawable/shape_round_bg"
+            android:background="@drawable/shape_round_text_transparent_bg"
             android:paddingLeft="@dimen/dp_12"
+            android:paddingTop="@dimen/dp_2"
             android:paddingRight="@dimen/dp_12"
+            android:paddingBottom="@dimen/dp_2"
             android:text="@string/splash_next_text"
-            android:textColor="@color/grey"
-            android:textSize="@dimen/text_medium" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_small" />
 
     </RelativeLayout>
 

@@ -1,7 +1,5 @@
 package com.peng.lottery.base;
 
-import android.support.annotation.NonNull;
-
 /**
  * @author Peng
  * Created by Peng on 2017/12/12.
@@ -10,23 +8,26 @@ import android.support.annotation.NonNull;
 public interface IView {
 
     /**
-     * 显示一个Toast
-     * @param message toast内容
+     * 显示加载中页面
      */
-    void showToast(@NonNull String message);
+    void pageLoading();
 
     /**
-     * 显示加载中Dialog
+     * 显示空页面
      */
-    void showLoadingDialog(@NonNull String text);
+    void pageEmpty();
 
     /**
-     * 显示进度条Dialog
+     * 显示错误页面
+     *
+     * @param errorCode 错误代码
      */
-    void showProgressDialog(@NonNull String text);
+    void pageError(int errorCode);
 
     /**
-     * 隐藏Dialog
+     * 显示Toast
+     *
+     * @param message 提示内容
      */
-    void hideDialog();
+    void showToast(String message);
 }

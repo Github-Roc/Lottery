@@ -9,9 +9,6 @@ import com.peng.lottery.mvp.injector.module.ActivityModule;
 
 import javax.inject.Inject;
 
-import static com.peng.lottery.app.widget.dialog.LoadingDialog.DIALOG_TYPE_LOADING;
-import static com.peng.lottery.app.widget.dialog.LoadingDialog.DIALOG_TYPE_PROGRESS;
-
 
 /**
  * @author Peng
@@ -45,23 +42,23 @@ public abstract class BaseActivity<P extends BasePresenter> extends SimpleBaseAc
     }
 
     @Override
+    public void pageLoading() {
+
+    }
+
+    @Override
+    public void pageEmpty() {
+
+    }
+
+    @Override
+    public void pageError(int errorCode) {
+
+    }
+
+    @Override
     public void showToast(@NonNull String message) {
-        ToastUtil.showToast(this, message);
-    }
-
-    @Override
-    public void showLoadingDialog(@NonNull String text) {
-        showLoadingDialog(DIALOG_TYPE_LOADING, text);
-    }
-
-    @Override
-    public void showProgressDialog(@NonNull String text) {
-        showLoadingDialog(DIALOG_TYPE_PROGRESS, text);
-    }
-
-    @Override
-    public void hideDialog() {
-        dismissLoadingDialog();
+        ToastUtil.showToast(mActivity, message);
     }
 
     protected ActivityComponent getActivityComponent() {

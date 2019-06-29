@@ -4,12 +4,15 @@
     <string name="app_save_text">保存</string>
     <string name="app_confirm_text">确定</string>
     <string name="app_cancel_text">取消</string>
-    <string name="app_input_text">请输入内容</string>
+    <string name="app_delete_text">删除</string>
+    <string name="app_home_text">设为首页</string>
     <string name="app_empty_text">暂无数据</string>
+    <string name="app_input_text">请输入内容</string>
 
     <!-- activity标题 -->
     <string name="title_add_lottery">自选号码</string>
     <string name="title_mine_lottery">我的号码</string>
+    <string name="title_web_collector">收藏夹</string>
     <string name="title_about">关于</string>
     <string name="title_setting">设置</string>
 

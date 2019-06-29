@@ -6,7 +6,8 @@ import com.peng.lottery.mvp.ui.activity.AddLotteryActivity;
 import com.peng.lottery.mvp.ui.activity.MineLotteryActivity;
 import com.peng.lottery.mvp.ui.activity.SettingActivity;
 import com.peng.lottery.mvp.ui.activity.SplashActivity;
-import com.peng.lottery.mvp.ui.fragment.DaLeDouFragment;
+import com.peng.lottery.mvp.ui.activity.WebActivity;
+import com.peng.lottery.mvp.ui.activity.WebCollectorActivity;
 
 import dagger.Component;
 
@@ -17,9 +18,13 @@ public interface ActivityComponent {
 
     void inject(SplashActivity activity);
 
-    void inject(AddLotteryActivity activity);
+    void inject(SettingActivity activity);
 
     void inject(MineLotteryActivity activity);
 
-    void inject(SettingActivity activity);
+    void inject(AddLotteryActivity activity);
+
+    void inject(WebActivity activity);
+
+    void inject(WebCollectorActivity activity);
 }

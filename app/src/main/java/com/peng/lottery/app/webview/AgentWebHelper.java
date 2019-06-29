@@ -2,23 +2,35 @@ package com.peng.lottery.app.webview;
 
 import android.support.annotation.NonNull;
 import android.view.ViewGroup;
-import android.webkit.WebBackForwardList;
 import android.webkit.WebChromeClient;
-import android.webkit.WebHistoryItem;
-import android.webkit.WebViewClient;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 
 import com.just.agentweb.AgentWeb;
+import com.just.agentweb.AgentWebSettingsImpl;
 import com.peng.lottery.base.SimpleBaseActivity;
 
 
 /**
  * AgentWeb封装
+ *
  * @author Peng
  */
 public class AgentWebHelper {
     private AgentWeb mAgentWeb;
     private SimpleBaseActivity mActivity;
+    private WebUrlChangeListener mUrlChangeListener;
+    private WebChromeClient mWebChromeClient = new WebChromeClient() {
+
+        @Override
+        public void onReceivedTitle(WebView view, String title) {
+            super.onReceivedTitle(view, title);
+            if (mUrlChangeListener != null) {
+                String url = view.getUrl();
+                mUrlChangeListener.onUrlChange(title, url);
+            }
+        }
+    };
 
     public AgentWebHelper(SimpleBaseActivity activity) {
         this.mActivity = activity;
@@ -28,27 +40,8 @@ public class AgentWebHelper {
         mAgentWeb = AgentWeb.with(mActivity)
                 .setAgentWebParent(viewGroup, new LinearLayout.LayoutParams(-1, -1))
                 .useDefaultIndicator()
-                .createAgentWeb()
-                .ready()
-                .go(url);
-    }
-
-    public void initWeb(@NonNull ViewGroup viewGroup, WebChromeClient webChromeClient, String url) {
-        mAgentWeb = AgentWeb.with(mActivity)
-                .setAgentWebParent(viewGroup, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator()
-                .setWebChromeClient(webChromeClient)
-                .createAgentWeb()
-                .ready()
-                .go(url);
-    }
-
-    public void initWeb(@NonNull ViewGroup viewGroup, WebChromeClient webChromeClient, WebViewClient webViewClient, String url) {
-        mAgentWeb = AgentWeb.with(mActivity)
-                .setAgentWebParent(viewGroup, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator()
-                .setWebChromeClient(webChromeClient)
-                .setWebViewClient(webViewClient)
+                .setAgentWebWebSettings(AgentWebSettingsImpl.getInstance())
+                .setWebChromeClient(mWebChromeClient)
                 .createAgentWeb()
                 .ready()
                 .go(url);
@@ -56,6 +49,10 @@ public class AgentWebHelper {
 
     public AgentWeb getAgentWeb() {
         return mAgentWeb;
+    }
+
+    public WebView getWebView() {
+        return mAgentWeb.getWebCreator().getWebView();
     }
 
     public void loadUrl(String url) {
@@ -76,17 +73,20 @@ public class AgentWebHelper {
         }
     }
 
-    public String getLastUrl() {
-        WebBackForwardList backForwardList = mAgentWeb.getWebCreator().getWebView().copyBackForwardList();
-        if (backForwardList != null && backForwardList.getSize() != 0) {
-            //当前页面在历史队列中的位置
-            int currentIndex = backForwardList.getCurrentIndex();
-            WebHistoryItem historyItem = backForwardList.getItemAtIndex(currentIndex - 1);
-            if (historyItem != null) {
-                return historyItem.getUrl();
-            }
-        }
-        return null;
+    public void goBack() {
+        getWebView().goBack();
+    }
+
+    public void goForward() {
+        getWebView().goForward();
+    }
+
+    public void reload() {
+        getWebView().reload();
+    }
+
+    public void addUrlChangeListener(WebUrlChangeListener listener) {
+        this.mUrlChangeListener = listener;
     }
 
     public void onPause() {

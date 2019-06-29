@@ -2,7 +2,6 @@ package com.peng.lottery.mvp.presenter.activity;
 
 import android.text.TextUtils;
 
-import com.peng.lottery.app.MyApplication;
 import com.peng.lottery.app.config.AppConfig;
 import com.peng.lottery.app.config.SharedPreferencesConfig;
 import com.peng.lottery.base.BasePresenter;
@@ -34,7 +33,7 @@ public class SplashPresenter extends BasePresenter {
     }
 
     public File getSplashImage() {
-        String splashImagePath = (String) mSpHelper.get(MyApplication.mContent, SharedPreferencesConfig.SPLASH_IMAGE, "");
+        String splashImagePath = (String) mSpHelper.get(SharedPreferencesConfig.SPLASH_IMAGE, "");
         if (!TextUtils.isEmpty(splashImagePath)) {
             File imageFile = new File(splashImagePath);
             if (imageFile.exists()) {
@@ -45,7 +44,7 @@ public class SplashPresenter extends BasePresenter {
     }
 
     public String getSloganText() {
-        String sloganText = (String) mSpHelper.get(MyApplication.mContent, SharedPreferencesConfig.SPLASH_SLOGAN, "");
+        String sloganText = (String) mSpHelper.get(SharedPreferencesConfig.SPLASH_SLOGAN, "");
         if (TextUtils.isEmpty(sloganText)) {
             sloganText = mSloganArr[new Random().nextInt(mSloganArr.length)];
         }
@@ -53,7 +52,7 @@ public class SplashPresenter extends BasePresenter {
     }
 
     public String getEndingText() {
-        String endingText = (String) mSpHelper.get(MyApplication.mContent, SharedPreferencesConfig.SPLASH_ENDING, "");
+        String endingText = (String) mSpHelper.get(SharedPreferencesConfig.SPLASH_ENDING, "");
         if (TextUtils.isEmpty(endingText)) {
             endingText = AppConfig.APP_TAG;
         }

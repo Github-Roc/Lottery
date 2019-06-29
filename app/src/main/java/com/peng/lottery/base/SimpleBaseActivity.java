@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.luck.picture.lib.rxbus2.RxBus;
 import com.peng.lottery.R;
 import com.peng.lottery.app.MyApplication;
 import com.peng.lottery.app.config.AppConfig;
@@ -31,13 +32,21 @@ import butterknife.Unbinder;
 
 public abstract class SimpleBaseActivity extends AppCompatActivity {
 
-    /** ButterKnife */
+    /**
+     * ButterKnife
+     */
     private Unbinder mUnBinder;
-    /** AgentWeb工具类 */
+    /**
+     * AgentWeb工具类
+     */
     private AgentWebHelper mAgentWebHelper;
-    /** 当前的Activity实例 */
+    /**
+     * 当前的Activity实例
+     */
     protected SimpleBaseActivity mActivity;
-    /** 加载中Dialog */
+    /**
+     * 加载中Dialog
+     */
     public LoadingDialog mLoadingDialog;
 
     protected Toolbar mToolbar;
@@ -83,6 +92,7 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         if (enableImmersionBar()) {
             ImmersionBar.with(this).destroy();
         }
+        RxBus.getDefault().unregister(this);
         MyApplication.activityStack.remove(this);
         dismissLoadingDialog();
         mActivity = null;
@@ -155,6 +165,7 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         // 将activity添加到管理栈中
         mActivity = this;
         MyApplication.activityStack.add(this);
+        RxBus.getDefault().register(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 

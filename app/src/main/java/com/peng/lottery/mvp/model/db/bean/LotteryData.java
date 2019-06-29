@@ -24,21 +24,21 @@ public class LotteryData {
     // 彩票幸运字符串
     private String luckyStr;
     // 创建时间
-    private String createData;
+    private String createDate;
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
     /** Used for active entity operations. */
     @Generated(hash = 460360553)
     private transient LotteryDataDao myDao;
-    @Generated(hash = 1693893768)
+    @Generated(hash = 535272976)
     public LotteryData(Long Id, String lotteryType, String lotteryLabel,
-            String luckyStr, String createData) {
+            String luckyStr, String createDate) {
         this.Id = Id;
         this.lotteryType = lotteryType;
         this.lotteryLabel = lotteryLabel;
         this.luckyStr = luckyStr;
-        this.createData = createData;
+        this.createDate = createDate;
     }
     @Generated(hash = 1125241785)
     public LotteryData() {
@@ -67,11 +67,11 @@ public class LotteryData {
     public void setLuckyStr(String luckyStr) {
         this.luckyStr = luckyStr;
     }
-    public String getCreateData() {
-        return this.createData;
+    public String getCreateDate() {
+        return this.createDate;
     }
-    public void setCreateData(String createData) {
-        this.createData = createData;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
     /**
      * To-many relationship, resolved on first access (and after reset).
@@ -139,5 +139,4 @@ public class LotteryData {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getLotteryDataDao() : null;
     }
-
 }

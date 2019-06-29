@@ -49,7 +49,7 @@ android {
     }
 
     greendao {
-        schemaVersion 1
+        schemaVersion 2
         daoPackage 'com.peng.lottery.mvp.model.db.bean'
         targetGenDir 'src/main/java'
     }

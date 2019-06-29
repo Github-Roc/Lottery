@@ -2,7 +2,7 @@ package com.peng.lottery.mvp.model;
 
 
 import com.peng.lottery.mvp.model.db.DataBaseHelper;
-import com.peng.lottery.mvp.model.http.RetrofitHelper;
+import com.peng.lottery.mvp.model.web.RetrofitHelper;
 import com.peng.lottery.mvp.model.sp.SharedPreferencesHelper;
 
 public class DataManager {

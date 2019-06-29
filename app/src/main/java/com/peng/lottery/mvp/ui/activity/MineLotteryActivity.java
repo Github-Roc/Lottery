@@ -2,16 +2,13 @@ package com.peng.lottery.mvp.ui.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.peng.lottery.R;
-import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.base.BaseActivity;
 import com.peng.lottery.mvp.contract.activity.MineLotteryContract;
 import com.peng.lottery.mvp.model.db.bean.LotteryData;
 import com.peng.lottery.mvp.presenter.activity.MineLotteryPresenter;
-import com.peng.lottery.mvp.ui.adapter.LotteryListAdapter;
+import com.peng.lottery.mvp.ui.adapter.MineLotteryAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +18,10 @@ import butterknife.BindView;
 public class MineLotteryActivity extends BaseActivity<MineLotteryPresenter> implements MineLotteryContract.View {
 
     @BindView(R.id.app_recycler)
-    RecyclerView mLotteryListRecycler;
+    RecyclerView mLotteryRecycler;
 
     private List<LotteryData> mLotteryList;
-    private LotteryListAdapter mLotteryListAdapter;
+    private MineLotteryAdapter mLotteryAdapter;
 
     @Override
     protected void initInject() {
@@ -46,15 +43,15 @@ public class MineLotteryActivity extends BaseActivity<MineLotteryPresenter> impl
 
     @Override
     protected void initListener() {
-        mLotteryListAdapter.setOnItemLongClickListener((adapter, view, position) -> {
+        mLotteryAdapter.setOnItemLongClickListener((adapter, view, position) -> {
             showTipDialog("您确定要删除该号码吗？", v -> {
                 LotteryData lottery = mLotteryList.get(position);
                 mPresenter.deleteLottery(lottery);
                 mLotteryList.remove(lottery);
-                mLotteryListAdapter.notifyDataSetChanged();
+                mLotteryAdapter.notifyDataSetChanged();
 
                 if (mLotteryList.size() == 0) {
-                    mLotteryListAdapter.setEmptyView(R.layout.layout_empty_page);
+                    mLotteryAdapter.setEmptyView(R.layout.layout_empty_page);
                 }
             });
             return true;
@@ -73,19 +70,19 @@ public class MineLotteryActivity extends BaseActivity<MineLotteryPresenter> impl
 
     private void initRecycler() {
         mLotteryList = new ArrayList<>();
-        mLotteryListAdapter = new LotteryListAdapter(R.layout.item_mine_lottery, mLotteryList);
-        mLotteryListAdapter.bindToRecyclerView(mLotteryListRecycler);
-        mLotteryListRecycler.setLayoutManager(new LinearLayoutManager(mActivity));
-        mLotteryListRecycler.setAdapter(mLotteryListAdapter);
+        mLotteryAdapter = new MineLotteryAdapter(R.layout.item_mine_lottery, mLotteryList);
+        mLotteryAdapter.bindToRecyclerView(mLotteryRecycler);
+        mLotteryRecycler.setLayoutManager(new LinearLayoutManager(mActivity));
+        mLotteryRecycler.setAdapter(mLotteryAdapter);
     }
 
     @Override
     public void onLoadFinish(List<LotteryData> lotteryList) {
         if (lotteryList != null && lotteryList.size() > 0) {
             mLotteryList.addAll(lotteryList);
-            mLotteryListAdapter.notifyDataSetChanged();
+            mLotteryAdapter.notifyDataSetChanged();
         } else {
-            mLotteryListAdapter.setEmptyView(R.layout.layout_empty_page);
+            mLotteryAdapter.setEmptyView(R.layout.layout_empty_page);
         }
     }
 }

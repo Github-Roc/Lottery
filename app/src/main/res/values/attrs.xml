@@ -44,4 +44,13 @@
         <attr name="maxHeight" format="reference|dimension" />
     </declare-styleable>
 
+    <declare-styleable name="EasySwipeMenuLayout">
+        <attr format="reference" name="leftMenuView"/>
+        <attr format="reference" name="rightMenuView"/>
+        <attr format="reference" name="contentView"/>
+        <attr format="boolean" name="canRightSwipe"/>
+        <attr format="boolean" name="canLeftSwipe"/>
+        <attr format="float" name="fraction"/>
+    </declare-styleable>
+
 </resources>

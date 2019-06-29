@@ -77,7 +77,7 @@ public class BaseLotteryPresenter<V extends IView> extends BasePresenter<V> {
         }
         LotteryData lottery = new LotteryData();
         lottery.setLotteryType(lotteryType.type);
-        lottery.setCreateData(DateFormatUtil.getSysDate());
+        lottery.setCreateDate(DateFormatUtil.getSysDate());
         if (!TextUtils.isEmpty(luckyStr)) {
             lottery.setLuckyStr(luckyStr);
         }

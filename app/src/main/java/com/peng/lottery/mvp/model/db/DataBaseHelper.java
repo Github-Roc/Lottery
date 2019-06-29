@@ -5,6 +5,7 @@ import com.peng.lottery.mvp.model.db.bean.DaoMaster;
 import com.peng.lottery.mvp.model.db.bean.DaoSession;
 import com.peng.lottery.mvp.model.db.bean.LotteryDataDao;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumberDao;
+import com.peng.lottery.mvp.model.db.bean.WebUrlDao;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -24,6 +25,10 @@ public class DataBaseHelper {
 
     public LotteryNumberDao getLotteryNumberDao() {
         return mDaoSession.getLotteryNumberDao();
+    }
+
+    public WebUrlDao getWebUrlDao() {
+        return mDaoSession.getWebUrlDao();
     }
 }
 
