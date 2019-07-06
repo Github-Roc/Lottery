@@ -57,31 +57,35 @@
 
     <LinearLayout
         android:id="@+id/layout_right"
-        android:layout_width="@dimen/dp_120"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <Button
+        <android.support.design.button.MaterialButton
             android:id="@+id/bt_web_set_home"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:background="@drawable/selector_confirm_button"
             android:gravity="center"
+            android:padding="@dimen/dp_8"
             android:text="@string/app_home_text"
+            android:textAppearance="?android:attr/textAppearanceButton"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_medium" />
+            android:textSize="@dimen/text_medium"
+            app:strokeColor="@color/app_color" />
 
-        <Button
+        <android.support.design.button.MaterialButton
             android:id="@+id/bt_web_url_delete"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:background="@drawable/selector_delete_button"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_12"
             android:gravity="center"
+            android:padding="@dimen/dp_8"
             android:text="@string/app_delete_text"
+            android:textAppearance="?android:attr/textAppearanceButton"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_medium" />
+            android:textSize="@dimen/text_medium"
+            app:strokeColor="@color/app_color" />
 
     </LinearLayout>
 

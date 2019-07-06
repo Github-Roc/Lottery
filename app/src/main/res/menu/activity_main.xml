@@ -10,10 +10,6 @@
 
     <group android:id="@+id/group_about">
         <item
-            android:id="@+id/main_menu_browser"
-            android:icon="@mipmap/icon_main_menu_browser"
-            android:title="@string/text_main_menu_browser" />
-        <item
             android:id="@+id/main_menu_setting"
             android:icon="@mipmap/icon_main_menu_settings"
             android:title="@string/text_main_menu_setting" />

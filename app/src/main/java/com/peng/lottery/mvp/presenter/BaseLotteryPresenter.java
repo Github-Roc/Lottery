@@ -1,5 +1,6 @@
 package com.peng.lottery.mvp.presenter;
 
+import android.os.SystemClock;
 import android.text.TextUtils;
 
 import com.peng.lottery.app.config.ActionConfig;
@@ -25,6 +26,9 @@ import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_NULL;
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED;
+import static com.peng.lottery.app.config.TipConfig.ADD_LOTTERY_NUMBER_ERROR;
+import static com.peng.lottery.app.config.TipConfig.ADD_LOTTERY_SAVED;
+import static com.peng.lottery.app.config.TipConfig.APP_SAVE_SUCCESS;
 
 public class BaseLotteryPresenter<V extends IView> extends BasePresenter<V> {
 
@@ -69,11 +73,11 @@ public class BaseLotteryPresenter<V extends IView> extends BasePresenter<V> {
      * @return 保存结果
      */
     private String saveLottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType, String lotteryLabel, String luckyStr) {
-        if (!checkLotterySize(lotteryValue, lotteryType)) {
-            return "号码不完整，请先选择号码！";
+        if (checkLotteryExist(lotteryValue, lotteryType)) {
+            return ADD_LOTTERY_SAVED;
         }
-        if (TextUtils.isEmpty(lotteryValue.get(0).getNumberValue())) {
-            return "该号码以保存！";
+        if (!checkLotterySize(lotteryValue, lotteryType)) {
+            return ADD_LOTTERY_NUMBER_ERROR;
         }
         LotteryData lottery = new LotteryData();
         lottery.setLotteryType(lotteryType.type);
@@ -84,7 +88,7 @@ public class BaseLotteryPresenter<V extends IView> extends BasePresenter<V> {
         if (!TextUtils.isEmpty(lotteryLabel)) {
             lottery.setLotteryLabel(lotteryLabel);
         }
-        mLotteryDataDao.insert(lottery);
+        mLotteryDataDao.insertOrReplace(lottery);
 
         for (LotteryNumber lotteryNumber : lotteryValue) {
             LotteryNumber newNumber = new LotteryNumber();
@@ -93,8 +97,7 @@ public class BaseLotteryPresenter<V extends IView> extends BasePresenter<V> {
             newNumber.setNumberValue(lotteryNumber.getNumberValue());
             mLotteryNumberDao.insert(newNumber);
         }
-        lotteryValue.add(0, new LotteryNumber());
-        return "保存成功！";
+        return APP_SAVE_SUCCESS;
     }
 
     /**
@@ -116,6 +119,7 @@ public class BaseLotteryPresenter<V extends IView> extends BasePresenter<V> {
      * @param lotteryType  彩票类型
      */
     public void complementLottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
+        List<LotteryNumber> tempValue = new ArrayList<>(lotteryValue);
         List<LotteryNumber> numberBallList = ActionConfig.getLotteryNumberBallList(lotteryType);
         if (LOTTERY_TYPE_DLT.equals(lotteryType) || LOTTERY_TYPE_SSQ.equals(lotteryType)) {
             List<LotteryNumber> redBallList = new ArrayList<>();
@@ -176,8 +180,9 @@ public class BaseLotteryPresenter<V extends IView> extends BasePresenter<V> {
             }
             Collections.sort(lotteryValue);
         } else if (LOTTERY_TYPE_11X5.equals(lotteryType)) {
+            Random random = new Random(SystemClock.currentThreadTimeMillis());
             while (lotteryValue.size() < mMaxSize) {
-                LotteryNumber numberBall = numberBallList.get(new Random().nextInt(numberBallList.size()));
+                LotteryNumber numberBall = numberBallList.get(random.nextInt(numberBallList.size()));
                 if (!lotteryValue.contains(numberBall)) {
                     lotteryValue.add(numberBall);
                 }
@@ -189,6 +194,12 @@ public class BaseLotteryPresenter<V extends IView> extends BasePresenter<V> {
             Collections.shuffle(numberBallList);
             lotteryValue.clear();
             lotteryValue.addAll(numberBallList);
+        }
+        if (TextUtils.isEmpty(mLuckyStr) && checkLotteryExist(lotteryValue, lotteryType)) {
+            // 生成的号码已经保存过，重新生成新的号码
+            lotteryValue.clear();
+            lotteryValue.addAll(tempValue);
+            complementLottery(lotteryValue, lotteryType);
         }
     }
 
@@ -254,12 +265,43 @@ public class BaseLotteryPresenter<V extends IView> extends BasePresenter<V> {
     /**
      * 检测彩票号码长度是否符合规范
      */
-    protected boolean checkLotterySize(List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
+    public boolean checkLotterySize(List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
         if (LOTTERY_TYPE_DLT.equals(lotteryType) || LOTTERY_TYPE_SSQ.equals(lotteryType)) {
             return lotteryValue != null && lotteryValue.size() >= 7;
         } else if (LOTTERY_TYPE_11X5.equals(lotteryType)) {
             return lotteryValue != null && lotteryValue.size() >= mMaxSize;
         }
         return LOTTERY_TYPE_PK10.equals(lotteryType);
+    }
+
+    /**
+     * 检测彩票号码是否存在
+     */
+    private boolean checkLotteryExist(List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
+        List<LotteryData> lotteryList = mLotteryDataDao.queryBuilder()
+                .where(LotteryDataDao.Properties.LotteryType.eq(lotteryType.type))
+                .list();
+        if (lotteryList != null && lotteryList.size() > 0) {
+            for (LotteryData lottery : lotteryList) {
+                for (LotteryNumber newNumber : lotteryValue) {
+                    boolean isEquals = false;
+                    for (LotteryNumber oldNumber : lottery.getLotteryValue()) {
+                        if (oldNumber.getNumberValue().equals(newNumber.getNumberValue())
+                                && oldNumber.getNumberType().equals(newNumber.getNumberType())) {
+                            isEquals = true;
+                            break;
+                        }
+                    }
+                    if (isEquals) {
+                        if (lotteryValue.indexOf(newNumber) == lotteryValue.size() - 1) {
+                            return true;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

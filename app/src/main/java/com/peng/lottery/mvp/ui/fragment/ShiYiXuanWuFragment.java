@@ -73,10 +73,11 @@ public class ShiYiXuanWuFragment extends BaseFragment<ShiYiXuanWuPresenter> {
             layoutShiYiXuanWu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_11X5.type);
         });
         btAnalyseLotteryNumber.setOnClickListener(v -> {
+            String type = (String) spinnerShiYiXuanWu.getSelectedItem();
             String stringBuilder = "中奖几率：" +
-                    mPresenter.getLotteryProbability(mLotteryLabel) +
+                    mPresenter.getLotteryProbability(type) +
                     "%\n中奖金额：" +
-                    mPresenter.getLotteryPrice(mLotteryLabel) +
+                    mPresenter.getLotteryPrice(type) +
                     "元";
             new ShowInfoDialog(mActivity, stringBuilder).show();
         });

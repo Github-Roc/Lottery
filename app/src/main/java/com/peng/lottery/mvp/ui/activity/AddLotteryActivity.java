@@ -4,7 +4,6 @@ import android.support.design.button.MaterialButton;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -26,6 +25,8 @@ import butterknife.BindView;
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_11X5;
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
+import static com.peng.lottery.app.config.TipConfig.ADD_LOTTERY_CHECK_NUMBER;
+import static com.peng.lottery.app.config.TipConfig.ADD_LOTTERY_CLEAN_DATA;
 
 public class AddLotteryActivity extends BaseActivity<AddLotteryPresenter> {
 
@@ -132,11 +133,11 @@ public class AddLotteryActivity extends BaseActivity<AddLotteryPresenter> {
         });
         btComplementLottery.setOnClickListener(v -> {
             if (mLotteryValue.size() == 0) {
-                ToastUtil.showToast(mActivity, "请先选几个号吧！");
+                ToastUtil.showToast(mActivity, ADD_LOTTERY_CHECK_NUMBER);
                 return;
             }
-            if (TextUtils.isEmpty(mLotteryValue.get(0).getNumberValue())) {
-                ToastUtil.showToast(mActivity, "请先清空号码！");
+            if (mPresenter.checkLotterySize(mLotteryValue, mLotteryType)) {
+                ToastUtil.showToast(mActivity, ADD_LOTTERY_CLEAN_DATA);
                 return;
             }
             mPresenter.complementLottery(mLotteryValue, mLotteryType);

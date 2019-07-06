@@ -44,9 +44,11 @@ public class SplashActivity extends BaseActivity<SplashPresenter> {
     protected void initView() {
         super.initView();
 
-        File splashImage = mPresenter.getSplashImage();
+        File splashImage = mPresenter.getSplashImageFile();
         if (splashImage != null) {
             Glide.with(mActivity).load(splashImage).into(ivSplashImage);
+        } else {
+            Glide.with(mActivity).load(mPresenter.getSplashImgRes()).into(ivSplashImage);
         }
         tvSplashSlogan.setText(mPresenter.getSloganText());
         tvSplashEnding.setText(mPresenter.getEndingText());

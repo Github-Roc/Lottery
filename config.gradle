@@ -5,8 +5,8 @@ ext {
             buildToolsVersion: "28.0.3",
             targetSdkVersion : 28,
             minSdkVersion    : 16,
-            versionCode      : 5,
-            versionName      : '1.0.4',
+            versionCode      : 6,
+            versionName      : '1.0.5',
     ]
 
     // version配置

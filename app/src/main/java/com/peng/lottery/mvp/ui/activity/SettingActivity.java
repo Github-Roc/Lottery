@@ -2,7 +2,6 @@ package com.peng.lottery.mvp.ui.activity;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.luck.picture.lib.PictureSelector;
@@ -18,6 +17,8 @@ import com.peng.lottery.mvp.presenter.activity.SettingPresenter;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.peng.lottery.app.config.TipConfig.APP_SAVE_SUCCESS;
 
 public class SettingActivity extends BaseActivity<SettingPresenter> {
 
@@ -71,13 +72,13 @@ public class SettingActivity extends BaseActivity<SettingPresenter> {
             if (requestCode == AppConfig.REQUEST_INPUT_SLOGAN) {
                 String slogan = data.getStringExtra(InputTextActivity.INPUT_TEXT);
                 mPresenter.saveSlogan(slogan);
-                ToastUtil.showToast(mActivity, "保存成功");
+                ToastUtil.showToast(mActivity, APP_SAVE_SUCCESS);
             } else if (requestCode == PictureConfig.CHOOSE_REQUEST) {
                 List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
                 if (selectList.size() > 0) {
                     LocalMedia localMedia = selectList.get(0);
                     mPresenter.saveImagePath(localMedia.getPath());
-                    ToastUtil.showToast(mActivity, "保存成功");
+                    ToastUtil.showToast(mActivity, APP_SAVE_SUCCESS);
                 }
             }
         }

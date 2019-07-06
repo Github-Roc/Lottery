@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +21,9 @@ import com.peng.lottery.mvp.model.db.bean.WebUrl;
 import com.peng.lottery.mvp.presenter.activity.WebPresenter;
 
 import butterknife.BindView;
+
+import static com.peng.lottery.app.config.TipConfig.WEB_INPUT_URL_ERROR;
+import static com.peng.lottery.app.config.TipConfig.WEB_URL_COPY_SUCCESS;
 
 /**
  * 加载html的web页
@@ -53,6 +58,9 @@ public class WebActivity extends BaseActivity<WebPresenter> {
         super.init();
 
         url = getIntent().getStringExtra("url");
+        if (TextUtils.isEmpty(url)) {
+            url = mPresenter.getHomeUrl();
+        }
     }
 
     @Override
@@ -75,12 +83,13 @@ public class WebActivity extends BaseActivity<WebPresenter> {
     @Override
     protected void initListener() {
         getWebHelper().addUrlChangeListener(this::onUrlChange);
+        mWebTitle.setOnClickListener(v -> InputTextActivity.start(mActivity, "网址输入", "http://", AppConfig.REQUEST_INPUT_URL));
         mWebTitle.setOnLongClickListener(v -> {
             ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
             if (clipboardManager != null) {
                 ClipData clipData = ClipData.newPlainText("webUrl", url);
                 clipboardManager.setPrimaryClip(clipData);
-                ToastUtil.showToast(mActivity, "链接地址复制成功！");
+                ToastUtil.showToast(mActivity, WEB_URL_COPY_SUCCESS);
             }
             return true;
         });
@@ -132,6 +141,22 @@ public class WebActivity extends BaseActivity<WebPresenter> {
     @Override
     protected boolean enableSlidingFinish() {
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && data != null) {
+            if (requestCode == AppConfig.REQUEST_INPUT_URL) {
+                String url = data.getStringExtra(InputTextActivity.INPUT_TEXT);
+                if (url.startsWith("http://") || url.startsWith("https://")) {
+                    getWebHelper().loadUrl(url);
+                } else {
+                    ToastUtil.showToast(mActivity, WEB_INPUT_URL_ERROR);
+                }
+            }
+        }
     }
 
     @Override

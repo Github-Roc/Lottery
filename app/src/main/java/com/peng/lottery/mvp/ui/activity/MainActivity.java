@@ -19,6 +19,8 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 
+import static com.peng.lottery.app.config.TipConfig.MAIN_EXIT_APP;
+
 public class MainActivity extends SimpleBaseActivity {
 
     @BindView(R.id.main_drawer_layout)
@@ -55,15 +57,10 @@ public class MainActivity extends SimpleBaseActivity {
     protected void initListener() {
         mNavigationView.setNavigationItemSelectedListener(
                 menuItem -> {
-                    boolean isStart = true;
                     Intent intent = new Intent();
                     switch (menuItem.getItemId()) {
                         case R.id.main_menu_mine_lottery:
                             intent.setClass(mActivity, MineLotteryActivity.class);
-                            break;
-                        case R.id.main_menu_browser:
-                            isStart = false;
-                            WebActivity.start(mActivity, "https://www.baidu.com");
                             break;
                         case R.id.main_menu_about:
                             intent.setClass(mActivity, AboutActivity.class);
@@ -72,9 +69,7 @@ public class MainActivity extends SimpleBaseActivity {
                             intent.setClass(mActivity, SettingActivity.class);
                             break;
                     }
-                    if (isStart) {
-                        startActivity(intent);
-                    }
+                    startActivity(intent);
                     mDrawerLayout.closeDrawers();
                     return true;
                 });
@@ -93,7 +88,7 @@ public class MainActivity extends SimpleBaseActivity {
         if (!isExit) {
             // 准备退出
             isExit = true;
-            ToastUtil.showToast(mActivity, "再按一次退出程序");
+            ToastUtil.showToast(mActivity, MAIN_EXIT_APP);
 
             Timer tExit = new Timer();
             // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务

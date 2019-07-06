@@ -22,14 +22,7 @@ public class AppConfig {
     /** Activity请求码 */
     public static final int REQUEST_INSTALL = 1000;
     public static final int REQUEST_INPUT_SLOGAN = 10000;
-
-    /** 结果状态码 */
-    public static final int RESULT_SUCCESS = 200;
-    public static final int RESULT_NO = 400;
-    public static final int RESULT_NULL = 401;
-    public static final int RESULT_ERROR = 402;
-    public static final int RESULT_NET_ERROR = 403;
-    public static final int RESULT_SERVICE_ERROR = 404;
+    public static final int REQUEST_INPUT_URL = 10001;
 
     public static String getBaseUrl() {
         if (isDebug) {

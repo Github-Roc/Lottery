@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/bg_app_splash" />
+            android:src="@mipmap/bg_app_splash01" />
 
         <TextView
             android:id="@+id/tv_start_next"

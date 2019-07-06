@@ -20,6 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
+import static com.peng.lottery.app.config.TipConfig.MAIN_INPUT_TEXT;
 
 
 /**
@@ -86,7 +87,7 @@ public class ShuangSeQiuFragment extends BaseFragment<ShuangSeQiuPresenter> {
     private void createLotteryToView(boolean isLucky) {
         mLuckyStr = isLucky ? etLuckyStr.getText().toString() : "";
         if (isLucky && TextUtils.isEmpty(mLuckyStr)) {
-            ToastUtil.showToast(mActivity, "请先输入一些内容吧！");
+            ToastUtil.showToast(mActivity, MAIN_INPUT_TEXT);
             return;
         }
 

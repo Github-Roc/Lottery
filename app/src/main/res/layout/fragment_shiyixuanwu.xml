@@ -38,6 +38,19 @@
                 app:strokeColor="@color/app_color" />
 
             <android.support.design.button.MaterialButton
+                android:id="@+id/bt_analyse_lottery_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:gravity="center"
+                android:padding="@dimen/dp_6"
+                android:text="@string/text_analyse_lottery_number"
+                android:textAppearance="?android:attr/textAppearanceButton"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium"
+                app:strokeColor="@color/app_color" />
+
+            <android.support.design.button.MaterialButton
                 android:id="@+id/bt_chart_11_choose_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,19 +84,6 @@
                 android:id="@+id/layout_lottery_shiyixuanwu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-            <android.support.design.button.MaterialButton
-                android:id="@+id/bt_analyse_lottery_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_12"
-                android:gravity="center"
-                android:padding="@dimen/dp_6"
-                android:text="@string/text_analyse_lottery_number"
-                android:textAppearance="?android:attr/textAppearanceButton"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_medium"
-                app:strokeColor="@color/app_color" />
 
             <android.support.design.button.MaterialButton
                 android:id="@+id/bt_save_lottery_number"

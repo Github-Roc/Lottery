@@ -19,6 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 
 import static android.support.v7.widget.RecyclerView.VERTICAL;
+import static com.peng.lottery.app.config.TipConfig.APP_SAVE_SUCCESS;
 
 public class WebCollectorActivity extends BaseActivity<WebCollectorPresenter> implements WebCollectorContract.View {
 
@@ -57,7 +58,7 @@ public class WebCollectorActivity extends BaseActivity<WebCollectorPresenter> im
                     break;
                 case R.id.bt_web_set_home:
                     mPresenter.setWebHome(item.getCollectionUrl());
-                    ToastUtil.showToast(mActivity, "设置成功！");
+                    ToastUtil.showToast(mActivity, APP_SAVE_SUCCESS);
                     break;
                 case R.id.bt_web_url_delete:
                     mPresenter.deleteWebUrl(item);
