@@ -21,11 +21,6 @@ public class SplashPresenter extends BasePresenter {
             R.mipmap.bg_app_splash03,
             R.mipmap.bg_app_splash04,
             R.mipmap.bg_app_splash05,
-            R.mipmap.bg_app_splash06,
-            R.mipmap.bg_app_splash07,
-            R.mipmap.bg_app_splash08,
-            R.mipmap.bg_app_splash09,
-            R.mipmap.bg_app_splash10,
     };
 
     private static String[] mSloganArr = {
