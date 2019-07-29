@@ -10,11 +10,11 @@
     <string name="app_input_text">请输入内容</string>
 
     <!-- activity标题 -->
-    <string name="title_add_lottery">自选号码</string>
     <string name="title_mine_lottery">我的号码</string>
-    <string name="title_web_collector">收藏夹</string>
-    <string name="title_about">关于</string>
     <string name="title_setting">设置</string>
+    <string name="title_about">关于</string>
+    <string name="title_add_lottery">自选号码</string>
+    <string name="title_web_collector">收藏夹</string>
 
     <!-- 启动页 -->
     <string name="splash_next_text">跳过</string>
@@ -41,6 +41,10 @@
     <!-- 自选号码 -->
     <string name="text_clean_lottery">清空号码</string>
     <string name="text_complement_lottery">补全号码</string>
+
+    <!-- 我的号码 -->
+    <string name="text_delete_all_lottery">清空号码</string>
+    <string name="text_verification_lottery">验证号码</string>
 
     <!-- 关于 -->
     <string name="text_about_project_url">项目地址:\n<u>https://github.com/</u></string>

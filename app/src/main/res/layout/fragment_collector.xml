@@ -5,8 +5,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/app_toolbar" />
-
     <include layout="@layout/app_recycler" />
 
 </LinearLayout>

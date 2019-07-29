@@ -22,14 +22,13 @@
 
     <application
         android:name=".app.MyApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+        tools:ignore="GoogleAppIndexingWarning">
 
         <activity
             android:name=".mvp.ui.activity.SplashActivity"
@@ -49,21 +48,12 @@
         <activity
             android:name=".mvp.ui.activity.AddLotteryActivity"
             android:theme="@style/TransparentTheme" />
-        <activity
-            android:name=".mvp.ui.activity.MineLotteryActivity"
-            android:theme="@style/TransparentTheme" />
-        <activity
-            android:name=".mvp.ui.activity.AboutActivity"
-            android:theme="@style/TransparentTheme" />
-        <activity
-            android:name=".mvp.ui.activity.SettingActivity"
-            android:theme="@style/TransparentTheme" />
 
         <activity
-            android:name=".mvp.ui.activity.WebActivity"
+            android:name=".mvp.ui.activity.ContainerActivity"
             android:theme="@style/TransparentTheme" />
         <activity
-            android:name=".mvp.ui.activity.WebCollectorActivity"
+            android:name=".mvp.ui.activity.WebActivity"
             android:theme="@style/TransparentTheme" />
         <activity
             android:name=".mvp.ui.activity.InputTextActivity"

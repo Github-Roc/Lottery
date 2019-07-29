@@ -18,9 +18,7 @@ import javax.inject.Inject;
 
 public abstract class BaseFragment<P extends BasePresenter> extends SimpleBaseFragment implements IView {
 
-    /**
-     * 当前Fragment所对应的业务操作类
-     */
+    /** 当前Fragment所对应的业务操作类 */
     @Inject
     protected P mPresenter;
 
@@ -61,7 +59,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends SimpleBaseFr
         ToastUtil.showToast(mActivity, message);
     }
 
-    protected FragmentComponent getFragmentComponent(){
+    protected FragmentComponent getFragmentComponent() {
         return DaggerFragmentComponent.builder()
                 .fragmentModule(new FragmentModule(this))
                 .build();
@@ -70,5 +68,5 @@ public abstract class BaseFragment<P extends BasePresenter> extends SimpleBaseFr
     /**
      * 初始化dagger2注入
      */
-    public abstract void initInject();
+    protected abstract void initInject();
 }

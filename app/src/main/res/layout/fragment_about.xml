@@ -6,9 +6,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/app_toolbar" />
-
-
     <LinearLayout
         style="@style/view_margin"
         android:layout_width="match_parent"

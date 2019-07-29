@@ -1,4 +1,4 @@
-package com.peng.lottery.mvp.contract.activity;
+package com.peng.lottery.mvp.contract.fragment;
 
 import com.peng.lottery.base.IView;
 import com.peng.lottery.mvp.model.db.bean.WebUrl;

@@ -1,8 +1,8 @@
-package com.peng.lottery.mvp.presenter.activity;
+package com.peng.lottery.mvp.presenter.fragment;
 
 import com.peng.lottery.app.config.SharedPreferencesConfig;
 import com.peng.lottery.base.BasePresenter;
-import com.peng.lottery.mvp.contract.activity.WebCollectorContract;
+import com.peng.lottery.mvp.contract.fragment.WebCollectorContract;
 import com.peng.lottery.mvp.model.DataManager;
 import com.peng.lottery.mvp.model.db.bean.WebUrl;
 import com.peng.lottery.mvp.model.db.bean.WebUrlDao;

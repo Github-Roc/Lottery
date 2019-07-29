@@ -6,11 +6,11 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.peng.lottery.R;
+import com.peng.lottery.app.utils.LotteryUtil;
 import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.app.widget.LotteryLayout;
-import com.peng.lottery.base.BaseFragment;
+import com.peng.lottery.base.SimpleBaseFragment;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
-import com.peng.lottery.mvp.presenter.fragment.ShuangSeQiuPresenter;
 import com.peng.lottery.mvp.ui.activity.WebActivity;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
@@ -27,7 +27,7 @@ import static com.peng.lottery.app.config.TipConfig.MAIN_INPUT_TEXT;
  * Created by Peng on 2019/01/24.
  * 双色球页面
  */
-public class ShuangSeQiuFragment extends BaseFragment<ShuangSeQiuPresenter> {
+public class ShuangSeQiuFragment extends SimpleBaseFragment {
 
     @BindView(R.id.et_lucky_str)
     MaterialEditText etLuckyStr;
@@ -45,18 +45,15 @@ public class ShuangSeQiuFragment extends BaseFragment<ShuangSeQiuPresenter> {
     MaterialButton btSaveLotteryNumber;
 
     private String mLuckyStr;
+    private LotteryUtil mUtil;
     private List<LotteryNumber> mLotteryValue;
 
     @Override
     protected void init() {
         super.init();
 
+        mUtil = LotteryUtil.getInstance();
         mLotteryValue = new ArrayList<>();
-    }
-
-    @Override
-    public void initInject() {
-        getFragmentComponent().inject(this);
     }
 
     @Override
@@ -73,7 +70,7 @@ public class ShuangSeQiuFragment extends BaseFragment<ShuangSeQiuPresenter> {
             WebActivity.start(mActivity, url);
         });
         btSaveLotteryNumber.setOnClickListener(v -> {
-            String result = mPresenter.saveLottery(mLotteryValue, LOTTERY_TYPE_SSQ, mLuckyStr);
+            String result = mUtil.saveLottery(mLotteryValue, LOTTERY_TYPE_SSQ, "", mLuckyStr);
             ToastUtil.showToast(mActivity, result);
         });
     }
@@ -92,8 +89,8 @@ public class ShuangSeQiuFragment extends BaseFragment<ShuangSeQiuPresenter> {
         }
 
         checkShowLayout();
-        mPresenter.setLuckyStr(mLuckyStr);
-        mPresenter.getRandomLottery(mLotteryValue, LOTTERY_TYPE_SSQ);
+        mUtil.setLuckyStr(mLuckyStr);
+        mUtil.getRandomLottery(mLotteryValue, LOTTERY_TYPE_SSQ);
         layoutShuangSeQiu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_SSQ.type);
     }
 }

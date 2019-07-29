@@ -1,4 +1,4 @@
-package com.peng.lottery.mvp.ui.activity;
+package com.peng.lottery.mvp.ui.fragment;
 
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,10 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import com.luck.picture.lib.rxbus2.RxBus;
 import com.peng.lottery.R;
 import com.peng.lottery.app.utils.ToastUtil;
-import com.peng.lottery.base.BaseActivity;
-import com.peng.lottery.mvp.contract.activity.WebCollectorContract;
+import com.peng.lottery.base.BaseFragment;
+import com.peng.lottery.mvp.contract.fragment.WebCollectorContract;
 import com.peng.lottery.mvp.model.db.bean.WebUrl;
-import com.peng.lottery.mvp.presenter.activity.WebCollectorPresenter;
+import com.peng.lottery.mvp.presenter.fragment.WebCollectorPresenter;
 import com.peng.lottery.mvp.ui.adapter.WebUrlAdapter;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import butterknife.BindView;
 import static android.support.v7.widget.RecyclerView.VERTICAL;
 import static com.peng.lottery.app.config.TipConfig.APP_SAVE_SUCCESS;
 
-public class WebCollectorActivity extends BaseActivity<WebCollectorPresenter> implements WebCollectorContract.View {
+public class CollectorFragment extends BaseFragment<WebCollectorPresenter> implements WebCollectorContract.View {
 
     @BindView(R.id.app_recycler)
     RecyclerView mWebUrlRecycler;
@@ -31,18 +31,17 @@ public class WebCollectorActivity extends BaseActivity<WebCollectorPresenter> im
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(this);
+        getFragmentComponent().inject(this);
     }
 
     @Override
     protected int setLayoutResID() {
-        return R.layout.activity_web_collector;
+        return R.layout.fragment_collector;
     }
 
     @Override
     protected void initView() {
         super.initView();
-        mActivityTitle.setText(R.string.title_web_collector);
 
         initRecycler();
     }
@@ -54,7 +53,7 @@ public class WebCollectorActivity extends BaseActivity<WebCollectorPresenter> im
             switch (view.getId()) {
                 case R.id.layout_content:
                     RxBus.getDefault().post(item);
-                    finish();
+                    mActivity.finish();
                     break;
                 case R.id.bt_web_set_home:
                     mPresenter.setWebHome(item.getCollectionUrl());
@@ -76,11 +75,6 @@ public class WebCollectorActivity extends BaseActivity<WebCollectorPresenter> im
     @Override
     protected void loadData() {
         mPresenter.getWebUrlList();
-    }
-
-    @Override
-    protected boolean enableSlidingFinish() {
-        return true;
     }
 
     private void initRecycler() {

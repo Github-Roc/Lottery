@@ -1,4 +1,4 @@
-package com.peng.lottery.mvp.presenter.activity;
+package com.peng.lottery.mvp.presenter.fragment;
 
 import android.text.TextUtils;
 

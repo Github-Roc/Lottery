@@ -136,16 +136,16 @@ public class AddLotteryActivity extends BaseActivity<AddLotteryPresenter> {
                 ToastUtil.showToast(mActivity, ADD_LOTTERY_CHECK_NUMBER);
                 return;
             }
-            if (mPresenter.checkLotterySize(mLotteryValue, mLotteryType)) {
+            if (mPresenter.getLotteryUtil().checkLotterySize(mLotteryValue, mLotteryType)) {
                 ToastUtil.showToast(mActivity, ADD_LOTTERY_CLEAN_DATA);
                 return;
             }
-            mPresenter.complementLottery(mLotteryValue, mLotteryType);
+            mPresenter.getLotteryUtil().complementLottery(mLotteryValue, mLotteryType);
             layoutLotteryNumber.setLotteryValue(mLotteryValue, mLotteryType.type);
         });
         btSaveLottery.setOnClickListener(v -> {
             String label = mLotteryType.equals(LOTTERY_TYPE_11X5) ? (String) spinnerType11x5.getSelectedItem() : "";
-            String result = mPresenter.saveLottery(label, mLotteryValue, mLotteryType);
+            String result = mPresenter.getLotteryUtil().saveLottery(mLotteryValue, mLotteryType, label);
             ToastUtil.showToast(mActivity, result);
         });
     }
@@ -165,8 +165,8 @@ public class AddLotteryActivity extends BaseActivity<AddLotteryPresenter> {
 
     private void change11x5Type() {
         mLotteryValue.clear();
-        String type11x5 = (String) spinnerType11x5.getSelectedItem();
-        layoutLotteryNumber.set11x5Size(mPresenter.set11x5Type(type11x5));
+        String type = (String) spinnerType11x5.getSelectedItem();
+        layoutLotteryNumber.set11x5Size(mPresenter.getTypeBean(type).size);
         layoutLotteryNumber.setLotteryValue(mLotteryValue, mLotteryType.type);
     }
 }

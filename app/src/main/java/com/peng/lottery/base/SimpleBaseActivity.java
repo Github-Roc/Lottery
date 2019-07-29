@@ -1,6 +1,5 @@
 package com.peng.lottery.base;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -10,12 +9,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.luck.picture.lib.rxbus2.RxBus;
 import com.peng.lottery.R;
 import com.peng.lottery.app.MyApplication;
-import com.peng.lottery.app.config.AppConfig;
-import com.peng.lottery.app.utils.InstallApkUtil;
 import com.peng.lottery.app.webview.AgentWebHelper;
 import com.peng.lottery.app.widget.SlidingLayout;
 import com.peng.lottery.app.widget.dialog.LoadingDialog;
@@ -32,21 +28,13 @@ import butterknife.Unbinder;
 
 public abstract class SimpleBaseActivity extends AppCompatActivity {
 
-    /**
-     * ButterKnife
-     */
+    /** ButterKnife */
     private Unbinder mUnBinder;
-    /**
-     * AgentWeb工具类
-     */
+    /** AgentWeb工具类 */
     private AgentWebHelper mAgentWebHelper;
-    /**
-     * 当前的Activity实例
-     */
+    /** 当前的Activity实例 */
     protected SimpleBaseActivity mActivity;
-    /**
-     * 加载中Dialog
-     */
+    /** 加载中Dialog */
     public LoadingDialog mLoadingDialog;
 
     protected Toolbar mToolbar;
@@ -89,21 +77,10 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         if (mAgentWebHelper != null) {
             mAgentWebHelper.onDestroy();
         }
-        if (enableImmersionBar()) {
-            ImmersionBar.with(this).destroy();
-        }
         RxBus.getDefault().unregister(this);
         MyApplication.activityStack.remove(this);
         dismissLoadingDialog();
         mActivity = null;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == AppConfig.REQUEST_INSTALL) {
-            InstallApkUtil.install(this, null);
-        }
     }
 
     public AgentWebHelper getWebHelper() {
@@ -182,9 +159,6 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
             SlidingLayout slidingLayout = new SlidingLayout(this);
             slidingLayout.bindActivity(this);
         }
-        if (enableImmersionBar()) {
-            ImmersionBar.with(this).init();
-        }
         if (enableInitToolBar()) {
             initToolBar();
         }
@@ -212,15 +186,6 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
      * @return true 是 false 否
      */
     protected boolean enableSlidingFinish() {
-        return false;
-    }
-
-    /**
-     * 是否显示为沉浸式状态栏
-     *
-     * @return true 是 false 否
-     */
-    protected boolean enableImmersionBar() {
         return false;
     }
 

@@ -38,7 +38,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -57,6 +57,9 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    configurations {
+        all*.exclude group: 'com.android.support', module: 'support-v13'
+    }
 
     /* Support */
     implementation rootProject.ext.dependencies["appcompat-v7"]
@@ -78,21 +81,20 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     /* greenDAO */
     implementation rootProject.ext.dependencies["greendao"]
+
     /* AgentWeb */
     implementation rootProject.ext.dependencies["agentweb"]
-    /* EditText */
-    implementation rootProject.ext.dependencies["materialedittext"]
     /* RecyclerViewAdapter */
     implementation rootProject.ext.dependencies["recycler-adapter"]
-    /* RecyclerViewAdapter */
+    /* picture-selector */
     implementation rootProject.ext.dependencies["picture-selector"]
-    /* 沉浸式状态栏 */
-    implementation rootProject.ext.dependencies["immersionbar"]
+    /* material-edit */
+    implementation rootProject.ext.dependencies["material-edit"]
 
-    /* bugly */
+    /* Bugly */
     implementation rootProject.ext.dependencies["bugly-upgrade"]
     implementation rootProject.ext.dependencies["bugly-native"]
 
-    /* test */
+    /* Test */
     testImplementation rootProject.ext.dependencies["junit"]
 }

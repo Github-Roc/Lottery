@@ -1,9 +1,10 @@
 package com.peng.lottery.mvp.presenter.activity;
 
 import com.peng.lottery.app.config.ActionConfig.LotteryType;
+import com.peng.lottery.app.utils.LotteryUtil;
+import com.peng.lottery.base.BasePresenter;
 import com.peng.lottery.mvp.model.DataManager;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
-import com.peng.lottery.mvp.presenter.BaseLotteryPresenter;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,11 +17,25 @@ import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BAL
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_OTHER;
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED;
 
-public class AddLotteryPresenter extends BaseLotteryPresenter {
+public class AddLotteryPresenter extends BasePresenter {
+
+    private LotteryUtil mUtil;
+    private LotteryUtil.ShiYiXuanWuTypeBean mTypeBean;
 
     @Inject
     public AddLotteryPresenter(DataManager dataManager) {
         super(dataManager);
+
+        mUtil = LotteryUtil.getInstance();
+    }
+
+    public LotteryUtil getLotteryUtil() {
+        return mUtil;
+    }
+
+    public LotteryUtil.ShiYiXuanWuTypeBean getTypeBean(String type) {
+        mTypeBean = mUtil.getTypeBean(type);
+        return mTypeBean;
     }
 
     /**
@@ -38,7 +53,7 @@ public class AddLotteryPresenter extends BaseLotteryPresenter {
                     : LOTTERY_TYPE_DLT.equals(lotteryType) ? count < 2 : count < 1;
         } else if (NUMBER_BALL_TYPE_OTHER.type.equals(number.getNumberType())) {
             // 11选5
-            return lotteryNumbers.size() < mMaxSize;
+            return lotteryNumbers.size() < mTypeBean.size;
         } else {
             return false;
         }
@@ -48,9 +63,9 @@ public class AddLotteryPresenter extends BaseLotteryPresenter {
      * 排序当前选择好的彩票号码
      */
     public void sortList(List<LotteryNumber> lotteryNumbers, LotteryType lotteryType) {
-        if (checkLotterySize(lotteryNumbers, lotteryType)) {
+        if (mUtil.checkLotterySize(lotteryNumbers, lotteryType)) {
             if (LOTTERY_TYPE_11X5.equals(lotteryType)) {
-                if (isSort) {
+                if (mTypeBean.isSort) {
                     Collections.sort(lotteryNumbers);
                 }
             } else {

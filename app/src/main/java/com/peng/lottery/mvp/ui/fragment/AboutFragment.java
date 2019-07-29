@@ -1,4 +1,4 @@
-package com.peng.lottery.mvp.ui.activity;
+package com.peng.lottery.mvp.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
@@ -6,12 +6,12 @@ import android.widget.TextView;
 
 import com.peng.lottery.R;
 import com.peng.lottery.app.utils.LogUtil;
-import com.peng.lottery.base.SimpleBaseActivity;
+import com.peng.lottery.base.SimpleBaseFragment;
+import com.peng.lottery.mvp.ui.activity.WebActivity;
 
 import butterknife.BindView;
 
-public class AboutActivity extends SimpleBaseActivity {
-
+public class AboutFragment extends SimpleBaseFragment {
     @BindView(R.id.tv_about_project_url)
     TextView tvAboutProjectUrl;
     @BindView(R.id.tv_about_author_url)
@@ -21,7 +21,7 @@ public class AboutActivity extends SimpleBaseActivity {
 
     @Override
     protected int setLayoutResID() {
-        return R.layout.activity_about;
+        return R.layout.fragment_about;
     }
 
     @SuppressLint("SetTextI18n")
@@ -29,29 +29,23 @@ public class AboutActivity extends SimpleBaseActivity {
     protected void initView() {
         super.initView();
 
-        mActivityTitle.setText(R.string.title_about);
         tvAboutVersion.setText("Lottery\t\t" + getVersionName());
     }
 
     @Override
     protected void initListener() {
-        tvAboutProjectUrl.setOnClickListener(v -> WebActivity.start(mActivity, "https://github.com/AndroidPengPeng/Lottery"));
+        tvAboutProjectUrl.setOnClickListener(v -> WebActivity.start(mActivity, "https://github.com/AndroidPengPeng/LotteryApi"));
         tvAboutAuthorUrl.setOnClickListener(v -> WebActivity.start(mActivity, "http://pengblog.club/"));
-    }
-
-    @Override
-    protected boolean enableSlidingFinish() {
-        return true;
     }
 
     private String getVersionName() {
         String versionName = "";
         try {
-            versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+            versionName = mActivity.getPackageManager().getPackageInfo(mActivity.getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             LogUtil.e(e.getMessage());
         }
         return versionName;
     }
-
 }
+

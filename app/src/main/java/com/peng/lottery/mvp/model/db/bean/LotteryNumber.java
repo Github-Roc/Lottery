@@ -1,5 +1,9 @@
 package com.peng.lottery.mvp.model.db.bean;
 
+import android.support.annotation.NonNull;
+
+import com.peng.lottery.app.config.ActionConfig;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
@@ -63,8 +67,22 @@ public class LotteryNumber implements Comparable<LotteryNumber> {
         this.numberType = numberType;
     }
 
+    @NonNull
     @Override
-    public int compareTo(LotteryNumber lotteryNumber) {
-        return Integer.parseInt(getNumberValue()) - Integer.parseInt(lotteryNumber.getNumberValue());
+    public String toString() {
+        if (ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED.type.equals(numberType)) {
+            return numberValue;
+        } else {
+            return "+" + numberValue;
+        }
+    }
+
+    @Override
+    public int compareTo(@NonNull LotteryNumber lotteryNumber) {
+        if (ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED.type.equals(numberType)) {
+            return Integer.parseInt(getNumberValue()) - Integer.parseInt(lotteryNumber.getNumberValue());
+        } else {
+            return 999;
+        }
     }
 }

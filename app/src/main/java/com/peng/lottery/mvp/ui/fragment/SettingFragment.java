@@ -1,4 +1,4 @@
-package com.peng.lottery.mvp.ui.activity;
+package com.peng.lottery.mvp.ui.fragment;
 
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -11,16 +11,18 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.peng.lottery.R;
 import com.peng.lottery.app.config.AppConfig;
 import com.peng.lottery.app.utils.ToastUtil;
-import com.peng.lottery.base.BaseActivity;
-import com.peng.lottery.mvp.presenter.activity.SettingPresenter;
+import com.peng.lottery.base.BaseFragment;
+import com.peng.lottery.mvp.presenter.fragment.SettingPresenter;
+import com.peng.lottery.mvp.ui.activity.InputTextActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
 
+import static android.app.Activity.RESULT_OK;
 import static com.peng.lottery.app.config.TipConfig.APP_SAVE_SUCCESS;
 
-public class SettingActivity extends BaseActivity<SettingPresenter> {
+public class SettingFragment extends BaseFragment<SettingPresenter> {
 
     @BindView(R.id.rl_setting_image)
     RelativeLayout rlSettingImage;
@@ -29,30 +31,22 @@ public class SettingActivity extends BaseActivity<SettingPresenter> {
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(this);
+        getFragmentComponent().inject(this);
     }
 
     @Override
     protected int setLayoutResID() {
-        return R.layout.activity_setting;
-    }
-
-    @Override
-    protected void initView() {
-        super.initView();
-
-        mActivityTitle.setText(R.string.title_setting);
+        return R.layout.fragment_setting;
     }
 
     @Override
     protected void initListener() {
-        rlSettingImage.setOnClickListener(v -> {
-            PictureSelector.create(mActivity)
-                    .openGallery(PictureMimeType.ofImage())
-                    .theme(R.style.PictureSelectorTheme)
-                    .maxSelectNum(1)
-                    .forResult(PictureConfig.CHOOSE_REQUEST);
-        });
+        rlSettingImage.setOnClickListener(v ->
+                PictureSelector.create(mActivity)
+                .openGallery(PictureMimeType.ofImage())
+                .theme(R.style.PictureSelectorTheme)
+                .maxSelectNum(1)
+                .forResult(PictureConfig.CHOOSE_REQUEST));
         rlSettingSlogan.setOnClickListener(v -> {
             String slogan = mPresenter.getSlogan();
             InputTextActivity.start(mActivity, getResources().getString(R.string.text_setting_slogan), slogan, AppConfig.REQUEST_INPUT_SLOGAN);
@@ -60,12 +54,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> {
     }
 
     @Override
-    protected boolean enableSlidingFinish() {
-        return true;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && data != null) {

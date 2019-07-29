@@ -3,10 +3,12 @@ package com.peng.lottery.base;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.peng.lottery.app.MyApplication;
+import com.peng.lottery.app.utils.NetworkUtil;
 import com.peng.lottery.mvp.model.DataManager;
 import com.peng.lottery.mvp.model.db.DataBaseHelper;
-import com.peng.lottery.mvp.model.web.RetrofitHelper;
 import com.peng.lottery.mvp.model.sp.SharedPreferencesHelper;
+import com.peng.lottery.mvp.model.web.RetrofitHelper;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -63,6 +65,11 @@ public class BasePresenter<V extends IView> implements IPresenter<V> {
     }
 
     private void addDisposable(Disposable disposable) {
+        if (!NetworkUtil.isNetworkAvailable(MyApplication.mContent)) {
+            mView.showToast("网络不可用，请检查网络连接。");
+            disposable.dispose();
+            return;
+        }
         if (mDisposables == null) {
             mDisposables = new CompositeDisposable();
         }

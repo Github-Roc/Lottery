@@ -19,6 +19,7 @@ import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.base.BaseActivity;
 import com.peng.lottery.mvp.model.db.bean.WebUrl;
 import com.peng.lottery.mvp.presenter.activity.WebPresenter;
+import com.peng.lottery.mvp.ui.fragment.CollectorFragment;
 
 import butterknife.BindView;
 
@@ -128,8 +129,7 @@ public class WebActivity extends BaseActivity<WebPresenter> {
         });
         mWebCollector.setOnClickListener(v -> {
             //收藏夹
-            Intent intent = new Intent(mActivity, WebCollectorActivity.class);
-            startActivity(intent);
+            ContainerActivity.start(mActivity, CollectorFragment.class.getCanonicalName(), getString(R.string.title_web_collector));
         });
     }
 

@@ -33,6 +33,10 @@ public class MineLotteryAdapter extends BaseQuickAdapter<LotteryData, BaseViewHo
         helper.setGone(R.id.tv_lottery_label, !TextUtils.isEmpty(lotteryLabel));
 
         setItemMargin(helper.itemView, helper.getAdapterPosition());
+
+        helper.addOnClickListener(R.id.tv_lottery_date);
+        helper.addOnClickListener(R.id.tv_lottery_label);
+        helper.addOnClickListener(R.id.tv_lottery_type);
     }
 
     private void setItemMargin(View itemView, int position) {
