@@ -67,8 +67,8 @@ public class ShiYiXuanWuFragment extends SimpleBaseFragment {
             checkShowLayout();
             mLotteryLabel = (String) spinnerShiYiXuanWu.getSelectedItem();
             mTypeBean = mUtil.getTypeBean(mLotteryLabel);
-            layoutShiYiXuanWu.set11x5Size(mTypeBean.size);
             mUtil.getRandomLottery(mLotteryValue, LOTTERY_TYPE_11X5);
+            layoutShiYiXuanWu.set11x5Size(mTypeBean.size);
             layoutShiYiXuanWu.setLotteryValue(mLotteryValue, LOTTERY_TYPE_11X5.type);
         });
         btAnalyseLotteryNumber.setOnClickListener(v -> {

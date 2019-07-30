@@ -1,4 +1,4 @@
-package com.peng.lottery.mvp.presenter.activity;
+package com.peng.lottery.mvp.presenter.fragment;
 
 import com.peng.lottery.app.config.ActionConfig.LotteryType;
 import com.peng.lottery.app.utils.LotteryUtil;

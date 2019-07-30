@@ -17,7 +17,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text_medium" />
 
-    <cn.tofirst.health.widget.ProgressView
+    <com.peng.lottery.app.widget.dialog.ProgressView
         android:id="@+id/dialog_progress_view"
         android:layout_width="240dp"
         android:layout_height="wrap_content"

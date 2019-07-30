@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minWidth="260dp"
+    android:layout_margin="@dimen/dp_12"
     android:background="@color/white"
+    android:minWidth="260dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_info_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:background="@color/dialog_title_bg"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:lines="1"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingTop="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12"
         android:text="@string/app_tip_text"
         android:textColor="@color/black"
         android:textSize="@dimen/text_big" />
@@ -30,70 +32,50 @@
             android:id="@+id/tv_info_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_10"
             android:background="@null"
             android:gravity="center_vertical"
             android:maxHeight="200dp"
+            android:padding="@dimen/dp_12"
             android:scrollbars="vertical"
-            android:textColor="@color/black"
+            android:textColor="@color/grey"
             android:textSize="@dimen/text_medium" />
-
-        <LinearLayout
-            android:id="@+id/layout_text_footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_10"
-            android:orientation="vertical"
-            android:visibility="gone" >
-
-            <View
-                style="@style/horizontal_line"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp" />
-
-            <TextView
-                android:id="@+id/tv_info_footer"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_50"
-                android:background="@null"
-                android:gravity="center"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20"
-                android:textColor="@color/text_red"
-                android:textSize="@dimen/text_big"/>
-        </LinearLayout>
-
-        <include
-            layout="@layout/app_recycler"
-            android:visibility="gone" />
 
     </com.peng.lottery.app.widget.MaxHeightLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal"
+        tools:ignore="RtlHardcoded">
 
-        <Button
-            android:id="@+id/bt_info_ok"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_confirm_button"
-            android:text="@string/app_confirm_text"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium" />
 
-        <Button
+        <android.support.design.button.MaterialButton
             android:id="@+id/bt_info_cancle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/selector_cancel_button"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_12"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
             android:text="@string/app_cancel_text"
-            android:textColor="@color/black"
+            android:textAppearance="?android:attr/textAppearanceLargeInverse"
+            android:textColor="@color/text_gray"
             android:textSize="@dimen/text_medium"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:ignore="UnusedAttribute" />
+
+        <android.support.design.button.MaterialButton
+            android:id="@+id/bt_info_ok"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginRight="@dimen/dp_12"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+            android:text="@string/app_confirm_text"
+            android:textAppearance="?android:attr/textAppearanceButton"
+            android:textColor="@color/text_blue"
+            android:textSize="@dimen/text_medium"
+            tools:ignore="UnusedAttribute" />
 
     </LinearLayout>
 

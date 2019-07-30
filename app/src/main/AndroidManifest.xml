@@ -28,7 +28,8 @@
         android:roundIcon="@mipmap/app_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <activity
             android:name=".mvp.ui.activity.SplashActivity"
@@ -41,22 +42,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".mvp.ui.activity.MainActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".mvp.ui.activity.AddLotteryActivity"
-            android:theme="@style/TransparentTheme" />
 
         <activity
             android:name=".mvp.ui.activity.ContainerActivity"
             android:theme="@style/TransparentTheme" />
         <activity
-            android:name=".mvp.ui.activity.WebActivity"
+            android:name=".mvp.ui.activity.InputTextActivity"
             android:theme="@style/TransparentTheme" />
         <activity
-            android:name=".mvp.ui.activity.InputTextActivity"
+            android:name=".mvp.ui.activity.WebActivity"
             android:theme="@style/TransparentTheme" />
 
         <!-- 软件升级 -->

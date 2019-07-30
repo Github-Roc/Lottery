@@ -5,7 +5,7 @@ public class AppConfig {
     /** 当前是否是调试状态 */
     public static final boolean isDebug = false;
     /** AppTag */
-    public static final String APP_TAG = "LotteryApi";
+    public static final String APP_TAG = "Lottery";
     /** 接口请求URL */
     public static final String LOTTERY_URL = "https://www.mxnzp.com/api/";
 

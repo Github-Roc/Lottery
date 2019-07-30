@@ -2,12 +2,12 @@ package com.peng.lottery.mvp.model.db.bean;
 
 import android.support.annotation.NonNull;
 
-import com.peng.lottery.app.config.ActionConfig;
-
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
+
+import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_BLUE;
 
 @Entity
 public class LotteryNumber implements Comparable<LotteryNumber> {
@@ -70,19 +70,19 @@ public class LotteryNumber implements Comparable<LotteryNumber> {
     @NonNull
     @Override
     public String toString() {
-        if (ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED.type.equals(numberType)) {
-            return numberValue;
-        } else {
+        if (NUMBER_BALL_TYPE_BLUE.type.equals(numberType)) {
             return "+" + numberValue;
+        } else {
+            return numberValue;
         }
     }
 
     @Override
     public int compareTo(@NonNull LotteryNumber lotteryNumber) {
-        if (ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED.type.equals(numberType)) {
-            return Integer.parseInt(getNumberValue()) - Integer.parseInt(lotteryNumber.getNumberValue());
+        if (NUMBER_BALL_TYPE_BLUE.type.equals(numberType) && !NUMBER_BALL_TYPE_BLUE.type.equals(lotteryNumber.getNumberType())) {
+            return Integer.parseInt(getNumberValue());
         } else {
-            return 999;
+            return Integer.parseInt(getNumberValue()) - Integer.parseInt(lotteryNumber.getNumberValue());
         }
     }
 }

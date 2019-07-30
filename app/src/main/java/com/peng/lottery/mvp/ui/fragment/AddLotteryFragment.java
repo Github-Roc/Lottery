@@ -1,4 +1,4 @@
-package com.peng.lottery.mvp.ui.activity;
+package com.peng.lottery.mvp.ui.fragment;
 
 import android.support.design.button.MaterialButton;
 import android.support.v7.widget.AppCompatSpinner;
@@ -9,12 +9,11 @@ import android.widget.AdapterView;
 
 import com.peng.lottery.R;
 import com.peng.lottery.app.config.ActionConfig;
-import com.peng.lottery.app.config.ActionConfig.LotteryType;
 import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.app.widget.LotteryLayout;
-import com.peng.lottery.base.BaseActivity;
+import com.peng.lottery.base.BaseFragment;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
-import com.peng.lottery.mvp.presenter.activity.AddLotteryPresenter;
+import com.peng.lottery.mvp.presenter.fragment.AddLotteryPresenter;
 import com.peng.lottery.mvp.ui.adapter.LotteryNumberBallAdapter;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_
 import static com.peng.lottery.app.config.TipConfig.ADD_LOTTERY_CHECK_NUMBER;
 import static com.peng.lottery.app.config.TipConfig.ADD_LOTTERY_CLEAN_DATA;
 
-public class AddLotteryActivity extends BaseActivity<AddLotteryPresenter> {
+public class AddLotteryFragment extends BaseFragment<AddLotteryPresenter> {
 
     @BindView(R.id.spinner_type_lottery)
     AppCompatSpinner spinnerTypeLottery;
@@ -45,7 +44,7 @@ public class AddLotteryActivity extends BaseActivity<AddLotteryPresenter> {
     @BindView(R.id.bt_save_lottery)
     MaterialButton btSaveLottery;
 
-    private LotteryType mLotteryType;
+    private ActionConfig.LotteryType mLotteryType;
     private List<LotteryNumber> mLotteryValue;
     private LotteryNumberBallAdapter mLotteryNumberBallAdapter;
 
@@ -59,19 +58,17 @@ public class AddLotteryActivity extends BaseActivity<AddLotteryPresenter> {
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(this);
+        getFragmentComponent().inject(this);
     }
 
     @Override
     protected int setLayoutResID() {
-        return R.layout.activity_add_lottery;
+        return R.layout.fragment_add_lottery;
     }
 
     @Override
     protected void initView() {
         super.initView();
-        mActivityTitle.setText(R.string.title_add_lottery);
-
 
         // 初始化彩票号码球
         mLotteryNumberBallAdapter = new LotteryNumberBallAdapter(R.layout.item_lottery_number_ball, ActionConfig.getLotteryNumberBallList(LOTTERY_TYPE_DLT));
@@ -150,12 +147,7 @@ public class AddLotteryActivity extends BaseActivity<AddLotteryPresenter> {
         });
     }
 
-    @Override
-    protected boolean enableSlidingFinish() {
-        return true;
-    }
-
-    private void changeLotteryType(LotteryType lotteryType) {
+    private void changeLotteryType(ActionConfig.LotteryType lotteryType) {
         mLotteryType = lotteryType;
         mLotteryValue.clear();
         spinnerType11x5.setVisibility(LOTTERY_TYPE_11X5.equals(lotteryType) ? View.VISIBLE : View.GONE);

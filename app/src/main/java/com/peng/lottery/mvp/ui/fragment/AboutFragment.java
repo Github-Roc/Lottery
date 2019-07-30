@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.widget.TextView;
 
 import com.peng.lottery.R;
+import com.peng.lottery.app.config.AppConfig;
 import com.peng.lottery.app.utils.LogUtil;
 import com.peng.lottery.base.SimpleBaseFragment;
 import com.peng.lottery.mvp.ui.activity.WebActivity;
@@ -29,12 +30,12 @@ public class AboutFragment extends SimpleBaseFragment {
     protected void initView() {
         super.initView();
 
-        tvAboutVersion.setText("Lottery\t\t" + getVersionName());
+        tvAboutVersion.setText(AppConfig.APP_TAG + "\t\t" + getVersionName());
     }
 
     @Override
     protected void initListener() {
-        tvAboutProjectUrl.setOnClickListener(v -> WebActivity.start(mActivity, "https://github.com/AndroidPengPeng/LotteryApi"));
+        tvAboutProjectUrl.setOnClickListener(v -> WebActivity.start(mActivity, "https://github.com/AndroidPengPeng/Lottery"));
         tvAboutAuthorUrl.setOnClickListener(v -> WebActivity.start(mActivity, "http://pengblog.club/"));
     }
 

@@ -6,8 +6,6 @@
     android:background="@color/app_bg"
     android:orientation="vertical">
 
-    <include layout="@layout/app_toolbar" />
-
     <android.support.v7.widget.CardView
         style="@style/view_margin"
         android:layout_width="match_parent"

@@ -15,6 +15,7 @@ import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.base.SimpleBaseActivity;
 import com.peng.lottery.mvp.ui.adapter.MainFragmentAdapter;
 import com.peng.lottery.mvp.ui.fragment.AboutFragment;
+import com.peng.lottery.mvp.ui.fragment.AddLotteryFragment;
 import com.peng.lottery.mvp.ui.fragment.MineLotteryFragment;
 import com.peng.lottery.mvp.ui.fragment.SettingFragment;
 
@@ -77,10 +78,8 @@ public class MainActivity extends SimpleBaseActivity {
                     mDrawerLayout.closeDrawers();
                     return true;
                 });
-        mButtonAddLottery.setOnClickListener(v -> {
-            Intent intent = new Intent(mActivity, AddLotteryActivity.class);
-            startActivity(intent);
-        });
+        mButtonAddLottery.setOnClickListener(v ->
+                ContainerActivity.start(mActivity, AddLotteryFragment.class.getCanonicalName(), getString(R.string.title_add_lottery)));
     }
 
     @Override

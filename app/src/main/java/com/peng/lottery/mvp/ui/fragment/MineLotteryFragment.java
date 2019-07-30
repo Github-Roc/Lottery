@@ -23,13 +23,15 @@ import java.util.Map;
 
 import butterknife.BindView;
 
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
+
 public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> implements MineLotteryContract.View {
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
     @BindView(R.id.app_recycler)
     RecyclerView mLotteryRecycler;
     @BindView(R.id.mine_lottery_bottom_layout)
-    LinearLayout miBottomLayout;
+    LinearLayout mBottomLayout;
     @BindView(R.id.bt_clean_lottery)
     MaterialButton mCleanLottery;
     @BindView(R.id.bt_verification_lottery)
@@ -58,15 +60,26 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
 
     @Override
     protected void initListener() {
-        mCleanLottery.setOnClickListener(v -> mActivity.showTipDialog("您确定要清空所有号码吗？", view -> {
-            mPresenter.deleteAll();
-            mLotteryList.clear();
-            mLotteryAdapter.notifyDataSetChanged();
-            mLotteryAdapter.setEmptyView(R.layout.layout_empty_page);
-        }));
-        mBtVerificationLottery.setOnClickListener(v ->
+        mCleanLottery.setOnClickListener(v -> {
+            if (mPresenter.isHasList(null)) {
+                mActivity.showTipDialog("确定要清空所有号码吗？", view -> {
+                    mPresenter.deleteAll();
+                    mLotteryList.clear();
+                    mLotteryAdapter.notifyDataSetChanged();
+                    mLotteryAdapter.setEmptyView(R.layout.layout_empty_page);
+                });
+            } else {
+                showToast("还没有保存号码！");
+            }
+        });
+        mBtVerificationLottery.setOnClickListener(v -> {
+            if (mPresenter.isHasList(LOTTERY_TYPE_SSQ)) {
                 mActivity.showTipDialog("与上期开奖的双色球号码对比判断是否中奖（目前只支持双色球）", view ->
-                        mPresenter.verificationLottery()));
+                        mPresenter.verificationLottery());
+            } else {
+                showToast("还没有保存双色球号码！");
+            }
+        });
         mLotteryAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             mRefreshLayout.setRefreshing(true);
             LotteryData lottery = mLotteryList.get(position);
@@ -85,7 +98,7 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
             mPresenter.getMineLotteryList(param);
         });
         mLotteryAdapter.setOnItemLongClickListener((adapter, view, position) -> {
-            mActivity.showTipDialog("您确定要删除该号码吗？", v -> {
+            mActivity.showTipDialog("确定要删除该号码吗？", v -> {
                 LotteryData lottery = mLotteryList.get(position);
                 mPresenter.deleteLottery(lottery);
                 mLotteryList.remove(lottery);
@@ -100,11 +113,11 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
         mLotteryRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0) {
-                    miBottomLayout.setVisibility(View.GONE);
+                if (dy > 0 || !mPresenter.isHasList(null)) {
+                    mBottomLayout.setVisibility(View.GONE);
                 } else {
                     if (mLayoutManager.findFirstVisibleItemPosition() == 0) {
-                        miBottomLayout.setVisibility(View.VISIBLE);
+                        mBottomLayout.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -124,6 +137,7 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
         mLayoutManager = new LinearLayoutManager(mActivity);
         mLotteryRecycler.setLayoutManager(mLayoutManager);
         mLotteryRecycler.setAdapter(mLotteryAdapter);
+        mRefreshLayout.setColorSchemeResources(R.color.app_color);
     }
 
     @Override

@@ -17,6 +17,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
+
 public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View> implements MineLotteryContract.Presenter {
     private LotteryDataDao mLotteryDataDao;
 
@@ -55,13 +57,6 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
 
     @Override
     public void verificationLottery() {
-        List<LotteryData> lotteryList = mLotteryDataDao.queryBuilder()
-                .where(LotteryDataDao.Properties.LotteryType.eq(ActionConfig.LotteryType.LOTTERY_TYPE_SSQ.type))
-                .list();
-        if (lotteryList == null || lotteryList.size() == 0) {
-            mView.showToast("还没有保存双色球号码！");
-            return;
-        }
         beforeExecute(mRetrofitHelper.getLastLottery())
                 .subscribe(new LotteryObserver<LotteryBean>() {
                     @Override
@@ -75,7 +70,7 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
                         String[] redBall = str[0].split(",");
                         String blueBall = str[1];
                         StringBuilder stringBuilder = new StringBuilder();
-                        for (LotteryData lottery : lotteryList) {
+                        for (LotteryData lottery : getLotteryListByType(LOTTERY_TYPE_SSQ)) {
                             int redSize = 0, blueSize = 0;
                             for (LotteryNumber number : lottery.getLotteryValue()) {
                                 if (number.getNumberType().equals(ActionConfig.NumberBallType.NUMBER_BALL_TYPE_BLUE.type)) {
@@ -91,7 +86,7 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
                                     }
                                 }
                             }
-                            if (blueSize >= 1) {
+                            if (blueSize >= 1 || redSize >= 4) {
                                 if (stringBuilder.length() == 0) {
                                     stringBuilder.append("恭喜中奖！").append("<br />");
                                 }
@@ -109,11 +104,25 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
                 });
     }
 
+    public boolean isHasList(ActionConfig.LotteryType lotteryType) {
+        List<LotteryData> lotteryList = getLotteryListByType(lotteryType);
+        return lotteryList != null && lotteryList.size() > 0;
+    }
+
     public void deleteAll() {
         mLotteryDataDao.deleteAll();
     }
 
     public void deleteLottery(LotteryData lottery) {
         mLotteryDataDao.delete(lottery);
+    }
+
+    private List<LotteryData> getLotteryListByType(ActionConfig.LotteryType lotteryType) {
+        if (lotteryType != null) {
+            return mLotteryDataDao.queryBuilder()
+                    .where(LotteryDataDao.Properties.LotteryType.eq(lotteryType.type))
+                    .list();
+        }
+        return mLotteryDataDao.loadAll();
     }
 }

@@ -70,14 +70,11 @@ public class LotteryLayout extends LinearLayout {
             layoutRes = R.layout.item_pkshi_layout;
         }
         if (layoutRes != 0) {
-            if (mView == null) {
-                mView = inflate(getContext(), layoutRes, null);
-                addView(mView);
-            } else {
+            if (mView != null) {
                 removeAllViews();
-                mView = inflate(getContext(), layoutRes, null);
-                addView(mView);
             }
+            mView = inflate(getContext(), layoutRes, null);
+            addView(mView);
 
             mLotteryType = lotteryType;
             if (LOTTERY_TYPE_11X5.type.equals(mLotteryType) && mMaxSize == 0) {

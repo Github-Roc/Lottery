@@ -2,13 +2,11 @@ package com.peng.lottery.app.widget.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.button.MaterialButton;
 import android.text.Html;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,11 +19,8 @@ public class ShowInfoDialog {
     private Dialog mShowInfoDialog;
     private TextView mTvInfoTile;
     private TextView mTvInfoContent;
-    private LinearLayout mLayoutTextFooter;
-    private TextView mTvInfoFooter;
-    private RecyclerView mRecyclerView;
-    private Button mBtInfoOk;
-    private Button mBtInfoCancel;
+    private MaterialButton mBtInfoOk;
+    private MaterialButton mBtInfoCancel;
 
     public ShowInfoDialog(Activity activity) {
         this(activity, "", "");
@@ -51,9 +46,6 @@ public class ShowInfoDialog {
                 LinearLayout.LayoutParams.MATCH_PARENT));
         mTvInfoTile = view.findViewById(R.id.tv_info_title);
         mTvInfoContent = view.findViewById(R.id.tv_info_content);
-        mLayoutTextFooter = view.findViewById(R.id.layout_text_footer);
-        mTvInfoFooter = view.findViewById(R.id.tv_info_footer);
-        mRecyclerView = view.findViewById(R.id.app_recycler);
         mBtInfoOk = view.findViewById(R.id.bt_info_ok);
         mBtInfoCancel = view.findViewById(R.id.bt_info_cancle);
         mTvInfoContent.setMovementMethod(ScrollingMovementMethod.getInstance());
@@ -89,24 +81,6 @@ public class ShowInfoDialog {
 
     public ShowInfoDialog setContent(String content) {
         mTvInfoContent.setText(content);
-        return this;
-    }
-
-    public ShowInfoDialog setFooterText(String text) {
-        if (!TextUtils.isEmpty(text)) {
-            mLayoutTextFooter.setVisibility(View.VISIBLE);
-            mTvInfoFooter.setText(text);
-        }
-        return this;
-    }
-
-    public ShowInfoDialog setAdapter(RecyclerView.Adapter adapter) {
-        mTvInfoContent.setVisibility(View.GONE);
-        mLayoutTextFooter.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.VISIBLE);
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        mRecyclerView.setAdapter(adapter);
         return this;
     }
 

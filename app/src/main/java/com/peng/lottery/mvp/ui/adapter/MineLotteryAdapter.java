@@ -23,6 +23,7 @@ public class MineLotteryAdapter extends BaseQuickAdapter<LotteryData, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, LotteryData item) {
         LotteryLayout lotteryLayout = helper.getView(R.id.item_lottery_layout);
+        lotteryLayout.set11x5Size(item.getLotteryValue().size());
         lotteryLayout.setLotteryData(item);
 
         helper.setText(R.id.tv_lottery_date, item.getCreateDate());
@@ -40,16 +41,14 @@ public class MineLotteryAdapter extends BaseQuickAdapter<LotteryData, BaseViewHo
     }
 
     private void setItemMargin(View itemView, int position) {
+        int topValue = position != 0 ? 0 : 12;
+        int bottomValue = position == getData().size() - 1 ? 50 : 12;
         int marginLeft = ScreenUtil.dip2px(mContext, 24);
-        int marginTop = ScreenUtil.dip2px(mContext, 12);
+        int marginTop = ScreenUtil.dip2px(mContext, topValue);
         int marginRight = ScreenUtil.dip2px(mContext, 24);
-        int marginBottom = ScreenUtil.dip2px(mContext, 12);
-        if (position != 0) {
-            marginTop = 0;
-        }
+        int marginBottom = ScreenUtil.dip2px(mContext, bottomValue);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(itemView.getLayoutParams());
         params.setMargins(marginLeft, marginTop, marginRight, marginBottom);
         itemView.setLayoutParams(params);
     }
-
 }
