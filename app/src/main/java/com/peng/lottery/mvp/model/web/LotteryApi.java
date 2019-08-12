@@ -5,9 +5,10 @@ import com.peng.lottery.mvp.model.web.bean.LotteryBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface LotteryApi {
 
-    @GET("lottery/ssq/latest")
-    Observable<BaseBean<LotteryBean>> getLastLottery();
+    @GET("lottery/common/latest")
+    Observable<BaseBean<LotteryBean>> getLastLottery(@Query("code") String code);
 }

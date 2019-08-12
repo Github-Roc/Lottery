@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.luck.picture.lib.rxbus2.RxBus;
+import com.hwangjr.rxbus.RxBus;
 import com.peng.lottery.R;
 import com.peng.lottery.app.MyApplication;
 import com.peng.lottery.app.webview.AgentWebHelper;
@@ -77,7 +77,7 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         if (mAgentWebHelper != null) {
             mAgentWebHelper.onDestroy();
         }
-        RxBus.getDefault().unregister(this);
+        RxBus.get().unregister(this);
         MyApplication.activityStack.remove(this);
         dismissLoadingDialog();
         mActivity = null;
@@ -142,14 +142,14 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         // 将activity添加到管理栈中
         mActivity = this;
         MyApplication.activityStack.add(this);
-        RxBus.getDefault().register(this);
+        RxBus.get().register(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 
     /**
      * 初始化界面视图
      *
-     * @des 子类可选择复，写初始化视图，会在initInject()方法后执行。
+     * @des 子类可选择复写，初始化视图，会在initInject()方法后执行。
      */
     protected void initView() {
         //绑定ButterKnife

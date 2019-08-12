@@ -8,7 +8,6 @@ import com.peng.lottery.app.config.SharedPreferencesConfig;
 import com.peng.lottery.base.BasePresenter;
 import com.peng.lottery.mvp.model.DataManager;
 
-import java.io.File;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -45,17 +44,6 @@ public class SplashPresenter extends BasePresenter {
     @Inject
     public SplashPresenter(DataManager dataManager) {
         super(dataManager);
-    }
-
-    public File getSplashImageFile() {
-        String splashImagePath = (String) mSpHelper.get(SharedPreferencesConfig.SPLASH_IMAGE, "");
-        if (!TextUtils.isEmpty(splashImagePath)) {
-            File imageFile = new File(splashImagePath);
-            if (imageFile.exists()) {
-                return imageFile;
-            }
-        }
-        return null;
     }
 
     public int getSplashImgRes() {

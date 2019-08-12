@@ -1,5 +1,6 @@
 package com.peng.lottery.mvp.contract.fragment;
 
+import com.peng.lottery.app.config.ActionConfig;
 import com.peng.lottery.base.IView;
 import com.peng.lottery.mvp.model.db.bean.LotteryData;
 
@@ -19,6 +20,6 @@ public interface MineLotteryContract {
 
         void getMineLotteryList(Map<String, String> param);
 
-        void verificationLottery();
+        void verificationLottery(ActionConfig.LotteryType lotteryType);
     }
 }

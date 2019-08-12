@@ -25,8 +25,4 @@ public class SettingPresenter extends BasePresenter {
         mSpHelper.put(SharedPreferencesConfig.SPLASH_SLOGAN, slogan);
         mSpHelper.put(SharedPreferencesConfig.SPLASH_ENDING, date);
     }
-
-    public void saveImagePath(String path) {
-        mSpHelper.put(SharedPreferencesConfig.SPLASH_IMAGE, path);
-    }
 }

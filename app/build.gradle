@@ -68,7 +68,8 @@ dependencies {
     implementation rootProject.ext.dependencies["multidex"]
     /* RRD(RxJava + Retrofit + Dagger) */
     implementation rootProject.ext.dependencies["rxjava"]
-    implementation(rootProject.ext.dependencies["rxandroid"])
+    implementation rootProject.ext.dependencies["rxandroid"]
+    api rootProject.ext.dependencies["rxbus"]
     api rootProject.ext.dependencies["rxpermissions"]
     api rootProject.ext.dependencies['rxerrorhandler']
     implementation rootProject.ext.dependencies["retrofit"]
@@ -86,8 +87,6 @@ dependencies {
     implementation rootProject.ext.dependencies["agentweb"]
     /* RecyclerViewAdapter */
     implementation rootProject.ext.dependencies["recycler-adapter"]
-    /* picture-selector */
-    implementation rootProject.ext.dependencies["picture-selector"]
     /* material-edit */
     implementation rootProject.ext.dependencies["material-edit"]
 

@@ -5,12 +5,10 @@ import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.peng.lottery.R;
 import com.peng.lottery.base.BaseActivity;
 import com.peng.lottery.mvp.presenter.activity.SplashPresenter;
 
-import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,12 +42,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> {
     protected void initView() {
         super.initView();
 
-        File splashImage = mPresenter.getSplashImageFile();
-        if (splashImage != null) {
-            Glide.with(mActivity).load(splashImage).into(ivSplashImage);
-        } else {
-            Glide.with(mActivity).load(mPresenter.getSplashImgRes()).into(ivSplashImage);
-        }
+        ivSplashImage.setImageResource(mPresenter.getSplashImgRes());
         tvSplashSlogan.setText(mPresenter.getSloganText());
         tvSplashEnding.setText(mPresenter.getEndingText());
 

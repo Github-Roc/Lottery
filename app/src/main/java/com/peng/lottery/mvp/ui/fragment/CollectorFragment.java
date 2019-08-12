@@ -4,7 +4,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.luck.picture.lib.rxbus2.RxBus;
+import com.hwangjr.rxbus.RxBus;
 import com.peng.lottery.R;
 import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.base.BaseFragment;
@@ -52,7 +52,7 @@ public class CollectorFragment extends BaseFragment<WebCollectorPresenter> imple
             WebUrl item = mWebUrlList.get(position);
             switch (view.getId()) {
                 case R.id.layout_content:
-                    RxBus.getDefault().post(item);
+                    RxBus.get().post(item);
                     mActivity.finish();
                     break;
                 case R.id.bt_web_set_home:

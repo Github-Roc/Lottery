@@ -57,66 +57,69 @@ public class ShowInfoDialog {
     }
 
     private void initContent(String title, String msg) {
-        if (!TextUtils.isEmpty(title)) {
-            mTvInfoTile.setText(title);
-        }
-        if (msg == null) {
-            msg = "";
-        }
-        if (!TextUtils.isEmpty(msg)) {
-            if (msg.contains("<p>") || msg.contains("<br />")) {
-                mTvInfoContent.setText(Html.fromHtml(msg));
-            } else {
-                mTvInfoContent.setText(msg);
-            }
-        } else {
-            mTvInfoContent.setVisibility(View.GONE);
-        }
+        setTitle(title);
+        setContent(msg);
     }
 
     public ShowInfoDialog setTitle(String title) {
-        mTvInfoTile.setText(title);
+        if (!TextUtils.isEmpty(title)) {
+            mTvInfoTile.setText(title);
+        }
         return this;
     }
 
     public ShowInfoDialog setContent(String content) {
-        mTvInfoContent.setText(content);
+        if (!TextUtils.isEmpty(content)) {
+            if (content.contains("<p>") || content.contains("<br />")) {
+                mTvInfoContent.setText(Html.fromHtml(content));
+            } else {
+                mTvInfoContent.setText(content);
+            }
+        }
         return this;
     }
 
-    public ShowInfoDialog setButtonText(String text) {
-        mBtInfoOk.setText(text);
+    public ShowInfoDialog setButtonText(String... text) {
+        if (text != null) {
+            if (text.length >= 1) {
+                mBtInfoOk.setText(text[0]);
+            }
+            if (text.length >= 2) {
+                mBtInfoCancel.setVisibility(View.VISIBLE);
+                mBtInfoCancel.setText(text[1]);
+            }
+        }
         return this;
     }
 
-    public ShowInfoDialog setButtonText(String text1, String text2) {
-        mBtInfoOk.setText(text1);
-        mBtInfoCancel.setText(text2);
+    public ShowInfoDialog setButtonColor(int... color) {
+        if (color != null) {
+            if (color.length >= 1) {
+                mBtInfoOk.setTextColor(color[0]);
+            }
+            if (color.length >= 2) {
+                mBtInfoCancel.setTextColor(color[1]);
+            }
+        }
         return this;
     }
 
-    public ShowInfoDialog setOnNotCloseClickListener(final View.OnClickListener listener) {
-        mBtInfoOk.setOnClickListener(listener);
-        return this;
-    }
+    public ShowInfoDialog setOnClickListener(final View.OnClickListener... listener) {
+        if (listener != null) {
+            if (listener.length >= 1) {
+                mBtInfoOk.setOnClickListener(v -> {
+                    close();
+                    listener[0].onClick(v);
+                });
+            }
+            if (listener.length >= 2) {
+                mBtInfoCancel.setOnClickListener(v -> {
+                    close();
+                    listener[1].onClick(v);
+                });
+            }
+        }
 
-    public ShowInfoDialog setOnClickListener(final View.OnClickListener listener) {
-        mBtInfoOk.setOnClickListener(v -> {
-            close();
-            listener.onClick(v);
-        });
-        return this;
-    }
-
-    public ShowInfoDialog setOnClickListener(final View.OnClickListener listener1, final View.OnClickListener listener2) {
-        mBtInfoOk.setOnClickListener(v -> {
-            close();
-            listener1.onClick(v);
-        });
-        mBtInfoCancel.setOnClickListener(v -> {
-            close();
-            listener2.onClick(v);
-        });
         return this;
     }
 

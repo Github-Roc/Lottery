@@ -1,5 +1,6 @@
 package com.peng.lottery.mvp.ui.fragment;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.button.MaterialButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,6 +24,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
 
 public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> implements MineLotteryContract.View {
@@ -72,14 +74,23 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
                 showToast("还没有保存号码！");
             }
         });
-        mBtVerificationLottery.setOnClickListener(v -> {
-            if (mPresenter.isHasList(LOTTERY_TYPE_SSQ)) {
-                mActivity.showTipDialog("与上期开奖的双色球号码对比判断是否中奖（目前只支持双色球）", view ->
-                        mPresenter.verificationLottery());
-            } else {
-                showToast("还没有保存双色球号码！");
-            }
-        });
+        mBtVerificationLottery.setOnClickListener(v -> new ShowInfoDialog(mActivity)
+                .setContent("与上期开奖号码对比检测是否中奖")
+                .setButtonText("大乐透", "双色球")
+                .setButtonColor(Color.parseColor("#2177B8"), Color.parseColor("#2177B8"))
+                .setOnClickListener(view1 -> {
+                    if (mPresenter.isHasList(LOTTERY_TYPE_DLT)) {
+                        mPresenter.verificationLottery(LOTTERY_TYPE_DLT);
+                    } else {
+                        showToast("还没有保存大乐透号码！");
+                    }
+                }, view2 -> {
+                    if (mPresenter.isHasList(LOTTERY_TYPE_SSQ)) {
+                        mPresenter.verificationLottery(LOTTERY_TYPE_SSQ);
+                    } else {
+                        showToast("还没有保存双色球号码！");
+                    }
+                }).show());
         mLotteryAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             mRefreshLayout.setRefreshing(true);
             LotteryData lottery = mLotteryList.get(position);
@@ -105,7 +116,7 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
                 mLotteryAdapter.notifyDataSetChanged();
 
                 if (mLotteryList.size() == 0) {
-                    mLotteryAdapter.setEmptyView(R.layout.layout_empty_page);
+                    mPresenter.getMineLotteryList(null);
                 }
             });
             return true;

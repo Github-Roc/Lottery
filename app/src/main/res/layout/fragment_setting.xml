@@ -7,36 +7,6 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/rl_setting_image"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:background="@drawable/selector_tab_bg"
-        android:paddingLeft="@dimen/dp_24"
-        android:paddingRight="@dimen/dp_24">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="@string/text_setting_image"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_big"
-            tools:ignore="RtlHardcoded" />
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/icon_right_arrow" />
-
-    </RelativeLayout>
-
-    <View style="@style/horizontal_line" />
-
-    <RelativeLayout
         android:id="@+id/rl_setting_slogan"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"

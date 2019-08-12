@@ -10,8 +10,8 @@ import android.view.KeyEvent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.luck.picture.lib.rxbus2.Subscribe;
-import com.luck.picture.lib.rxbus2.ThreadMode;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.peng.lottery.R;
 import com.peng.lottery.app.config.AppConfig;
 import com.peng.lottery.app.utils.Base64Util;
@@ -167,7 +167,7 @@ public class WebActivity extends BaseActivity<WebPresenter> {
         return super.onKeyDown(keyCode, event);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(thread = EventThread.MAIN_THREAD)
     public void onLoadUrl(WebUrl webUrl) {
         getWebHelper().loadUrl(webUrl.getCollectionUrl());
     }

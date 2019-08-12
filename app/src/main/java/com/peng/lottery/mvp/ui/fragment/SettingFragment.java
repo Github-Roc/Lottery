@@ -4,18 +4,12 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.widget.RelativeLayout;
 
-import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
-import com.luck.picture.lib.entity.LocalMedia;
 import com.peng.lottery.R;
 import com.peng.lottery.app.config.AppConfig;
 import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.base.BaseFragment;
 import com.peng.lottery.mvp.presenter.fragment.SettingPresenter;
 import com.peng.lottery.mvp.ui.activity.InputTextActivity;
-
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -24,8 +18,6 @@ import static com.peng.lottery.app.config.TipConfig.APP_SAVE_SUCCESS;
 
 public class SettingFragment extends BaseFragment<SettingPresenter> {
 
-    @BindView(R.id.rl_setting_image)
-    RelativeLayout rlSettingImage;
     @BindView(R.id.rl_setting_slogan)
     RelativeLayout rlSettingSlogan;
 
@@ -41,12 +33,6 @@ public class SettingFragment extends BaseFragment<SettingPresenter> {
 
     @Override
     protected void initListener() {
-        rlSettingImage.setOnClickListener(v ->
-                PictureSelector.create(mActivity)
-                .openGallery(PictureMimeType.ofImage())
-                .theme(R.style.PictureSelectorTheme)
-                .maxSelectNum(1)
-                .forResult(PictureConfig.CHOOSE_REQUEST));
         rlSettingSlogan.setOnClickListener(v -> {
             String slogan = mPresenter.getSlogan();
             InputTextActivity.start(mActivity, getResources().getString(R.string.text_setting_slogan), slogan, AppConfig.REQUEST_INPUT_SLOGAN);
@@ -62,13 +48,6 @@ public class SettingFragment extends BaseFragment<SettingPresenter> {
                 String slogan = data.getStringExtra(InputTextActivity.INPUT_TEXT);
                 mPresenter.saveSlogan(slogan);
                 ToastUtil.showToast(mActivity, APP_SAVE_SUCCESS);
-            } else if (requestCode == PictureConfig.CHOOSE_REQUEST) {
-                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                if (selectList.size() > 0) {
-                    LocalMedia localMedia = selectList.get(0);
-                    mPresenter.saveImagePath(localMedia.getPath());
-                    ToastUtil.showToast(mActivity, APP_SAVE_SUCCESS);
-                }
             }
         }
     }

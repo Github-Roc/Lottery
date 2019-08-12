@@ -275,19 +275,21 @@ public class LotteryUtil {
      * @return 保存结果
      */
     public String saveLottery(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType, String... params) {
-        if (checkLotteryExist(lotteryValue, lotteryType)) {
-            return ADD_LOTTERY_SAVED;
-        }
         if (!checkLotterySize(lotteryValue, lotteryType)) {
             return ADD_LOTTERY_NUMBER_ERROR;
         }
-        String lotteryLabel = "", luckyStr = "";
-        if (params.length == 1 && !TextUtils.isEmpty(params[0])) {
-            lotteryLabel = params[0];
+        if (checkLotteryExist(lotteryValue, lotteryType)) {
+            return ADD_LOTTERY_SAVED;
         }
-        if (params.length == 2 && !TextUtils.isEmpty(params[1])) {
-            lotteryLabel = "幸运号码";
-            luckyStr = params[1];
+        String lotteryLabel = "", luckyStr = "";
+        if (params != null) {
+            if (params.length == 1 && !TextUtils.isEmpty(params[0])) {
+                lotteryLabel = params[0];
+            }
+            if (params.length == 2 && !TextUtils.isEmpty(params[1])) {
+                lotteryLabel = "幸运号码";
+                luckyStr = params[1];
+            }
         }
         LotteryData lottery = new LotteryData();
         lottery.setLotteryType(lotteryType.type);

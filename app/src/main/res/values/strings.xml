@@ -44,7 +44,7 @@
 
     <!-- 我的号码 -->
     <string name="text_delete_all_lottery">清空号码</string>
-    <string name="text_verification_lottery">验证号码</string>
+    <string name="text_verification_lottery">中奖检测</string>
 
     <!-- 关于 -->
     <string name="text_about_project_url">项目地址:\n<u>https://github.com/</u></string>

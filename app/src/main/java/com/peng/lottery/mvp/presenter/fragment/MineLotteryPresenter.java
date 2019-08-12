@@ -17,7 +17,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
+import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
 
 public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View> implements MineLotteryContract.Presenter {
     private LotteryDataDao mLotteryDataDao;
@@ -56,8 +56,8 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
     }
 
     @Override
-    public void verificationLottery() {
-        beforeExecute(mRetrofitHelper.getLastLottery())
+    public void verificationLottery(ActionConfig.LotteryType lotteryType) {
+        beforeExecute(mRetrofitHelper.getLastLottery(lotteryType))
                 .subscribe(new LotteryObserver<LotteryBean>() {
                     @Override
                     public void onError(String errorMsg) {
@@ -68,14 +68,18 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
                     public void onSuccess(LotteryBean data) {
                         String[] str = data.openCode.split("\\+");
                         String[] redBall = str[0].split(",");
-                        String blueBall = str[1];
+                        String[] blueBall = lotteryType == LOTTERY_TYPE_DLT
+                                ? new String[]{str[1], str[2]} : new String[]{str[1]};
                         StringBuilder stringBuilder = new StringBuilder();
-                        for (LotteryData lottery : getLotteryListByType(LOTTERY_TYPE_SSQ)) {
+                        for (LotteryData lottery : getLotteryListByType(lotteryType)) {
                             int redSize = 0, blueSize = 0;
                             for (LotteryNumber number : lottery.getLotteryValue()) {
                                 if (number.getNumberType().equals(ActionConfig.NumberBallType.NUMBER_BALL_TYPE_BLUE.type)) {
-                                    if (blueBall.equals(number.getNumberValue())) {
-                                        blueSize++;
+                                    for (String blueNumber : blueBall) {
+                                        if (blueNumber.equals(number.getNumberValue())) {
+                                            blueSize++;
+                                            break;
+                                        }
                                     }
                                 } else {
                                     for (String redNumber : redBall) {
@@ -86,7 +90,10 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
                                     }
                                 }
                             }
-                            if (blueSize >= 1 || redSize >= 4) {
+                            boolean isPrize = lotteryType == LOTTERY_TYPE_DLT ?
+                                    redSize >= 3 || redSize >= 2 && blueSize >= 1 || redSize >= 1 && blueSize >= 2
+                                    : blueSize >= 1 || redSize >= 4;
+                            if (isPrize) {
                                 if (stringBuilder.length() == 0) {
                                     stringBuilder.append("恭喜中奖！").append("<br />");
                                 }

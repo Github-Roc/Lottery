@@ -2,7 +2,6 @@ package com.peng.lottery.app.config;
 
 public class SharedPreferencesConfig {
 
-    public static final String SPLASH_IMAGE = "imagePath";
     public static final String SPLASH_SLOGAN = "slogan";
     public static final String SPLASH_ENDING = "ending";
 
