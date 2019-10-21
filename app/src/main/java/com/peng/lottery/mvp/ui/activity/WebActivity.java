@@ -10,8 +10,8 @@ import android.view.KeyEvent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hwangjr.rxbus.annotation.Subscribe;
-import com.hwangjr.rxbus.thread.EventThread;
+
+import com.blankj.rxbus.RxBus;
 import com.peng.lottery.R;
 import com.peng.lottery.app.config.AppConfig;
 import com.peng.lottery.app.utils.Base64Util;
@@ -131,6 +131,12 @@ public class WebActivity extends BaseActivity<WebPresenter> {
             //收藏夹
             ContainerActivity.start(mActivity, CollectorFragment.class.getCanonicalName(), getString(R.string.title_web_collector));
         });
+        RxBus.getDefault().subscribe(this, new RxBus.Callback<WebUrl>() {
+            @Override
+            public void onEvent(WebUrl webUrl) {
+                getWebHelper().loadUrl(webUrl.getCollectionUrl());
+            }
+        });
     }
 
     @Override
@@ -167,9 +173,11 @@ public class WebActivity extends BaseActivity<WebPresenter> {
         return super.onKeyDown(keyCode, event);
     }
 
-    @Subscribe(thread = EventThread.MAIN_THREAD)
-    public void onLoadUrl(WebUrl webUrl) {
-        getWebHelper().loadUrl(webUrl.getCollectionUrl());
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        RxBus.getDefault().unregister(this);
     }
 
     public void onUrlChange(String title, String url) {

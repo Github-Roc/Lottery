@@ -1,6 +1,5 @@
 package com.peng.lottery.mvp.ui.activity;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -65,6 +64,10 @@ public class MainActivity extends SimpleBaseActivity {
                             titleText = getString(R.string.title_mine_lottery);
                             fragmentName = MineLotteryFragment.class.getCanonicalName();
                             break;
+//                        case R.id.main_menu_lottery_record:
+//                            titleText = getString(R.string.title_lottery_record);
+//                            fragmentName = LotteryRecordFragment.class.getCanonicalName();
+//                            break;
                         case R.id.main_menu_setting:
                             titleText = getString(R.string.title_setting);
                             fragmentName = SettingFragment.class.getCanonicalName();

@@ -17,6 +17,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.handler.RetryWithDelay;
 
+import static com.peng.lottery.app.config.TipConfig.APP_NET_ERROR;
+
 /**
  * @author Peng
  * Created by Peng on 2017/12/12.
@@ -66,7 +68,7 @@ public class BasePresenter<V extends IView> implements IPresenter<V> {
 
     private void addDisposable(Disposable disposable) {
         if (!NetworkUtil.isNetworkAvailable(MyApplication.mContent)) {
-            mView.showToast("网络不可用，请检查网络连接。");
+            mView.showToast(APP_NET_ERROR);
             disposable.dispose();
             return;
         }

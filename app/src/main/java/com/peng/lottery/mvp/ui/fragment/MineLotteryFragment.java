@@ -26,6 +26,7 @@ import butterknife.BindView;
 
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
+import static com.peng.lottery.app.config.TipConfig.MINE_LOTTERY_NOT_SAVE;
 
 public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> implements MineLotteryContract.View {
     @BindView(R.id.refresh_layout)
@@ -71,7 +72,7 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
                     mLotteryAdapter.setEmptyView(R.layout.layout_empty_page);
                 });
             } else {
-                showToast("还没有保存号码！");
+                showToast(MINE_LOTTERY_NOT_SAVE);
             }
         });
         mBtVerificationLottery.setOnClickListener(v -> new ShowInfoDialog(mActivity)
@@ -82,13 +83,13 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
                     if (mPresenter.isHasList(LOTTERY_TYPE_DLT)) {
                         mPresenter.verificationLottery(LOTTERY_TYPE_DLT);
                     } else {
-                        showToast("还没有保存大乐透号码！");
+                        showToast(MINE_LOTTERY_NOT_SAVE);
                     }
                 }, view2 -> {
                     if (mPresenter.isHasList(LOTTERY_TYPE_SSQ)) {
                         mPresenter.verificationLottery(LOTTERY_TYPE_SSQ);
                     } else {
-                        showToast("还没有保存双色球号码！");
+                        showToast(MINE_LOTTERY_NOT_SAVE);
                     }
                 }).show());
         mLotteryAdapter.setOnItemChildClickListener((adapter, view, position) -> {

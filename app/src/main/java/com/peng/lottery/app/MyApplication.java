@@ -2,9 +2,9 @@ package com.peng.lottery.app;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
 
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 import com.peng.lottery.app.config.AppConfig;
 import com.peng.lottery.base.SimpleBaseActivity;

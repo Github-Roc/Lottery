@@ -1,12 +1,12 @@
 ext {
     // android开发版本配置
     android = [
-            versionCode      : 8,
-            versionName      : '1.0.7',
-            compileSdkVersion: 28,
-            targetSdkVersion : 28,
-            minSdkVersion    : 16,
-            buildToolsVersion: "28.0.3",
+            minSdkVersion     : 16,
+            compileSdkVersion : 28,
+            targetSdkVersion  : 28,
+            versionCode       : 8,
+            versionName       : "1.0.7",
+            buildToolsVersion : "28.0.3",
     ]
 
     // version配置
@@ -14,49 +14,63 @@ ext {
             androidSupportSdkVersion: "28.0.0",
             retrofitSdkVersion      : "2.4.0",
             dagger2SdkVersion       : "2.15",
+            glideSdkVersion         : "4.6.1",
             butterknifeSdkVersion   : "8.8.1",
     ]
 
     // 依赖库配置
     dependencies = [
-            // support
-            "support-v4"               : "com.android.support:support-v4:${version["androidSupportSdkVersion"]}",
+            // 架构框架
+            "mvp-arms"                 : "me.jessyan:arms:2.5.2",
+            "mvvm-habit"               : "com.github.goldze:MVVMHabit:3.1.2",
+
+            // Support
+            "multidex"                 : "androidx.multidex:multidex:2.0.0",
             "appcompat-v7"             : "com.android.support:appcompat-v7:${version["androidSupportSdkVersion"]}",
-            "design"                   : "com.android.support:design:${version["androidSupportSdkVersion"]}",
-            "recyclerview"             : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
             "cardview"                 : "com.android.support:cardview-v7:${version["androidSupportSdkVersion"]}",
-            "annotations"              : "com.android.support:support-annotations:${version["androidSupportSdkVersion"]}",
-            "multidex"                 : "com.android.support:multidex:1.0.3",
+            "recyclerview"             : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
+            "design"                   : "com.android.support:design:${version["androidSupportSdkVersion"]}",
 
             // RRD(RxJava + Retrofit + Dagger)
-            "rxandroid"               : "io.reactivex.rxjava2:rxandroid:2.0.2",
-            "rxjava"                  : "io.reactivex.rxjava2:rxjava:2.1.12",
-            "rxpermissions"           : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar",
-            "rxerrorhandler"          : "me.jessyan:rxerrorhandler:2.1.1",
+            "rxjava"                   : "io.reactivex.rxjava2:rxjava:2.1.12",
+            "rxandroid"                : "io.reactivex.rxjava2:rxandroid:2.0.2",
             "retrofit"                 : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",
             "retrofit-converter-gson"  : "com.squareup.retrofit2:converter-gson:${version["retrofitSdkVersion"]}",
-            "retrofit-adapter-rxjava" : "com.squareup.retrofit2:adapter-rxjava2:${version["retrofitSdkVersion"]}",
+            "retrofit-adapter-rxjava"  : "com.squareup.retrofit2:adapter-rxjava2:${version["retrofitSdkVersion"]}",
             "dagger2"                  : "com.google.dagger:dagger:${version["dagger2SdkVersion"]}",
             "dagger2-compiler"         : "com.google.dagger:dagger-compiler:${version["dagger2SdkVersion"]}",
 
-            // tools
+            // Tool
             "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
             "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
-            "gson"                     : "com.google.code.gson:gson:2.8.2",
+            "glide"                    : "com.github.bumptech.glide:glide:${version["glideSdkVersion"]}",
+            "glide-compiler"           : "com.github.bumptech.glide:compiler:${version["glideSdkVersion"]}",
+            "glide-loader-okhttp3"     : "com.github.bumptech.glide:okhttp3-integration:${version["glideSdkVersion"]}",
+            "picasso"                  : "com.squareup.picasso:picasso:2.5.2",
             "greendao"                 : "org.greenrobot:greendao:3.2.2",
-            "rxbus"                    : "com.hwangjr.rxbus:rxbus:1.0.6",
+            "eventbus"                 : "org.greenrobot:eventbus:3.1.1",
+            "rxbus"                    : "com.blankj:rxbus:1.6",
+            "rxcache"                  : "com.github.VictorAlbertos.RxCache:runtime:1.8.3-2.x",
+            "rxpermissions"            : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar",
+            "rxerrorhandler"           : "me.jessyan:rxerrorhandler:2.1.1",
 
-            // view
-            "agentweb"                 : "com.just.agentweb:agentweb:4.0.2",
-            "recycler-adapter"         : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30",
+            // View
+            "photoview"                : "com.github.chrisbanes.photoview:library:1.2.3",
+            "toast"                    : 'com.github.GrenderG:Toasty:1.4.2',
+            "material-dialog-date"     : 'com.wdullaer:materialdatetimepicker:3.5.1',
             "material-edit"            : "com.rengwuxian.materialedittext:library:2.1.4",
+            "immersionbar"             : 'com.gyf.barlibrary:barlibrary:2.3.0',
+            "bottombar"                : "me.majiajie:pager-bottom-tab-strip:2.2.5",
+            "agentweb"                 : "com.just.agentweb:agentweb:4.0.2",
+            "picture_selector"         : 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3',
+            "recycler-adapter"         : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30",
 
-            /* bugly */
+            /* Bugly */
             "bugly"                    : "com.tencent.bugly:crashreport:2.6.6.1",
             "bugly-native"             : "com.tencent.bugly:nativecrashreport:3.3.1",
             "bugly-upgrade"            : "com.tencent.bugly:crashreport_upgrade:1.2.0",
 
-            // test
+            // Test
             "junit"                    : "junit:junit:4.12",
     ]
 }

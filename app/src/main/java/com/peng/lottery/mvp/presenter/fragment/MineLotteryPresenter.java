@@ -18,6 +18,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
+import static com.peng.lottery.app.config.TipConfig.MINE_LOTTERY_NOT_PRIZE;
 
 public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View> implements MineLotteryContract.Presenter {
     private LotteryDataDao mLotteryDataDao;
@@ -103,7 +104,7 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
                             }
                         }
                         if (stringBuilder.length() == 0) {
-                            mView.showToast("很遗憾，没有号码中奖！");
+                            mView.showToast(MINE_LOTTERY_NOT_PRIZE);
                         } else {
                             mView.showVerificationResult(stringBuilder.toString());
                         }

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.hwangjr.rxbus.RxBus;
+import com.blankj.rxbus.RxBus;
 import com.peng.lottery.R;
 import com.peng.lottery.app.MyApplication;
 import com.peng.lottery.app.webview.AgentWebHelper;
@@ -77,7 +77,6 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         if (mAgentWebHelper != null) {
             mAgentWebHelper.onDestroy();
         }
-        RxBus.get().unregister(this);
         MyApplication.activityStack.remove(this);
         dismissLoadingDialog();
         mActivity = null;
@@ -142,7 +141,6 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         // 将activity添加到管理栈中
         mActivity = this;
         MyApplication.activityStack.add(this);
-        RxBus.get().register(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 

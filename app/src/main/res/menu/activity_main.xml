@@ -6,6 +6,11 @@
             android:id="@+id/main_menu_mine_lottery"
             android:icon="@mipmap/icon_main_menu_mine_lottery"
             android:title="@string/text_main_menu_mine_lottery" />
+
+<!--        <item-->
+<!--            android:id="@+id/main_menu_lottery_record"-->
+<!--            android:icon="@mipmap/icon_main_menu_lottery_record"-->
+<!--            android:title="@string/text_main_menu_lottery_record" />-->
     </group>
 
     <group android:id="@+id/group_about">
