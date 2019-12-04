@@ -1,5 +1,6 @@
 package com.peng.lottery.mvp.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.button.MaterialButton;
@@ -15,7 +16,7 @@ import com.peng.lottery.base.BaseFragment;
 import com.peng.lottery.mvp.contract.fragment.MineLotteryContract;
 import com.peng.lottery.mvp.model.db.bean.LotteryData;
 import com.peng.lottery.mvp.presenter.fragment.MineLotteryPresenter;
-import com.peng.lottery.mvp.ui.adapter.MineLotteryAdapter;
+import com.peng.lottery.mvp.ui.adapter.recycler.MineLotteryAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +62,7 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
         initRecycler();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void initListener() {
         mCleanLottery.setOnClickListener(v -> {
@@ -115,6 +117,7 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
                 mPresenter.deleteLottery(lottery);
                 mLotteryList.remove(lottery);
                 mLotteryAdapter.notifyDataSetChanged();
+                mCleanLottery.setText(mCleanLottery.getText().toString() + "(" + mLotteryList.size() + ")");
 
                 if (mLotteryList.size() == 0) {
                     mPresenter.getMineLotteryList(null);
@@ -144,7 +147,7 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
 
     private void initRecycler() {
         mLotteryList = new ArrayList<>();
-        mLotteryAdapter = new MineLotteryAdapter(R.layout.item_mine_lottery, mLotteryList);
+        mLotteryAdapter = new MineLotteryAdapter(R.layout.item_lottery_info, mLotteryList);
         mLotteryAdapter.bindToRecyclerView(mLotteryRecycler);
         mLayoutManager = new LinearLayoutManager(mActivity);
         mLotteryRecycler.setLayoutManager(mLayoutManager);
@@ -152,12 +155,16 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
         mRefreshLayout.setColorSchemeResources(R.color.app_color);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onLoadFinish(List<LotteryData> lotteryList) {
         if (mRefreshLayout.isRefreshing()) {
             mRefreshLayout.setRefreshing(false);
         }
         if (lotteryList != null && lotteryList.size() > 0) {
+            if (mLotteryList.size() == 0) {
+                mCleanLottery.setText(mCleanLottery.getText().toString() + "(" + lotteryList.size() + ")");
+            }
             mLotteryList.clear();
             mLotteryList.addAll(lotteryList);
             mLotteryAdapter.notifyDataSetChanged();

@@ -104,6 +104,18 @@ public abstract class SimpleBaseFragment extends Fragment {
         return mAgentWebHelper;
     }
 
+    public void showTipDialog(String message, View.OnClickListener onClickListener) {
+        mActivity.showTipDialog(message, onClickListener);
+    }
+
+    public void showLoadingDialog(int type, String text) {
+        mActivity.showLoadingDialog(type, text);
+    }
+
+    public void dismissLoadingDialog() {
+        mActivity.dismissLoadingDialog();
+    }
+
     /**
      * 初始化
      * @des 子类可选择复写，进行一些初始化操作，会在setLayoutView()方法前执行。

@@ -11,7 +11,7 @@ import com.peng.lottery.base.BaseFragment;
 import com.peng.lottery.mvp.contract.fragment.WebCollectorContract;
 import com.peng.lottery.mvp.model.db.bean.WebUrl;
 import com.peng.lottery.mvp.presenter.fragment.WebCollectorPresenter;
-import com.peng.lottery.mvp.ui.adapter.WebUrlAdapter;
+import com.peng.lottery.mvp.ui.adapter.recycler.WebUrlAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import butterknife.BindView;
 import static android.support.v7.widget.RecyclerView.VERTICAL;
 import static com.peng.lottery.app.config.TipConfig.APP_SAVE_SUCCESS;
 
-public class CollectorFragment extends BaseFragment<WebCollectorPresenter> implements WebCollectorContract.View {
+public class WebCollectorFragment extends BaseFragment<WebCollectorPresenter> implements WebCollectorContract.View {
 
     @BindView(R.id.app_recycler)
     RecyclerView mWebUrlRecycler;
@@ -36,7 +36,7 @@ public class CollectorFragment extends BaseFragment<WebCollectorPresenter> imple
 
     @Override
     protected int setLayoutResID() {
-        return R.layout.fragment_collector;
+        return R.layout.fragment_web_collector;
     }
 
     @Override

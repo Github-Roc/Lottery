@@ -3,13 +3,12 @@ package com.peng.lottery.app.config;
 import android.support.v4.app.Fragment;
 
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
-import com.peng.lottery.mvp.ui.fragment.DaLeDouFragment;
-import com.peng.lottery.mvp.ui.fragment.PkShiFragment;
-import com.peng.lottery.mvp.ui.fragment.ShiYiXuanWuFragment;
-import com.peng.lottery.mvp.ui.fragment.ShuangSeQiuFragment;
+import com.peng.lottery.mvp.ui.fragment.MainLotteryFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_11X5;
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
@@ -108,10 +107,18 @@ public class ActionConfig {
      */
     public static List<Fragment> getMainFragments() {
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new DaLeDouFragment());
-        fragments.add(new ShuangSeQiuFragment());
-        fragments.add(new ShiYiXuanWuFragment());
-        fragments.add(new PkShiFragment());
+        MainLotteryFragment fragment = new MainLotteryFragment();
+        fragment.setLotteryType(LOTTERY_TYPE_DLT);
+        fragments.add(fragment);
+        fragment = new MainLotteryFragment();
+        fragment.setLotteryType(LOTTERY_TYPE_SSQ);
+        fragments.add(fragment);
+        fragment = new MainLotteryFragment();
+        fragment.setLotteryType(LOTTERY_TYPE_11X5);
+        fragments.add(fragment);
+        fragment = new MainLotteryFragment();
+        fragment.setLotteryType(LOTTERY_TYPE_PK10);
+        fragments.add(fragment);
         return fragments;
     }
 

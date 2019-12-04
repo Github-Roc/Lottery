@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.AgentWebSettingsImpl;
+import com.peng.lottery.app.listener.WebUrlChangeListener;
 import com.peng.lottery.base.SimpleBaseActivity;
 
 

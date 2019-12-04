@@ -12,7 +12,7 @@ import com.peng.lottery.R;
 import com.peng.lottery.app.MyApplication;
 import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.base.SimpleBaseActivity;
-import com.peng.lottery.mvp.ui.adapter.MainFragmentAdapter;
+import com.peng.lottery.mvp.ui.adapter.pager.FragmentPagerAdapter;
 import com.peng.lottery.mvp.ui.fragment.AboutFragment;
 import com.peng.lottery.mvp.ui.fragment.AddLotteryFragment;
 import com.peng.lottery.mvp.ui.fragment.MineLotteryFragment;
@@ -102,8 +102,8 @@ public class MainActivity extends SimpleBaseActivity {
     }
 
     private void initViewPager() {
-        MainFragmentAdapter mFragmentAdapter = new MainFragmentAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mFragmentAdapter);
+        FragmentPagerAdapter fragmentAdapter = new FragmentPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(fragmentAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 }

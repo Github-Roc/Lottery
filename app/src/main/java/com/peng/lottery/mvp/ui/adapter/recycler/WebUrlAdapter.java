@@ -1,4 +1,4 @@
-package com.peng.lottery.mvp.ui.adapter;
+package com.peng.lottery.mvp.ui.adapter.recycler;
 
 import android.support.annotation.Nullable;
 

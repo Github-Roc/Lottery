@@ -42,23 +42,23 @@ public abstract class BaseActivity<P extends BasePresenter> extends SimpleBaseAc
     }
 
     @Override
-    public void pageLoading() {
-
-    }
-
-    @Override
-    public void pageEmpty() {
-
-    }
-
-    @Override
-    public void pageError(int errorCode) {
-
-    }
-
-    @Override
     public void showToast(@NonNull String message) {
         ToastUtil.showToast(mActivity, message);
+    }
+
+    @Override
+    public void showTip(String text) {
+        showTipDialog(text, null);
+    }
+
+    @Override
+    public void showLoading(int type, String text) {
+        showLoadingDialog(type, text);
+    }
+
+    @Override
+    public void dismissLoading() {
+        dismissLoadingDialog();
     }
 
     protected ActivityComponent getActivityComponent() {

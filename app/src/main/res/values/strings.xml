@@ -26,10 +26,18 @@
     <string name="text_type_shuangseqiu">双色球</string>
     <string name="text_get_lucky_number">生成号码</string>
     <string name="text_get_random_number">获取号码</string>
+    <string name="text_get_ai_number">智能选号</string>
     <string name="text_lottery_record">查看开奖记录</string>
     <string name="text_lottery_chart">查看走势图</string>
     <string name="text_save_lottery_number">保存号码</string>
     <string name="text_analyse_lottery_number">中奖率分析</string>
+
+    <!-- 自选号码 -->
+    <string name="text_clean_lottery">清空号码</string>
+    <string name="text_complement_lottery">补全号码</string>
+    <string name="hint_lottery_size">请输入生成数量</string>
+    <string name="text_start_create">开始生成号码</string>
+    <string name="text_save_all">保存全部号码</string>
 
     <!-- 首页菜单 -->
     <string name="main_menu_open">Open Menu</string>
@@ -38,10 +46,6 @@
     <string name="text_main_menu_lottery_record">开奖记录</string>
     <string name="text_main_menu_about">关于</string>
     <string name="text_main_menu_setting">设置</string>
-
-    <!-- 自选号码 -->
-    <string name="text_clean_lottery">清空号码</string>
-    <string name="text_complement_lottery">补全号码</string>
 
     <!-- 我的号码 -->
     <string name="text_delete_all_lottery">清空号码</string>

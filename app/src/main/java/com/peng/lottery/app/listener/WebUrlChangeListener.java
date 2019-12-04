@@ -1,4 +1,4 @@
-package com.peng.lottery.app.webview;
+package com.peng.lottery.app.listener;
 
 public interface WebUrlChangeListener {
 

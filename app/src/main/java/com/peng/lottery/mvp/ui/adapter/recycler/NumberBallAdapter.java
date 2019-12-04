@@ -1,4 +1,4 @@
-package com.peng.lottery.mvp.ui.adapter;
+package com.peng.lottery.mvp.ui.adapter.recycler;
 
 import android.graphics.Color;
 import android.support.annotation.Nullable;
@@ -14,9 +14,9 @@ import java.util.List;
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_NULL;
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED;
 
-public class LotteryNumberBallAdapter extends BaseQuickAdapter<LotteryNumber, BaseViewHolder> {
+public class NumberBallAdapter extends BaseQuickAdapter<LotteryNumber, BaseViewHolder> {
 
-    public LotteryNumberBallAdapter(int layoutResId, @Nullable List<LotteryNumber> data) {
+    public NumberBallAdapter(int layoutResId, @Nullable List<LotteryNumber> data) {
         super(layoutResId, data);
     }
 

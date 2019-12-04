@@ -7,6 +7,7 @@ import com.peng.lottery.app.config.AppConfig;
 import com.peng.lottery.mvp.model.web.bean.BaseBean;
 import com.peng.lottery.mvp.model.web.bean.LotteryBean;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -42,4 +43,10 @@ public class RetrofitHelper {
         String typeCode = lotteryType == LOTTERY_TYPE_DLT ? "cjdlt" : "ssq";
         return mLotteryApi.getLastLottery(typeCode);
     }
+
+    public Observable<BaseBean<List<LotteryBean>>> getLotteryRecord(ActionConfig.LotteryType lotteryType) {
+        String typeCode = lotteryType == LOTTERY_TYPE_DLT ? "cjdlt" : "ssq";
+        return mLotteryApi.getLotteryRecord(typeCode, "50");
+    }
+
 }

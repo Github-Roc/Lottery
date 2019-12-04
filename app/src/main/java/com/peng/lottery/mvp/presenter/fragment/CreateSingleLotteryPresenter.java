@@ -17,13 +17,13 @@ import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BAL
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_OTHER;
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED;
 
-public class AddLotteryPresenter extends BasePresenter {
+public class CreateSingleLotteryPresenter extends BasePresenter {
 
     private LotteryUtil mUtil;
     private LotteryUtil.ShiYiXuanWuTypeBean mTypeBean;
 
     @Inject
-    public AddLotteryPresenter(DataManager dataManager) {
+    public CreateSingleLotteryPresenter(DataManager dataManager) {
         super(dataManager);
 
         mUtil = LotteryUtil.getInstance();

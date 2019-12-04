@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="type_lottery">
+    <string-array name="type_lottery_one">
+        <item>大乐透</item>
+        <item>双色球</item>
+    </string-array>
+
+    <string-array name="type_lottery_two">
         <item>大乐透</item>
         <item>双色球</item>
         <item>11选5</item>
@@ -19,6 +24,12 @@
         <!--<item>前三组选</item>-->
         <item>前二直选</item>
         <item>前三直选</item>
+    </string-array>
+
+    <string-array name="type_create_lottery">
+        <item>随机生成</item>
+        <item>过滤已选号码</item>
+        <item>从已选号码生成</item>
     </string-array>
 
 </resources>

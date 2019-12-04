@@ -61,13 +61,13 @@ public class LotteryLayout extends LinearLayout {
     public void setLotteryValue(List<LotteryNumber> lotteryValue, String lotteryType) {
         int layoutRes = 0;
         if (LOTTERY_TYPE_DLT.type.equals(lotteryType)) {
-            layoutRes = R.layout.item_daletou_layout;
+            layoutRes = R.layout.layout_lottery_type_daletou;
         } else if (LOTTERY_TYPE_SSQ.type.equals(lotteryType)) {
-            layoutRes = R.layout.item_shuangseqiu_layout;
+            layoutRes = R.layout.layout_lottery_type_shuangseqiu;
         } else if (LOTTERY_TYPE_11X5.type.equals(lotteryType)) {
-            layoutRes = R.layout.item_shiyixuanwu_layout;
+            layoutRes = R.layout.layout_lottery_type_shiyixuanwu;
         } else if (LOTTERY_TYPE_PK10.type.equals(lotteryType)) {
-            layoutRes = R.layout.item_pkshi_layout;
+            layoutRes = R.layout.layout_lottery_type_pkshi;
         }
         if (layoutRes != 0) {
             if (mView != null) {

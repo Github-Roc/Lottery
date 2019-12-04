@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_24">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_12">
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_type_lottery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/type_lottery_one" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lottery_ball_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_lottery_size"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/hint_lottery_size"
+                        android:inputType="number"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_medium" />
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_type_create_lottery"
+                        android:layout_width="@dimen/dp_160"
+                        android:layout_height="match_parent"
+                        android:entries="@array/type_create_lottery"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <android.support.design.button.MaterialButton
+                    android:id="@+id/bt_start_create_lottery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_12"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_6"
+                    android:text="@string/text_start_create"
+                    android:textAppearance="?android:attr/textAppearanceButton"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_medium"
+                    app:strokeColor="@color/app_color" />
+
+                <android.support.design.button.MaterialButton
+                    android:id="@+id/bt_save_all_lottery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_6"
+                    android:text="@string/text_save_all"
+                    android:textAppearance="?android:attr/textAppearanceButton"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_medium"
+                    app:strokeColor="@color/app_color" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lottery_item_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_12" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

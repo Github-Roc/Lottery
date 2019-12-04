@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_24">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_12">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_12">
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_type_lottery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/type_lottery_two" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_type_11x5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:entries="@array/type_11_choose_5" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/lottery_ball_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_12">
+
+                <com.peng.lottery.app.widget.LotteryLayout
+                    android:id="@+id/layout_lottery_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:orientation="horizontal">
+
+                    <android.support.design.button.MaterialButton
+                        android:id="@+id/bt_clean_lottery"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_6"
+                        android:layout_marginLeft="@dimen/dp_6"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_6"
+                        android:text="@string/text_clean_lottery"
+                        android:textAppearance="?android:attr/textAppearanceButton"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_medium"
+                        app:strokeColor="@color/app_color" />
+
+                    <android.support.design.button.MaterialButton
+                        android:id="@+id/bt_complement_lottery"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_6"
+                        android:layout_marginLeft="@dimen/dp_6"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_6"
+                        android:text="@string/text_complement_lottery"
+                        android:textAppearance="?android:attr/textAppearanceButton"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_medium"
+                        app:strokeColor="@color/app_color" />
+
+                    <android.support.design.button.MaterialButton
+                        android:id="@+id/bt_save_lottery"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_6"
+                        android:layout_marginLeft="@dimen/dp_6"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_6"
+                        android:text="@string/text_save_lottery_number"
+                        android:textAppearance="?android:attr/textAppearanceButton"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_medium"
+                        app:strokeColor="@color/app_color" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -10,6 +10,7 @@ import com.peng.lottery.mvp.model.db.bean.LotteryData;
 import com.peng.lottery.mvp.model.db.bean.LotteryDataDao;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumberDao;
+import com.peng.lottery.mvp.model.web.bean.LotteryBean;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 import org.greenrobot.greendao.query.WhereCondition;
@@ -18,7 +19,9 @@ import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_11X5;
@@ -27,9 +30,9 @@ import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_
 import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_NULL;
 import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED;
-import static com.peng.lottery.app.config.TipConfig.ADD_LOTTERY_NUMBER_ERROR;
-import static com.peng.lottery.app.config.TipConfig.ADD_LOTTERY_SAVED;
 import static com.peng.lottery.app.config.TipConfig.APP_SAVE_SUCCESS;
+import static com.peng.lottery.app.config.TipConfig.CREATE_LOTTERY_NUMBER_ERROR;
+import static com.peng.lottery.app.config.TipConfig.CREATE_LOTTERY_SAVED;
 
 public class LotteryUtil {
 
@@ -175,7 +178,7 @@ public class LotteryUtil {
     }
 
     /**
-     * 补齐彩票号码
+     * 随机生成补齐彩票号码
      *
      * @param lotteryValue 现有号码集合
      * @param lotteryType  彩票类型
@@ -267,6 +270,64 @@ public class LotteryUtil {
     }
 
     /**
+     * 根据最近50期的开奖记录 计算号码出现次数 按趋近号码平均出现概率生成彩票
+     *
+     * @param lotteryValue 现有号码集合
+     * @param lotteryType  彩票类型
+     * @param data         近50期开奖记录
+     */
+    public void getAILottery(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType, List<LotteryBean> data) {
+        // 红色号码球出现次数
+        Map<String, Integer> redBallWeightMap = new HashMap<>();
+        // 蓝色号码球出现次数
+        Map<String, Integer> blueBallWeightMap = new HashMap<>();
+        // 根据最近50期开奖历史确认号码出现次数
+        for (LotteryBean lotteryRecordItem : data) {
+            String[] str = lotteryRecordItem.openCode.split("\\+");
+            String[] redBall = str[0].split(",");
+            String[] blueBall = lotteryType == LOTTERY_TYPE_DLT ? new String[]{str[1], str[2]} : new String[]{str[1]};
+            for (String redNumber : redBall) {
+                Integer weight = redBallWeightMap.get(redNumber);
+                if (weight == null) {
+                    weight = 0;
+                }
+                redBallWeightMap.put(redNumber, ++weight);
+            }
+            for (String blueNumber : blueBall) {
+                Integer weight = blueBallWeightMap.get(blueNumber);
+                if (weight == null) {
+                    weight = 0;
+                }
+                blueBallWeightMap.put(blueNumber, ++weight);
+            }
+        }
+        // 随机生成号码 直到符合规则的号码显示
+        while (true) {
+            List<LotteryNumber> lottery = new ArrayList<>();
+            getRandomLottery(lottery, lotteryType);
+            int matchingSize = 0;
+            for (LotteryNumber number : lottery) {
+                // 当前号码出现的次数
+                Integer weight = number.getNumberType().equals(NUMBER_BALL_TYPE_RED.type) ?
+                        redBallWeightMap.get(number.getNumberValue()) : blueBallWeightMap.get(number.getNumberValue());
+                // 平均出现的次数
+                int matchingWeight = number.getNumberType().equals(NUMBER_BALL_TYPE_RED.type) ?
+                        LOTTERY_TYPE_DLT.equals(lotteryType) ? 7 : 9 : LOTTERY_TYPE_DLT.equals(lotteryType) ? 8 : 3;
+                // 出现次数比平均次数少俩次的情况
+                if (weight != null && weight >= (matchingWeight - 2) && weight < matchingWeight) {
+                    matchingSize++;
+                }
+            }
+            if (!checkLotteryExist(lottery, lotteryType) && matchingSize > 5) {
+                // 符合条件的号码 显示
+                lotteryValue.clear();
+                lotteryValue.addAll(lottery);
+                return;
+            }
+        }
+    }
+
+    /**
      * 保存彩票数据
      *
      * @param lotteryValue 彩票号码集合
@@ -276,17 +337,17 @@ public class LotteryUtil {
      */
     public String saveLottery(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType, String... params) {
         if (!checkLotterySize(lotteryValue, lotteryType)) {
-            return ADD_LOTTERY_NUMBER_ERROR;
+            return CREATE_LOTTERY_NUMBER_ERROR;
         }
         if (checkLotteryExist(lotteryValue, lotteryType)) {
-            return ADD_LOTTERY_SAVED;
+            return CREATE_LOTTERY_SAVED;
         }
         String lotteryLabel = "", luckyStr = "";
         if (params != null) {
-            if (params.length == 1 && !TextUtils.isEmpty(params[0])) {
+            if (params.length >= 1 && !TextUtils.isEmpty(params[0])) {
                 lotteryLabel = params[0];
             }
-            if (params.length == 2 && !TextUtils.isEmpty(params[1])) {
+            if (params.length >= 2 && !TextUtils.isEmpty(params[1])) {
                 lotteryLabel = "幸运号码";
                 luckyStr = params[1];
             }

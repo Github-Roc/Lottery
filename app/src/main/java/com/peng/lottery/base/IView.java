@@ -8,26 +8,29 @@ package com.peng.lottery.base;
 public interface IView {
 
     /**
-     * 显示加载中页面
-     */
-    void pageLoading();
-
-    /**
-     * 显示空页面
-     */
-    void pageEmpty();
-
-    /**
-     * 显示错误页面
-     *
-     * @param errorCode 错误代码
-     */
-    void pageError(int errorCode);
-
-    /**
      * 显示Toast
      *
      * @param message 提示内容
      */
     void showToast(String message);
+
+    /**
+     * 显示TipDialog
+     *
+     * @param text 提示内容
+     */
+    void showTip(String text);
+
+    /**
+     * 显示LoadingDialog
+     *
+     * @param type dialog类型
+     * @param text 提示内容
+     */
+    void showLoading(int type, String text);
+
+    /**
+     * 隐藏LoadingDialog
+     */
+    void dismissLoading();
 }

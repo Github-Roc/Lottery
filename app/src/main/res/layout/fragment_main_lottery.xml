@@ -29,6 +29,15 @@
                 app:met_floatingLabelText="@string/hint_lucky_str"
                 app:met_primaryColor="@color/app_color" />
 
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinner_type_11_choose_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_12"
+                android:entries="@array/type_11_choose_5"
+                android:visibility="gone" />
+
             <android.support.design.button.MaterialButton
                 android:id="@+id/bt_get_lucky_number"
                 android:layout_width="match_parent"
@@ -53,6 +62,33 @@
                 android:textAppearance="?android:attr/textAppearanceButton"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_medium"
+                app:strokeColor="@color/app_color" />
+
+            <android.support.design.button.MaterialButton
+                android:id="@+id/bt_get_ai_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:gravity="center"
+                android:padding="@dimen/dp_6"
+                android:text="@string/text_get_ai_number"
+                android:textAppearance="?android:attr/textAppearanceButton"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium"
+                app:strokeColor="@color/app_color" />
+
+            <android.support.design.button.MaterialButton
+                android:id="@+id/bt_analyse_lottery_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_12"
+                android:gravity="center"
+                android:padding="@dimen/dp_6"
+                android:text="@string/text_analyse_lottery_number"
+                android:textAppearance="?android:attr/textAppearanceButton"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone"
                 app:strokeColor="@color/app_color" />
 
             <android.support.design.button.MaterialButton
@@ -86,7 +122,7 @@
             android:padding="@dimen/dp_12">
 
             <com.peng.lottery.app.widget.LotteryLayout
-                android:id="@+id/layout_lottery_shuangseqiu"
+                android:id="@+id/lottery_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
