@@ -1,27 +1,23 @@
 package com.peng.lottery.mvp.ui.adapter.pager;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-
-import com.peng.lottery.app.config.ActionConfig;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
 public class FragmentPagerAdapter extends FragmentStatePagerAdapter {
-    private List<Fragment> mFragments;
+
     private List<String> mTitles;
+    private List<Fragment> mFragments;
 
     public FragmentPagerAdapter(FragmentManager fm) {
         super(fm);
-
-        mFragments = ActionConfig.getMainFragments();
-        mTitles = ActionConfig.getMainTabs();
     }
 
-    public void setData(List<Fragment> fragments, List<String> titles) {
-        this.mFragments = fragments;
+    public void setData(List<String> titles, List<Fragment> fragments) {
         this.mTitles = titles;
+        this.mFragments = fragments;
     }
 
     @Override

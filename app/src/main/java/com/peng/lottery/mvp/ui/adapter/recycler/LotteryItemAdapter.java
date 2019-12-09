@@ -1,13 +1,13 @@
 package com.peng.lottery.mvp.ui.adapter.recycler;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.peng.lottery.R;
-import com.peng.lottery.app.config.ActionConfig;
+import com.peng.lottery.app.type.LotteryType;
 import com.peng.lottery.app.utils.ScreenUtil;
 import com.peng.lottery.app.widget.LotteryLayout;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
@@ -16,14 +16,14 @@ import java.util.List;
 
 public class LotteryItemAdapter extends BaseQuickAdapter<List<LotteryNumber>, BaseViewHolder> {
 
-    private ActionConfig.LotteryType mLotteryType;
+    private LotteryType mLotteryType;
     private boolean isSave;
 
     public LotteryItemAdapter(int layoutResId, @Nullable List<List<LotteryNumber>> data) {
         super(layoutResId, data);
     }
 
-    public void setLotteryType(ActionConfig.LotteryType lotteryType) {
+    public void setLotteryType(LotteryType lotteryType) {
         this.mLotteryType = lotteryType;
     }
 

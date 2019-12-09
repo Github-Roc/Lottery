@@ -1,92 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.peng.lottery.app.widget.EasySwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/web_url_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:contentView="@+id/layout_content"
-    app:rightMenuView="@+id/layout_right">
+    android:background="@drawable/selector_bg_item_tab"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/dp_12"
+    android:paddingRight="@dimen/dp_12">
+
+
+    <com.peng.lottery.app.widget.RoundImageView
+        android:id="@+id/web_url_item_icon"
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        android:layout_margin="@dimen/dp_12" />
 
     <LinearLayout
-        android:id="@+id/layout_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_tab_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_12"
+        android:orientation="vertical"
         android:paddingTop="@dimen/dp_6"
-        android:paddingRight="@dimen/dp_12"
         android:paddingBottom="@dimen/dp_6">
 
-        <com.peng.lottery.app.widget.HandIconView
-            android:id="@+id/tv_url_icon"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_30" />
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/web_url_item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_12"
-            android:layout_marginRight="@dimen/dp_12"
-            android:orientation="vertical">
+            android:layout_marginBottom="@dimen/dp_6"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/text_blue"
+            android:textSize="@dimen/text_medium" />
 
-            <TextView
-                android:id="@+id/tv_url_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lines="1"
-                android:singleLine="true"
-                android:textColor="@color/text_blue"
-                android:textSize="@dimen/text_small" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <com.peng.lottery.app.widget.RoundTextView
-                android:id="@+id/tv_collection_date"
+                android:id="@+id/web_url_item_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_4"
-                android:layout_marginBottom="@dimen/dp_4"
-                android:padding="@dimen/dp_2"
+                android:paddingLeft="@dimen/dp_6"
+                android:paddingTop="@dimen/dp_2"
+                android:paddingRight="@dimen/dp_6"
+                android:paddingBottom="@dimen/dp_2"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_small"
-                app:rtvBgColor="@color/text_gray"
+                app:rtvBgColor="@color/text_yellow"
                 app:rtvRadius="@dimen/dp_6" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+
+                <com.peng.lottery.app.widget.RoundTextView
+                    android:id="@+id/web_url_item_set_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_marginRight="@dimen/dp_12"
+                    android:paddingLeft="@dimen/dp_6"
+                    android:paddingTop="@dimen/dp_2"
+                    android:paddingRight="@dimen/dp_6"
+                    android:paddingBottom="@dimen/dp_2"
+                    android:text="@string/app_home_text"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_small"
+                    app:rtvBgColor="@color/app_color"
+                    app:rtvRadius="@dimen/dp_6" />
+
+                <com.peng.lottery.app.widget.RoundTextView
+                    android:id="@+id/web_url_item_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dp_6"
+                    android:paddingTop="@dimen/dp_2"
+                    android:paddingRight="@dimen/dp_6"
+                    android:paddingBottom="@dimen/dp_2"
+                    android:text="@string/app_delete_text"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_small"
+                    app:rtvBgColor="@color/text_red"
+                    app:rtvRadius="@dimen/dp_6" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/layout_right"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <android.support.design.button.MaterialButton
-            android:id="@+id/bt_web_set_home"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:padding="@dimen/dp_8"
-            android:text="@string/app_home_text"
-            android:textAppearance="?android:attr/textAppearanceButton"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium"
-            app:strokeColor="@color/app_color" />
-
-        <android.support.design.button.MaterialButton
-            android:id="@+id/bt_web_url_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp_12"
-            android:layout_marginRight="@dimen/dp_12"
-            android:gravity="center"
-            android:padding="@dimen/dp_8"
-            android:text="@string/app_delete_text"
-            android:textAppearance="?android:attr/textAppearanceButton"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium"
-            app:strokeColor="@color/app_color" />
-
-    </LinearLayout>
-
-</com.peng.lottery.app.widget.EasySwipeMenuLayout>
+</LinearLayout>

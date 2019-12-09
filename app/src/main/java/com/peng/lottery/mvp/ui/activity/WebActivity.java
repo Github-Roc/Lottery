@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 
 import com.blankj.rxbus.RxBus;
 import com.peng.lottery.R;
@@ -32,6 +31,8 @@ import static com.peng.lottery.app.config.TipConfig.WEB_URL_COPY_SUCCESS;
  * @author Peng
  */
 public class WebActivity extends BaseActivity<WebPresenter> {
+
+    private static final int REQUEST_INPUT_URL = 100 >> 3;
 
     @BindView(R.id.web_layout)
     LinearLayout mWebLayout;
@@ -84,7 +85,7 @@ public class WebActivity extends BaseActivity<WebPresenter> {
     @Override
     protected void initListener() {
         getWebHelper().addUrlChangeListener(this::onUrlChange);
-        mWebTitle.setOnClickListener(v -> InputTextActivity.start(mActivity, "网址输入", "http://", AppConfig.REQUEST_INPUT_URL));
+        mWebTitle.setOnClickListener(v -> InputTextActivity.start(mActivity, "网址输入", "https://", REQUEST_INPUT_URL));
         mWebTitle.setOnLongClickListener(v -> {
             ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
             if (clipboardManager != null) {
@@ -154,7 +155,7 @@ public class WebActivity extends BaseActivity<WebPresenter> {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && data != null) {
-            if (requestCode == AppConfig.REQUEST_INPUT_URL) {
+            if (requestCode == REQUEST_INPUT_URL) {
                 String url = data.getStringExtra(InputTextActivity.INPUT_TEXT);
                 if (url.startsWith("http://") || url.startsWith("https://")) {
                     getWebHelper().loadUrl(url);

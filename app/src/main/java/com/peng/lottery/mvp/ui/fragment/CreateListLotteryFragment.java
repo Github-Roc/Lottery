@@ -1,21 +1,17 @@
 package com.peng.lottery.mvp.ui.fragment;
 
 import android.annotation.SuppressLint;
-import android.support.design.button.MaterialButton;
-import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
+import com.google.android.material.button.MaterialButton;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 
 import com.peng.lottery.R;
-import com.peng.lottery.app.config.ActionConfig;
-import com.peng.lottery.app.config.TipConfig;
+import com.peng.lottery.app.type.LotteryType;
 import com.peng.lottery.app.listener.SpannerItemListener;
-import com.peng.lottery.app.utils.LotteryUtil;
 import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.base.BaseFragment;
 import com.peng.lottery.mvp.contract.fragment.CreateListLotteryContract;
@@ -28,23 +24,21 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
-import static com.peng.lottery.app.config.TipConfig.CREATE_LOTTERY_SIZE_BIG;
-import static com.peng.lottery.app.config.TipConfig.CREATE_LOTTERY_SIZE_NULL;
-import static com.peng.lottery.app.config.TipConfig.CREATE_LOTTERY_SIZE_SMALL;
-import static com.peng.lottery.app.widget.dialog.LoadingDialog.DIALOG_TYPE_LOADING;
+import static com.peng.lottery.app.config.AppConfig.getLotteryNumberBallList;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_DLT;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_SSQ;
+
 
 public class CreateListLotteryFragment extends BaseFragment<CreateListLotteryPresenter> implements CreateListLotteryContract.View {
 
     @BindView(R.id.spinner_type_lottery)
     AppCompatSpinner lotteryType;
+    @BindView(R.id.spinner_create_lottery_size)
+    AppCompatSpinner createLotterySize;
+    @BindView(R.id.spinner_create_lottery_type)
+    AppCompatSpinner createLotteryType;
     @BindView(R.id.lottery_ball_recycler)
     RecyclerView mBallRecycler;
-    @BindView(R.id.et_lottery_size)
-    EditText createLotterySize;
-    @BindView(R.id.spinner_type_create_lottery)
-    AppCompatSpinner createLotteryType;
     @BindView(R.id.bt_start_create_lottery)
     MaterialButton startCreateLottery;
     @BindView(R.id.bt_save_all_lottery)
@@ -52,7 +46,7 @@ public class CreateListLotteryFragment extends BaseFragment<CreateListLotteryPre
     @BindView(R.id.lottery_item_recycler)
     RecyclerView mLotteryRecycler;
 
-    private ActionConfig.LotteryType mLotteryType;
+    private LotteryType mLotteryType;
     private NumberBallAdapter mNumberBallAdapter;
     private LotteryItemAdapter mLotteryAdapter;
 
@@ -78,8 +72,9 @@ public class CreateListLotteryFragment extends BaseFragment<CreateListLotteryPre
         super.initView();
 
         // 初始化彩票号码球
-        mNumberBallAdapter = new NumberBallAdapter(R.layout.item_number_ball, ActionConfig.getLotteryNumberBallList(LOTTERY_TYPE_DLT));
+        mNumberBallAdapter = new NumberBallAdapter(R.layout.item_number_ball, getLotteryNumberBallList(LOTTERY_TYPE_DLT));
         mNumberBallAdapter.bindToRecyclerView(mBallRecycler);
+        mNumberBallAdapter.setSelect(true);
         mBallRecycler.setLayoutManager(new GridLayoutManager(mActivity, 7));
         mBallRecycler.setAdapter(mNumberBallAdapter);
         // 初始化生成彩票列表
@@ -106,38 +101,52 @@ public class CreateListLotteryFragment extends BaseFragment<CreateListLotteryPre
                 }
             }
         });
+        createLotteryType.setOnItemSelectedListener(new SpannerItemListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mBallRecycler.setVisibility(position > 1 ? View.VISIBLE : View.GONE);
+            }
+        });
         startCreateLottery.setOnClickListener(v -> {
-            String sizeStr = createLotterySize.getText().toString();
-            if (TextUtils.isEmpty(sizeStr)) {
-                ToastUtil.showToast(mActivity, CREATE_LOTTERY_SIZE_NULL);
+            int createSizePosition = createLotterySize.getSelectedItemPosition();
+            if (createSizePosition == 0) {
+                ToastUtil.showToast(mActivity, getString(R.string.tip_create_lottery_size));
                 return;
             }
-            int createSize = Integer.parseInt(sizeStr);
-            if (createSize <= 0) {
-                ToastUtil.showToast(mActivity, CREATE_LOTTERY_SIZE_SMALL);
-                createLotterySize.setText("1");
+            int createSize = Integer.parseInt((String) createLotterySize.getSelectedItem());
+            int createTypePosition = createLotteryType.getSelectedItemPosition();
+            if (createTypePosition == 0) {
+                ToastUtil.showToast(mActivity, getString(R.string.tip_create_lottery_type));
                 return;
             }
-            if (createSize > 50) {
-                ToastUtil.showToast(mActivity, CREATE_LOTTERY_SIZE_BIG);
-                createLotterySize.setText("50");
-                return;
+            List<LotteryNumber> selectNumbers = mNumberBallAdapter.getSelectLotteryNumber();
+            if (createTypePosition == 2) {
+                int maxRedSize = LOTTERY_TYPE_DLT.equals(mLotteryType) ? 28 : 25;
+                int maxBlueSize = LOTTERY_TYPE_DLT.equals(mLotteryType) ? 8 : 13;
+                if (mNumberBallAdapter.getRedBallSize() > maxRedSize || mNumberBallAdapter.getBlueBallSize() > maxBlueSize) {
+                    ToastUtil.showToast(mActivity, "所剩号码不足以批量生成号码！");
+                    return;
+                }
             }
-            String createType = (String) createLotteryType.getSelectedItem();
+            if (createTypePosition == 3) {
+                int minRedSize = LOTTERY_TYPE_DLT.equals(mLotteryType) ? 7 : 8;
+                int minBlueSize = LOTTERY_TYPE_DLT.equals(mLotteryType) ? 4 : 3;
+                if (mNumberBallAdapter.getRedBallSize() < minRedSize || mNumberBallAdapter.getBlueBallSize() < minBlueSize) {
+                    ToastUtil.showToast(mActivity, "所选号码不足以批量生成号码！");
+                    return;
+                }
+            }
 
-            showLoading(DIALOG_TYPE_LOADING, "正在生成号码，请稍候...");
-            mPresenter.startCreateLottery(mLotteryType, createType, createSize);
+            showLoading("正在生成号码，请稍候...");
+            mPresenter.startCreateLottery(mLotteryType, selectNumbers, createSize, createTypePosition);
         });
         saveAllLottery.setOnClickListener(v -> {
             if (mLotteryAdapter.isSave() || mLotteryAdapter.getData().size() == 0) {
                 return;
             }
-            List<List<LotteryNumber>> lotteryList = mLotteryAdapter.getData();
-            for (List<LotteryNumber> lotteryValue : lotteryList) {
-                LotteryUtil.getInstance().saveLottery(lotteryValue, mLotteryType);
-            }
-            mLotteryAdapter.setSave(true);
-            ToastUtil.showToast(mActivity, TipConfig.APP_SAVE_SUCCESS);
+
+            showLoading("正在保存号码，请稍候...");
+            mPresenter.saveLotteryList(mLotteryAdapter.getData(), mLotteryType);
         });
     }
 
@@ -147,9 +156,15 @@ public class CreateListLotteryFragment extends BaseFragment<CreateListLotteryPre
         mLotteryAdapter.setSave(false);
     }
 
-    private void changeLotteryType(ActionConfig.LotteryType lotteryType) {
+    @Override
+    public void saveLotterySuccess() {
+        mLotteryAdapter.setSave(true);
+    }
+
+    private void changeLotteryType(LotteryType lotteryType) {
         mLotteryType = lotteryType;
-        mNumberBallAdapter.setNewData(ActionConfig.getLotteryNumberBallList(lotteryType));
+        mNumberBallAdapter.setSelect(true);
+        mNumberBallAdapter.setNewData(getLotteryNumberBallList(lotteryType));
         mLotteryAdapter.setLotteryType(mLotteryType);
     }
 

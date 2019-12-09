@@ -1,6 +1,6 @@
 package com.peng.lottery.base;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.mvp.injector.component.ActivityComponent;
@@ -52,8 +52,8 @@ public abstract class BaseActivity<P extends BasePresenter> extends SimpleBaseAc
     }
 
     @Override
-    public void showLoading(int type, String text) {
-        showLoadingDialog(type, text);
+    public void showLoading(String text) {
+        showLoadingDialog(text);
     }
 
     @Override

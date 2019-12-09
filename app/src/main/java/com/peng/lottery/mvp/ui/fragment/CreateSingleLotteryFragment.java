@@ -1,15 +1,16 @@
 package com.peng.lottery.mvp.ui.fragment;
 
-import android.support.design.button.MaterialButton;
-import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import com.google.android.material.button.MaterialButton;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.peng.lottery.R;
-import com.peng.lottery.app.config.ActionConfig;
+import com.peng.lottery.app.helper.LotteryHelper;
 import com.peng.lottery.app.listener.SpannerItemListener;
+import com.peng.lottery.app.type.LotteryType;
 import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.app.widget.LotteryLayout;
 import com.peng.lottery.base.BaseFragment;
@@ -22,11 +23,12 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_11X5;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
+import static com.peng.lottery.app.config.AppConfig.getLotteryNumberBallList;
 import static com.peng.lottery.app.config.TipConfig.CREATE_LOTTERY_CHECK_NUMBER;
 import static com.peng.lottery.app.config.TipConfig.CREATE_LOTTERY_CLEAN_DATA;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_11X5;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_DLT;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_SSQ;
 
 public class CreateSingleLotteryFragment extends BaseFragment<CreateSingleLotteryPresenter> {
 
@@ -45,7 +47,7 @@ public class CreateSingleLotteryFragment extends BaseFragment<CreateSingleLotter
     @BindView(R.id.bt_save_lottery)
     MaterialButton btSaveLottery;
 
-    private ActionConfig.LotteryType mLotteryType;
+    private LotteryType mLotteryType;
     private List<LotteryNumber> mLotteryValue;
     private NumberBallAdapter mNumberBallAdapter;
 
@@ -72,7 +74,7 @@ public class CreateSingleLotteryFragment extends BaseFragment<CreateSingleLotter
         super.initView();
 
         // 初始化彩票号码球
-        mNumberBallAdapter = new NumberBallAdapter(R.layout.item_number_ball, ActionConfig.getLotteryNumberBallList(LOTTERY_TYPE_DLT));
+        mNumberBallAdapter = new NumberBallAdapter(R.layout.item_number_ball, getLotteryNumberBallList(LOTTERY_TYPE_DLT));
         mNumberBallAdapter.bindToRecyclerView(mBallRecycler);
         mBallRecycler.setLayoutManager(new GridLayoutManager(mActivity, 7));
         mBallRecycler.setAdapter(mNumberBallAdapter);
@@ -124,32 +126,33 @@ public class CreateSingleLotteryFragment extends BaseFragment<CreateSingleLotter
                 ToastUtil.showToast(mActivity, CREATE_LOTTERY_CHECK_NUMBER);
                 return;
             }
-            if (mPresenter.getLotteryUtil().checkLotterySize(mLotteryValue, mLotteryType)) {
+            if (LotteryHelper.getInstance().checkLotterySize(mLotteryValue, mLotteryType)) {
                 ToastUtil.showToast(mActivity, CREATE_LOTTERY_CLEAN_DATA);
                 return;
             }
-            mPresenter.getLotteryUtil().complementLottery(mLotteryValue, mLotteryType);
+            LotteryHelper.getInstance().complementLottery(mLotteryValue, mLotteryType);
             layoutLotteryNumber.setLotteryValue(mLotteryValue, mLotteryType.type);
         });
         btSaveLottery.setOnClickListener(v -> {
             String label = mLotteryType.equals(LOTTERY_TYPE_11X5) ? (String) spinnerType11x5.getSelectedItem() : "";
-            String result = mPresenter.getLotteryUtil().saveLottery(mLotteryValue, mLotteryType, label);
+            String result = LotteryHelper.getInstance().saveLottery(mLotteryValue, mLotteryType, label);
             ToastUtil.showToast(mActivity, result);
         });
     }
 
-    private void changeLotteryType(ActionConfig.LotteryType lotteryType) {
+    private void changeLotteryType(LotteryType lotteryType) {
         mLotteryType = lotteryType;
         mLotteryValue.clear();
         spinnerType11x5.setVisibility(LOTTERY_TYPE_11X5.equals(lotteryType) ? View.VISIBLE : View.GONE);
-        mNumberBallAdapter.setNewData(ActionConfig.getLotteryNumberBallList(lotteryType));
+        mNumberBallAdapter.setNewData(getLotteryNumberBallList(lotteryType));
         layoutLotteryNumber.setLotteryValue(mLotteryValue, mLotteryType.type);
     }
 
     private void change11x5Type() {
         mLotteryValue.clear();
         String type = (String) spinnerType11x5.getSelectedItem();
-        layoutLotteryNumber.set11x5Size(mPresenter.getTypeBean(type).size);
+        layoutLotteryNumber.set11x5Size(LotteryHelper.getInstance().get11x5SizeByType(type));
         layoutLotteryNumber.setLotteryValue(mLotteryValue, mLotteryType.type);
     }
+
 }

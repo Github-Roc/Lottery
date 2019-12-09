@@ -26,7 +26,7 @@
         app:met_floatingLabelText="@string/app_input_text"
         tools:ignore="RtlHardcoded" />
 
-    <android.support.design.button.MaterialButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_input_ok"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"

@@ -1,56 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="ProgressView">
-        <attr name="progress_current" format="integer" />
-        <attr name="progress_max" format="integer" />
-        <attr name="progress_unreached_color" format="color" />
-        <attr name="progress_reached_color" format="color" />
-        <attr name="progress_reached_bar_height" format="dimension" />
-        <attr name="progress_unreached_bar_height" format="dimension" />
-        <attr name="progress_text_size" format="dimension" />
-        <attr name="progress_text_color" format="color" />
-        <attr name="progress_text_offset" format="dimension" />
-        <attr name="progress_text_visibility" format="enum">
-            <enum name="visible" value="0" />
-            <enum name="invisible" value="1" />
-        </attr>
-    </declare-styleable>
-
-    <declare-styleable name="NiceSpinner">
-        <attr name="arrowTint" format="color" />
-        <attr name="hideArrow" format="boolean" />
-        <attr name="arrowDrawable" format="reference|color"/>
-        <attr name="dropDownListPaddingBottom" format="dimension"/>
-        <attr name="backgroundSelector" format="integer"/>
-        <attr name="textTint" format="color"/>
-    </declare-styleable>
-
     <declare-styleable name="RoundTextView">
-        <attr name="rtvBgColor" format="color"/>
-        <attr name="rtvBorderWidth" format="dimension"/>
-        <attr name="rtvBorderColor" format="dimension"/>
-        <attr name="rtvRadius" format="dimension"/>
+        <attr name="rtvBgColor" format="color" />
+        <attr name="rtvBorderWidth" format="dimension" />
+        <attr name="rtvBorderColor" format="dimension" />
+        <attr name="rtvRadius" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="HandIconView">
+    <declare-styleable name="RoundImageView">
         <attr name="civ_border_width" format="dimension" />
         <attr name="civ_border_color" format="color" />
         <attr name="civ_border_overlay" format="boolean" />
         <attr name="civ_fill_color" format="color" />
-    </declare-styleable>
-
-    <declare-styleable name="MaxHeightLayout">
-        <attr name="maxHeight" format="reference|dimension" />
-    </declare-styleable>
-
-    <declare-styleable name="EasySwipeMenuLayout">
-        <attr format="reference" name="leftMenuView"/>
-        <attr format="reference" name="rightMenuView"/>
-        <attr format="reference" name="contentView"/>
-        <attr format="boolean" name="canRightSwipe"/>
-        <attr format="boolean" name="canLeftSwipe"/>
-        <attr format="float" name="fraction"/>
     </declare-styleable>
 
 </resources>

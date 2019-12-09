@@ -1,8 +1,8 @@
 package com.peng.lottery.mvp.ui.fragment;
 
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.rxbus.RxBus;
 import com.peng.lottery.R;
@@ -18,7 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static android.support.v7.widget.RecyclerView.VERTICAL;
+import static androidx.recyclerview.widget.RecyclerView.VERTICAL;
 import static com.peng.lottery.app.config.TipConfig.APP_SAVE_SUCCESS;
 
 public class WebCollectorFragment extends BaseFragment<WebCollectorPresenter> implements WebCollectorContract.View {
@@ -51,22 +51,26 @@ public class WebCollectorFragment extends BaseFragment<WebCollectorPresenter> im
         mWebUrlAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             WebUrl item = mWebUrlList.get(position);
             switch (view.getId()) {
-                case R.id.layout_content:
+                case R.id.web_url_item_layout:
                     RxBus.getDefault().post(item);
                     mActivity.finish();
                     break;
-                case R.id.bt_web_set_home:
-                    mPresenter.setWebHome(item.getCollectionUrl());
-                    ToastUtil.showToast(mActivity, APP_SAVE_SUCCESS);
+                case R.id.web_url_item_set_home:
+                    showTipDialog("确定要设该网址为首页吗？", (dialog, which) -> {
+                        mPresenter.setWebHome(item.getCollectionUrl());
+                        ToastUtil.showToast(mActivity, APP_SAVE_SUCCESS);
+                    });
                     break;
-                case R.id.bt_web_url_delete:
-                    mPresenter.deleteWebUrl(item);
-                    mWebUrlList.remove(item);
-                    mWebUrlAdapter.notifyDataSetChanged();
+                case R.id.web_url_item_delete:
+                    showTipDialog("确定要删除该链接吗？", (dialog, which) -> {
+                        mPresenter.deleteWebUrl(item);
+                        mWebUrlList.remove(item);
+                        mWebUrlAdapter.notifyDataSetChanged();
 
-                    if (mWebUrlList.size() == 0) {
-                        mWebUrlAdapter.setEmptyView(R.layout.layout_empty_page);
-                    }
+                        if (mWebUrlList.size() == 0) {
+                            mWebUrlAdapter.setEmptyView(R.layout.layout_empty_page);
+                        }
+                    });
                     break;
             }
         });

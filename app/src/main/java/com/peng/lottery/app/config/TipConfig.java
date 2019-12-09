@@ -12,9 +12,6 @@ public class TipConfig {
     public static final String CREATE_LOTTERY_CLEAN_DATA = "请先清空号码！";
     public static final String CREATE_LOTTERY_SAVED = "该号码已保存！";
     public static final String CREATE_LOTTERY_NUMBER_ERROR = "号码不完整，请先选择号码！";
-    public static final String CREATE_LOTTERY_SIZE_NULL = "生成数量不能为空！";
-    public static final String CREATE_LOTTERY_SIZE_SMALL = "生成数量不能小于1！";
-    public static final String CREATE_LOTTERY_SIZE_BIG = "生成数量不能超过50！";
 
     public static final String MINE_LOTTERY_NOT_SAVE = "还没有保存号码！";
     public static final String MINE_LOTTERY_NOT_PRIZE = "很遗憾，没有号码中奖！";

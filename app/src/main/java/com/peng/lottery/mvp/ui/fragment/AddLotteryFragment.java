@@ -1,8 +1,8 @@
 package com.peng.lottery.mvp.ui.fragment;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.peng.lottery.R;
 import com.peng.lottery.base.SimpleBaseFragment;
@@ -30,7 +30,7 @@ public class AddLotteryFragment extends SimpleBaseFragment {
         super.initView();
 
         FragmentPagerAdapter fragmentAdapter = new FragmentPagerAdapter(mActivity.getSupportFragmentManager());
-        fragmentAdapter.setData(getFragmentList(), getTitleList());
+        fragmentAdapter.setData(getTitleList(), getFragmentList());
         mViewPager.setAdapter(fragmentAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }

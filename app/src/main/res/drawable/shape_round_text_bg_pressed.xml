@@ -7,6 +7,6 @@
         android:topLeftRadius="@dimen/dp_120"
         android:topRightRadius="@dimen/dp_120" />
 
-    <solid android:color="@color/bg_text_transparent_gray" />
+    <solid android:color="@color/bg_transparent_gray_pressed" />
 
 </shape>

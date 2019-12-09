@@ -1,14 +1,15 @@
 package com.peng.lottery.base;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.peng.lottery.app.webview.AgentWebHelper;
+import com.peng.lottery.app.helper.AgentWebHelper;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -104,12 +105,12 @@ public abstract class SimpleBaseFragment extends Fragment {
         return mAgentWebHelper;
     }
 
-    public void showTipDialog(String message, View.OnClickListener onClickListener) {
-        mActivity.showTipDialog(message, onClickListener);
+    public void showTipDialog(String message, DialogInterface.OnClickListener listener) {
+        mActivity.showTipDialog(message, listener);
     }
 
-    public void showLoadingDialog(int type, String text) {
-        mActivity.showLoadingDialog(type, text);
+    public void showLoadingDialog(String text) {
+        mActivity.showLoadingDialog(text);
     }
 
     public void dismissLoadingDialog() {

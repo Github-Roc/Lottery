@@ -35,7 +35,8 @@
     <!-- 自选号码 -->
     <string name="text_clean_lottery">清空号码</string>
     <string name="text_complement_lottery">补全号码</string>
-    <string name="hint_lottery_size">请输入生成数量</string>
+    <string name="tip_create_lottery_size">请选择生成数量</string>
+    <string name="tip_create_lottery_type">请选择生成方式</string>
     <string name="text_start_create">开始生成号码</string>
     <string name="text_save_all">保存全部号码</string>
 
@@ -43,7 +44,6 @@
     <string name="main_menu_open">Open Menu</string>
     <string name="main_menu_close">Close Menu</string>
     <string name="text_main_menu_mine_lottery">我的号码</string>
-    <string name="text_main_menu_lottery_record">开奖记录</string>
     <string name="text_main_menu_about">关于</string>
     <string name="text_main_menu_setting">设置</string>
 
@@ -61,7 +61,6 @@
     <string name="text_about_version">Lottery\t\tV1.0.0</string>
 
     <!-- 设置 -->
-    <string name="text_setting_image">设置启动图片</string>
     <string name="text_setting_slogan">设置启动标语</string>
 
 </resources>

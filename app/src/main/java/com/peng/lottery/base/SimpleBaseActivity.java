@@ -1,21 +1,20 @@
 package com.peng.lottery.base;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.blankj.rxbus.RxBus;
 import com.peng.lottery.R;
 import com.peng.lottery.app.MyApplication;
-import com.peng.lottery.app.webview.AgentWebHelper;
+import com.peng.lottery.app.utils.DialogUtil;
+import com.peng.lottery.app.helper.AgentWebHelper;
 import com.peng.lottery.app.widget.SlidingLayout;
-import com.peng.lottery.app.widget.dialog.LoadingDialog;
-import com.peng.lottery.app.widget.dialog.ShowInfoDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -28,14 +27,22 @@ import butterknife.Unbinder;
 
 public abstract class SimpleBaseActivity extends AppCompatActivity {
 
-    /** ButterKnife */
+    /**
+     * ButterKnife
+     */
     private Unbinder mUnBinder;
-    /** AgentWeb工具类 */
+    /**
+     * AgentWeb工具类
+     */
     private AgentWebHelper mAgentWebHelper;
-    /** 当前的Activity实例 */
+    /**
+     * 当前的Activity实例
+     */
     protected SimpleBaseActivity mActivity;
-    /** 加载中Dialog */
-    public LoadingDialog mLoadingDialog;
+    /**
+     * 加载中Dialog
+     */
+    public ProgressDialog mLoadingDialog;
 
     protected Toolbar mToolbar;
     protected TextView mActivityTitle;
@@ -89,29 +96,21 @@ public abstract class SimpleBaseActivity extends AppCompatActivity {
         return mAgentWebHelper;
     }
 
-    public void showTipDialog(String message, View.OnClickListener onClickListener) {
+    public void showTipDialog(String message, DialogInterface.OnClickListener listener) {
         if (mActivity != null) {
-            new ShowInfoDialog(mActivity, message)
-                    .showCancelButton(true)
-                    .setOnClickListener(onClickListener)
-                    .show();
+            DialogUtil.showTipDialog(mActivity, message, listener);
         }
     }
 
-    public void showLoadingDialog(int type, String text) {
-        if (mActivity != null) {
-            if (mLoadingDialog == null) {
-                mLoadingDialog = new LoadingDialog(mActivity, type, text);
-                mLoadingDialog.show();
-            } else {
-                mLoadingDialog.changeText(text);
-            }
+    public void showLoadingDialog(String text) {
+        if (mActivity != null && mLoadingDialog == null) {
+            mLoadingDialog = DialogUtil.showLoadingDialog(mActivity, text);
         }
     }
 
     public void dismissLoadingDialog() {
         if (mLoadingDialog != null) {
-            mLoadingDialog.close();
+            mLoadingDialog.dismiss();
             mLoadingDialog = null;
         }
     }

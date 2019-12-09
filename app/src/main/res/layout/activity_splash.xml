@@ -25,7 +25,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/dp_12"
-            android:background="@drawable/shape_round_text_transparent_bg"
+            android:background="@drawable/selector_bg_round_tab"
             android:paddingLeft="@dimen/dp_12"
             android:paddingTop="@dimen/dp_2"
             android:paddingRight="@dimen/dp_12"

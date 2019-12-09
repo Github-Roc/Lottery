@@ -24,10 +24,9 @@ public interface IView {
     /**
      * 显示LoadingDialog
      *
-     * @param type dialog类型
      * @param text 提示内容
      */
-    void showLoading(int type, String text);
+    void showLoading(String text);
 
     /**
      * 隐藏LoadingDialog

@@ -1,6 +1,6 @@
 package com.peng.lottery.mvp.model.web;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.peng.lottery.app.utils.LogUtil;
 import com.peng.lottery.mvp.model.web.bean.BaseBean;

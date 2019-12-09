@@ -2,7 +2,7 @@ package com.peng.lottery.mvp.presenter.fragment;
 
 import android.text.TextUtils;
 
-import com.peng.lottery.app.config.ActionConfig;
+import com.peng.lottery.app.type.LotteryType;
 import com.peng.lottery.base.BasePresenter;
 import com.peng.lottery.mvp.contract.fragment.MineLotteryContract;
 import com.peng.lottery.mvp.model.DataManager;
@@ -17,7 +17,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_DLT;
+import static com.peng.lottery.app.type.NumberBallType.NUMBER_BALL_TYPE_BLUE;
 import static com.peng.lottery.app.config.TipConfig.MINE_LOTTERY_NOT_PRIZE;
 
 public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View> implements MineLotteryContract.Presenter {
@@ -57,11 +58,12 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
     }
 
     @Override
-    public void verificationLottery(ActionConfig.LotteryType lotteryType) {
+    public void verificationLottery(LotteryType lotteryType) {
         beforeExecute(mRetrofitHelper.getLastLottery(lotteryType))
                 .subscribe(new LotteryObserver<LotteryBean>() {
                     @Override
                     public void onError(String errorMsg) {
+                        mView.dismissLoading();
                         mView.showToast(errorMsg);
                     }
 
@@ -75,7 +77,7 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
                         for (LotteryData lottery : getLotteryListByType(lotteryType)) {
                             int redSize = 0, blueSize = 0;
                             for (LotteryNumber number : lottery.getLotteryValue()) {
-                                if (number.getNumberType().equals(ActionConfig.NumberBallType.NUMBER_BALL_TYPE_BLUE.type)) {
+                                if (number.getNumberType().equals(NUMBER_BALL_TYPE_BLUE.type)) {
                                     for (String blueNumber : blueBall) {
                                         if (blueNumber.equals(number.getNumberValue())) {
                                             blueSize++;
@@ -92,17 +94,17 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
                                 }
                             }
                             boolean isPrize = lotteryType == LOTTERY_TYPE_DLT ?
-                                    redSize >= 3 || redSize >= 2 && blueSize >= 1 || redSize >= 1 && blueSize >= 2
+                                    redSize >= 3 || blueSize >= 2 || redSize >= 2 && blueSize >= 1
                                     : blueSize >= 1 || redSize >= 4;
                             if (isPrize) {
                                 if (stringBuilder.length() == 0) {
-                                    stringBuilder.append("恭喜中奖！").append("<br />");
+                                    stringBuilder.append("恭喜中奖！\n");
                                 }
                                 stringBuilder.append("号码:").append(lottery.getLotteryValue())
-                                        .append("中了:").append(redSize).append("+").append(blueSize)
-                                        .append("<br />");
+                                        .append("\n中了:").append(redSize).append("+").append(blueSize).append("\n");
                             }
                         }
+                        mView.dismissLoading();
                         if (stringBuilder.length() == 0) {
                             mView.showToast(MINE_LOTTERY_NOT_PRIZE);
                         } else {
@@ -112,7 +114,7 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
                 });
     }
 
-    public boolean isHasList(ActionConfig.LotteryType lotteryType) {
+    public boolean isHasList(LotteryType lotteryType) {
         List<LotteryData> lotteryList = getLotteryListByType(lotteryType);
         return lotteryList != null && lotteryList.size() > 0;
     }
@@ -125,7 +127,7 @@ public class MineLotteryPresenter extends BasePresenter<MineLotteryContract.View
         mLotteryDataDao.delete(lottery);
     }
 
-    private List<LotteryData> getLotteryListByType(ActionConfig.LotteryType lotteryType) {
+    private List<LotteryData> getLotteryListByType(LotteryType lotteryType) {
         if (lotteryType != null) {
             return mLotteryDataDao.queryBuilder()
                     .where(LotteryDataDao.Properties.LotteryType.eq(lotteryType.type))

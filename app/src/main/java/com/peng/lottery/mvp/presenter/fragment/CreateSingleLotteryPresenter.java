@@ -1,7 +1,7 @@
 package com.peng.lottery.mvp.presenter.fragment;
 
-import com.peng.lottery.app.config.ActionConfig.LotteryType;
-import com.peng.lottery.app.utils.LotteryUtil;
+import com.peng.lottery.app.helper.LotteryHelper;
+import com.peng.lottery.app.type.LotteryType;
 import com.peng.lottery.base.BasePresenter;
 import com.peng.lottery.mvp.model.DataManager;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
@@ -11,31 +11,21 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_11X5;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
-import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_BLUE;
-import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_OTHER;
-import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_11X5;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_DLT;
+import static com.peng.lottery.app.type.NumberBallType.NUMBER_BALL_TYPE_BLUE;
+import static com.peng.lottery.app.type.NumberBallType.NUMBER_BALL_TYPE_OTHER;
+import static com.peng.lottery.app.type.NumberBallType.NUMBER_BALL_TYPE_RED;
 
 public class CreateSingleLotteryPresenter extends BasePresenter {
 
-    private LotteryUtil mUtil;
-    private LotteryUtil.ShiYiXuanWuTypeBean mTypeBean;
+    private LotteryHelper mHelper;
 
     @Inject
     public CreateSingleLotteryPresenter(DataManager dataManager) {
         super(dataManager);
 
-        mUtil = LotteryUtil.getInstance();
-    }
-
-    public LotteryUtil getLotteryUtil() {
-        return mUtil;
-    }
-
-    public LotteryUtil.ShiYiXuanWuTypeBean getTypeBean(String type) {
-        mTypeBean = mUtil.getTypeBean(type);
-        return mTypeBean;
+        mHelper = LotteryHelper.getInstance();
     }
 
     /**
@@ -53,7 +43,7 @@ public class CreateSingleLotteryPresenter extends BasePresenter {
                     : LOTTERY_TYPE_DLT.equals(lotteryType) ? count < 2 : count < 1;
         } else if (NUMBER_BALL_TYPE_OTHER.type.equals(number.getNumberType())) {
             // 11选5
-            return lotteryNumbers.size() < mTypeBean.size;
+            return lotteryNumbers.size() < mHelper.get11x5Size();
         } else {
             return false;
         }
@@ -63,9 +53,9 @@ public class CreateSingleLotteryPresenter extends BasePresenter {
      * 排序当前选择好的彩票号码
      */
     public void sortList(List<LotteryNumber> lotteryNumbers, LotteryType lotteryType) {
-        if (mUtil.checkLotterySize(lotteryNumbers, lotteryType)) {
+        if (mHelper.checkLotterySize(lotteryNumbers, lotteryType)) {
             if (LOTTERY_TYPE_11X5.equals(lotteryType)) {
-                if (mTypeBean.isSort) {
+                if (mHelper.get11x5Sort()) {
                     Collections.sort(lotteryNumbers);
                 }
             } else {

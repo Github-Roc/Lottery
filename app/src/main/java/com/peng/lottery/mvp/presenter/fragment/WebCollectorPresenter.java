@@ -1,6 +1,5 @@
 package com.peng.lottery.mvp.presenter.fragment;
 
-import com.peng.lottery.app.config.SharedPreferencesConfig;
 import com.peng.lottery.base.BasePresenter;
 import com.peng.lottery.mvp.contract.fragment.WebCollectorContract;
 import com.peng.lottery.mvp.model.DataManager;
@@ -11,7 +10,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import static com.peng.lottery.mvp.presenter.activity.WebPresenter.WEB_HOME_URL;
+
 public class WebCollectorPresenter extends BasePresenter<WebCollectorContract.View> implements WebCollectorContract.Presenter {
+
     private WebUrlDao mWebUrlDao;
 
     @Inject
@@ -32,6 +34,6 @@ public class WebCollectorPresenter extends BasePresenter<WebCollectorContract.Vi
     }
 
     public void setWebHome(String url) {
-        mSpHelper.put(SharedPreferencesConfig.WEB_HOME_URL, url);
+        mSpHelper.put(WEB_HOME_URL, url);
     }
 }

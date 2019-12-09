@@ -1,13 +1,14 @@
 package com.peng.lottery.mvp.model.db.bean;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 
-import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_BLUE;
+import static com.peng.lottery.app.type.NumberBallType.NUMBER_BALL_TYPE_BLUE;
+
 
 @Entity
 public class LotteryNumber implements Comparable<LotteryNumber> {

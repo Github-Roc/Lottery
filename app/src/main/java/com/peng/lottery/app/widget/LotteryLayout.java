@@ -13,11 +13,11 @@ import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_11X5;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_PK10;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
-import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_11X5;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_DLT;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_PK10;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_SSQ;
+import static com.peng.lottery.app.type.NumberBallType.NUMBER_BALL_TYPE_RED;
 
 
 public class LotteryLayout extends LinearLayout {

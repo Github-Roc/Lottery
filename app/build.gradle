@@ -16,7 +16,7 @@ android {
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             // 设置支持的SO库架构
             abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
@@ -62,9 +62,10 @@ dependencies {
     }
 
     /* Support */
-    implementation rootProject.ext.dependencies["appcompat-v7"]
-    implementation rootProject.ext.dependencies["design"]
+    implementation rootProject.ext.dependencies["androidx"]
+    implementation rootProject.ext.dependencies["material"]
     implementation rootProject.ext.dependencies["recyclerview"]
+    implementation rootProject.ext.dependencies["refreshlayout"]
     implementation rootProject.ext.dependencies["multidex"]
     /* RRD(RxJava + Retrofit + Dagger) */
     implementation rootProject.ext.dependencies["rxjava"]

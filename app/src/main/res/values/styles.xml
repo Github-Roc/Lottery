@@ -1,30 +1,31 @@
 <resources>
 
-    <!-- 透明主题会引起activity生命周期变化，谨慎使用。 -->
-    <style name="TransparentTheme" parent="Base.Theme.AppCompat.Light">
-        <item name="windowActionBar">false</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowNoTitle">true</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowFullscreen">false</item>
-        <item name="android:windowBackground">@color/transparent</item>
+
+        <item name="colorOnSurface">@color/app_color</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnBackground">@color/bg_page_default</item>
     </style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@color/white</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <!-- 透明主题会引起activity生命周期变化，谨慎使用。 -->
+    <style name="TransparentTheme" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/transparent</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.MaterialComponents.Dialog">
@@ -36,7 +37,7 @@
     <style name="horizontal_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.1dp</item>
-        <item name="android:background">@color/app_bg</item>
+        <item name="android:background">@color/bg_page_default</item>
     </style>
 
     <style name="vertical_line">
@@ -48,21 +49,6 @@
     <style name="view_margin">
         <item name="android:layout_marginLeft">@dimen/dp_24</item>
         <item name="android:layout_marginRight">@dimen/dp_24</item>
-    </style>
-
-    <!-- 加载中Dialog -->
-    <style name="loading_dialog" parent="DialogTheme">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-
-    <!-- 主页底部PopupWindow的显示 隐藏动画 -->
-    <style name="bottomMenu">
-        <item name="android:windowEnterAnimation">@anim/menu_in</item>
-        <item name="android:windowExitAnimation">@anim/menu_out</item>
     </style>
 
 </resources>

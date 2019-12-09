@@ -2,8 +2,8 @@ package com.peng.lottery.mvp.presenter.fragment;
 
 import android.annotation.SuppressLint;
 
-import com.peng.lottery.app.config.ActionConfig;
-import com.peng.lottery.app.utils.LotteryUtil;
+import com.peng.lottery.app.type.LotteryType;
+import com.peng.lottery.app.helper.LotteryHelper;
 import com.peng.lottery.base.BasePresenter;
 import com.peng.lottery.mvp.contract.fragment.MainLotteryContract;
 import com.peng.lottery.mvp.model.DataManager;
@@ -31,7 +31,7 @@ public class MainLotteryPresenter extends BasePresenter<MainLotteryContract.View
     }
 
     @Override
-    public void getLotteryRecord(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType) {
+    public void getLotteryRecord(List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
         beforeExecute(mRetrofitHelper.getLotteryRecord(lotteryType))
                 .subscribe(new LotteryObserver<List<LotteryBean>>() {
                     @Override
@@ -48,10 +48,10 @@ public class MainLotteryPresenter extends BasePresenter<MainLotteryContract.View
     }
 
     @SuppressLint("CheckResult")
-    private void createLotteryValue(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType, List<LotteryBean> data) {
+    private void createLotteryValue(List<LotteryNumber> lotteryValue, LotteryType lotteryType, List<LotteryBean> data) {
         Observable.create((ObservableOnSubscribe<Integer>) emitter -> {
             try {
-                LotteryUtil.getInstance().getAILottery(lotteryValue, lotteryType, data);
+                LotteryHelper.getInstance().getAILottery(lotteryValue, lotteryType, data);
                 emitter.onNext(200);
             } catch (Exception e) {
                 emitter.onNext(404);

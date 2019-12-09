@@ -1,17 +1,16 @@
 package com.peng.lottery.mvp.ui.fragment;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.design.button.MaterialButton;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import com.google.android.material.button.MaterialButton;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.peng.lottery.R;
-import com.peng.lottery.app.widget.dialog.ShowInfoDialog;
+import com.peng.lottery.app.utils.DialogUtil;
 import com.peng.lottery.base.BaseFragment;
 import com.peng.lottery.mvp.contract.fragment.MineLotteryContract;
 import com.peng.lottery.mvp.model.db.bean.LotteryData;
@@ -25,8 +24,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_DLT;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_SSQ;
 import static com.peng.lottery.app.config.TipConfig.MINE_LOTTERY_NOT_SAVE;
 
 public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> implements MineLotteryContract.View {
@@ -67,7 +66,7 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
     protected void initListener() {
         mCleanLottery.setOnClickListener(v -> {
             if (mPresenter.isHasList(null)) {
-                mActivity.showTipDialog("确定要清空所有号码吗？", view -> {
+                mActivity.showTipDialog("确定要清空所有号码吗？", (dialog, which) -> {
                     mPresenter.deleteAll();
                     mLotteryList.clear();
                     mLotteryAdapter.notifyDataSetChanged();
@@ -77,23 +76,26 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
                 showToast(MINE_LOTTERY_NOT_SAVE);
             }
         });
-        mBtVerificationLottery.setOnClickListener(v -> new ShowInfoDialog(mActivity)
-                .setContent("与上期开奖号码对比检测是否中奖")
-                .setButtonText("大乐透", "双色球")
-                .setButtonColor(Color.parseColor("#2177B8"), Color.parseColor("#2177B8"))
-                .setOnClickListener(view1 -> {
-                    if (mPresenter.isHasList(LOTTERY_TYPE_DLT)) {
-                        mPresenter.verificationLottery(LOTTERY_TYPE_DLT);
-                    } else {
-                        showToast(MINE_LOTTERY_NOT_SAVE);
-                    }
-                }, view2 -> {
-                    if (mPresenter.isHasList(LOTTERY_TYPE_SSQ)) {
-                        mPresenter.verificationLottery(LOTTERY_TYPE_SSQ);
-                    } else {
-                        showToast(MINE_LOTTERY_NOT_SAVE);
-                    }
-                }).show());
+        mBtVerificationLottery.setOnClickListener(v -> {
+            String title = "提示";
+            String message = "与上期开奖号码对比检测是否中奖";
+            DialogUtil.showDialogTwoButton(mActivity, title, message,
+                    "大乐透", (dialog, which) -> {
+                        if (mPresenter.isHasList(LOTTERY_TYPE_DLT)) {
+                            showLoading("正在效验号码，请稍候...");
+                            mPresenter.verificationLottery(LOTTERY_TYPE_DLT);
+                        } else {
+                            showToast(MINE_LOTTERY_NOT_SAVE);
+                        }
+                    }, "双色球", (dialog, which) -> {
+                        if (mPresenter.isHasList(LOTTERY_TYPE_SSQ)) {
+                            showLoading("正在效验号码，请稍候...");
+                            mPresenter.verificationLottery(LOTTERY_TYPE_SSQ);
+                        } else {
+                            showToast(MINE_LOTTERY_NOT_SAVE);
+                        }
+                    });
+        });
         mLotteryAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             mRefreshLayout.setRefreshing(true);
             LotteryData lottery = mLotteryList.get(position);
@@ -112,12 +114,12 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
             mPresenter.getMineLotteryList(param);
         });
         mLotteryAdapter.setOnItemLongClickListener((adapter, view, position) -> {
-            mActivity.showTipDialog("确定要删除该号码吗？", v -> {
+            mActivity.showTipDialog("确定要删除该号码吗？", (dialog, which) -> {
                 LotteryData lottery = mLotteryList.get(position);
                 mPresenter.deleteLottery(lottery);
                 mLotteryList.remove(lottery);
                 mLotteryAdapter.notifyDataSetChanged();
-                mCleanLottery.setText(mCleanLottery.getText().toString() + "(" + mLotteryList.size() + ")");
+                mCleanLottery.setText("清空号码(" + mLotteryList.size() + ")");
 
                 if (mLotteryList.size() == 0) {
                     mPresenter.getMineLotteryList(null);
@@ -163,18 +165,19 @@ public class MineLotteryFragment extends BaseFragment<MineLotteryPresenter> impl
         }
         if (lotteryList != null && lotteryList.size() > 0) {
             if (mLotteryList.size() == 0) {
-                mCleanLottery.setText(mCleanLottery.getText().toString() + "(" + lotteryList.size() + ")");
+                mCleanLottery.setText("清空号码(" + lotteryList.size() + ")");
             }
             mLotteryList.clear();
             mLotteryList.addAll(lotteryList);
             mLotteryAdapter.notifyDataSetChanged();
         } else {
+            mBottomLayout.setVisibility(View.GONE);
             mLotteryAdapter.setEmptyView(R.layout.layout_empty_page);
         }
     }
 
     @Override
     public void showVerificationResult(String message) {
-        new ShowInfoDialog(mActivity, message).show();
+        showTip(message);
     }
 }

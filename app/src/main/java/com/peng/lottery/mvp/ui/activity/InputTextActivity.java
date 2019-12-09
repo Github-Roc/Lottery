@@ -2,7 +2,7 @@ package com.peng.lottery.mvp.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.design.button.MaterialButton;
+import com.google.android.material.button.MaterialButton;
 import android.text.Selection;
 import android.text.TextUtils;
 

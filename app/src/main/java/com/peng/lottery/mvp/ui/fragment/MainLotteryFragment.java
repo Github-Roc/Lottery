@@ -1,17 +1,16 @@
 package com.peng.lottery.mvp.ui.fragment;
 
-import android.support.design.button.MaterialButton;
-import android.support.v7.widget.AppCompatSpinner;
-import android.support.v7.widget.CardView;
+import com.google.android.material.button.MaterialButton;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.cardview.widget.CardView;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.peng.lottery.R;
-import com.peng.lottery.app.config.ActionConfig;
-import com.peng.lottery.app.utils.LotteryUtil;
+import com.peng.lottery.app.helper.LotteryHelper;
+import com.peng.lottery.app.type.LotteryType;
 import com.peng.lottery.app.utils.ToastUtil;
 import com.peng.lottery.app.widget.LotteryLayout;
-import com.peng.lottery.app.widget.dialog.ShowInfoDialog;
 import com.peng.lottery.base.BaseFragment;
 import com.peng.lottery.mvp.contract.fragment.MainLotteryContract;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
@@ -24,12 +23,11 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_11X5;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_PK10;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
 import static com.peng.lottery.app.config.TipConfig.MAIN_INPUT_TEXT;
-import static com.peng.lottery.app.widget.dialog.LoadingDialog.DIALOG_TYPE_LOADING;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_11X5;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_DLT;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_PK10;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_SSQ;
 
 public class MainLotteryFragment extends BaseFragment<MainLotteryPresenter> implements MainLotteryContract.View {
 
@@ -43,8 +41,6 @@ public class MainLotteryFragment extends BaseFragment<MainLotteryPresenter> impl
     MaterialButton btGetRandomNumber;
     @BindView(R.id.bt_get_ai_number)
     MaterialButton btGetAINumber;
-    @BindView(R.id.bt_analyse_lottery_number)
-    MaterialButton btAnalyseLotteryNumber;
     @BindView(R.id.bt_lottery_record)
     MaterialButton btLotteryRecord;
     @BindView(R.id.layout_lottery_number)
@@ -56,16 +52,15 @@ public class MainLotteryFragment extends BaseFragment<MainLotteryPresenter> impl
 
     private String mLuckyStr;
     private String mLotteryLabel;
-    private LotteryUtil mUtil;
-    private LotteryUtil.ShiYiXuanWuTypeBean mTypeBean;
-    private ActionConfig.LotteryType mLotteryType;
+    private LotteryHelper mHelper;
+    private LotteryType mLotteryType;
     private List<LotteryNumber> mLotteryValue;
 
     @Override
     protected void init() {
         super.init();
 
-        mUtil = LotteryUtil.getInstance();
+        mHelper = LotteryHelper.getInstance();
         mLotteryValue = new ArrayList<>();
     }
 
@@ -88,7 +83,6 @@ public class MainLotteryFragment extends BaseFragment<MainLotteryPresenter> impl
             btGetLuckyNumber.setVisibility(View.GONE);
             btGetAINumber.setVisibility(View.GONE);
             spinnerLotteryType.setVisibility(View.VISIBLE);
-            btAnalyseLotteryNumber.setVisibility(View.VISIBLE);
         } else if (mLotteryType == LOTTERY_TYPE_PK10) {
             etLuckyStr.setVisibility(View.GONE);
             btGetLuckyNumber.setVisibility(View.GONE);
@@ -102,18 +96,8 @@ public class MainLotteryFragment extends BaseFragment<MainLotteryPresenter> impl
         btGetLuckyNumber.setOnClickListener(v -> createLotteryToView(true));
         btGetRandomNumber.setOnClickListener(v -> createLotteryToView(false));
         btGetAINumber.setOnClickListener(v -> {
-            showLoading(DIALOG_TYPE_LOADING, "正在生成号码，请稍候...");
+            showLoading("正在生成号码，请稍候...");
             mPresenter.getLotteryRecord(mLotteryValue, mLotteryType);
-        });
-        btAnalyseLotteryNumber.setOnClickListener(v -> {
-            mLotteryLabel = (String) spinnerLotteryType.getSelectedItem();
-            mTypeBean = mUtil.getTypeBean(mLotteryLabel);
-            String stringBuilder = "中奖几率：" +
-                    mTypeBean.probability +
-                    "%\n中奖金额：" +
-                    mTypeBean.bonus +
-                    "元";
-            new ShowInfoDialog(mActivity, stringBuilder).show();
         });
         btLotteryRecord.setOnClickListener(v -> {
             String url = "";
@@ -128,7 +112,7 @@ public class MainLotteryFragment extends BaseFragment<MainLotteryPresenter> impl
             WebActivity.start(mActivity, url);
         });
         btSaveLotteryNumber.setOnClickListener(v -> {
-            String result = mUtil.saveLottery(mLotteryValue, mLotteryType, mLotteryLabel, mLuckyStr);
+            String result = mHelper.saveLottery(mLotteryValue, mLotteryType, mLotteryLabel, mLuckyStr);
             ToastUtil.showToast(mActivity, result);
         });
     }
@@ -142,7 +126,7 @@ public class MainLotteryFragment extends BaseFragment<MainLotteryPresenter> impl
         lotteryLayout.setLotteryValue(mLotteryValue, mLotteryType.type);
     }
 
-    public void setLotteryType(ActionConfig.LotteryType lotteryType) {
+    public void setLotteryType(LotteryType lotteryType) {
         this.mLotteryType = lotteryType;
     }
 
@@ -154,15 +138,14 @@ public class MainLotteryFragment extends BaseFragment<MainLotteryPresenter> impl
                 ToastUtil.showToast(mActivity, MAIN_INPUT_TEXT);
                 return;
             }
-            mUtil.setLuckyStr(mLuckyStr);
+            mHelper.setLuckyStr(mLuckyStr);
         } else if (mLotteryType == LOTTERY_TYPE_11X5) {
             mLotteryLabel = (String) spinnerLotteryType.getSelectedItem();
-            mTypeBean = mUtil.getTypeBean(mLotteryLabel);
-            lotteryLayout.set11x5Size(mTypeBean.size);
+            lotteryLayout.set11x5Size(mHelper.get11x5SizeByType(mLotteryLabel));
         }
 
         checkShowLayout();
-        mUtil.getRandomLottery(mLotteryValue, mLotteryType);
+        mHelper.getRandomLottery(mLotteryValue, mLotteryType);
         lotteryLayout.setLotteryValue(mLotteryValue, mLotteryType.type);
     }
 

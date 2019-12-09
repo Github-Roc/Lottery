@@ -1,6 +1,5 @@
 package com.peng.lottery.mvp.presenter.activity;
 
-import com.peng.lottery.app.config.SharedPreferencesConfig;
 import com.peng.lottery.app.utils.DateFormatUtil;
 import com.peng.lottery.base.BasePresenter;
 import com.peng.lottery.mvp.model.DataManager;
@@ -12,6 +11,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class WebPresenter extends BasePresenter {
+
+    public static final String WEB_HOME_URL = "homeUrl";
+
     private WebUrlDao mWebUrlDao;
 
     @Inject
@@ -22,7 +24,7 @@ public class WebPresenter extends BasePresenter {
     }
 
     public String getHomeUrl() {
-        return (String) mSpHelper.get(SharedPreferencesConfig.WEB_HOME_URL, "https://www.baidu.com");
+        return (String) mSpHelper.get(WEB_HOME_URL, "https://www.baidu.com");
     }
 
     public String collectionUrl(String icon, String title, String url) {

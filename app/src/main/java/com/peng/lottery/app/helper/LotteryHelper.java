@@ -1,9 +1,12 @@
-package com.peng.lottery.app.utils;
+package com.peng.lottery.app.helper;
 
 import android.os.SystemClock;
 import android.text.TextUtils;
 
-import com.peng.lottery.app.config.ActionConfig;
+import com.peng.lottery.app.config.AppConfig;
+import com.peng.lottery.app.type.LotteryType;
+import com.peng.lottery.app.utils.DateFormatUtil;
+import com.peng.lottery.app.utils.MD5Util;
 import com.peng.lottery.mvp.model.DataManager;
 import com.peng.lottery.mvp.model.db.DataBaseHelper;
 import com.peng.lottery.mvp.model.db.bean.LotteryData;
@@ -15,8 +18,6 @@ import com.peng.lottery.mvp.model.web.bean.LotteryBean;
 import org.greenrobot.greendao.query.QueryBuilder;
 import org.greenrobot.greendao.query.WhereCondition;
 
-import java.math.RoundingMode;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,38 +25,40 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_11X5;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_DLT;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_PK10;
-import static com.peng.lottery.app.config.ActionConfig.LotteryType.LOTTERY_TYPE_SSQ;
-import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_NULL;
-import static com.peng.lottery.app.config.ActionConfig.NumberBallType.NUMBER_BALL_TYPE_RED;
 import static com.peng.lottery.app.config.TipConfig.APP_SAVE_SUCCESS;
 import static com.peng.lottery.app.config.TipConfig.CREATE_LOTTERY_NUMBER_ERROR;
 import static com.peng.lottery.app.config.TipConfig.CREATE_LOTTERY_SAVED;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_11X5;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_DLT;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_PK10;
+import static com.peng.lottery.app.type.LotteryType.LOTTERY_TYPE_SSQ;
+import static com.peng.lottery.app.type.NumberBallType.NUMBER_BALL_TYPE_NULL;
+import static com.peng.lottery.app.type.NumberBallType.NUMBER_BALL_TYPE_RED;
 
-public class LotteryUtil {
+public class LotteryHelper {
 
-    private static LotteryUtil mInstance;
+    private static LotteryHelper mInstance;
 
     private LotteryDataDao mLotteryDataDao;
     private LotteryNumberDao mLotteryNumberDao;
 
     private int mMaxSize;
     private boolean isSort;
+    private boolean isUseSelectNumber;
     private String mLuckyStr;
     private String mLotteryLabel;
+    private List<LotteryNumber> mSelectNumbers;
 
-    private LotteryUtil() {
+    private LotteryHelper() {
         DataBaseHelper dataBaseHelper = DataManager.getInstance().getDataBaseHelper();
 
         mLotteryDataDao = dataBaseHelper.getLotteryDataDao();
         mLotteryNumberDao = dataBaseHelper.getLotteryNumberDao();
     }
 
-    public static LotteryUtil getInstance() {
+    public static LotteryHelper getInstance() {
         if (mInstance == null) {
-            mInstance = new LotteryUtil();
+            mInstance = new LotteryHelper();
         }
         return mInstance;
     }
@@ -70,93 +73,79 @@ public class LotteryUtil {
     }
 
     /**
-     * 设置11选5类型，固定号码size
+     * 设置选中号码数据
+     *
+     * @param selectNumbers     所选中的号码
+     * @param isUseSelectNumber 是否使用选中号码生成彩票
+     */
+    public void setSelectNumbers(List<LotteryNumber> selectNumbers, boolean isUseSelectNumber) {
+        this.mSelectNumbers = selectNumbers;
+        this.isUseSelectNumber = isUseSelectNumber;
+    }
+
+    /**
+     * 获取11选5的SizeByType
      *
      * @param type 11选5类型
      * @return 该类型对应的长度
      */
-    public ShiYiXuanWuTypeBean getTypeBean(String type) {
+    public int get11x5SizeByType(String type) {
         isSort = true;
         mLotteryLabel = type;
-        int bonus = 0;
-        double probability = 0;
         switch (type) {
             case "任选二":
                 mMaxSize = 2;
-                bonus = 6;
-                probability = 1 / 5.5d;
                 break;
             case "任选三":
                 mMaxSize = 3;
-                bonus = 19;
-                probability = 1 / 16.5d;
                 break;
             case "任选四":
                 mMaxSize = 4;
-                bonus = 78;
-                probability = 1 / 66d;
                 break;
             case "任选五":
                 mMaxSize = 5;
-                bonus = 540;
-                probability = 1 / 462d;
                 break;
             case "任选六":
                 mMaxSize = 6;
-                bonus = 90;
-                probability = 1 / 77d;
                 break;
             case "任选七":
                 mMaxSize = 7;
-                bonus = 26;
-                probability = 1 / 22d;
                 break;
             case "任选八":
                 mMaxSize = 8;
-                bonus = 9;
-                probability = 1 / 8.25d;
                 break;
             case "前二直选":
-                isSort = false;
-                mMaxSize = 2;
-                bonus = 65;
-                probability = 1 / 55d;
-                break;
-            case "前三直选":
-                isSort = false;
-                mMaxSize = 3;
-                bonus = 195;
-                probability = 1 / 165d;
-                break;
             case "前二组选":
                 isSort = false;
                 mMaxSize = 2;
-                bonus = 130;
-                probability = 1 / 110d;
                 break;
+            case "前三直选":
             case "前三组选":
                 isSort = false;
                 mMaxSize = 3;
-                bonus = 1170;
-                probability = 1 / 990d;
                 break;
         }
+        return mMaxSize;
+    }
 
-        ShiYiXuanWuTypeBean bean = new ShiYiXuanWuTypeBean();
-        bean.isSort = isSort;
-        bean.size = mMaxSize;
-        bean.bonus = bonus;
-        NumberFormat numberFormat = NumberFormat.getNumberInstance();
-        numberFormat.setMaximumFractionDigits(5);
-        numberFormat.setRoundingMode(RoundingMode.UP);
-        bean.probability = numberFormat.format(probability * 100);
-        return bean;
+    /**
+     * 获取11选5的Size
+     */
+    public int get11x5Size() {
+        return mMaxSize;
+    }
+
+    /**
+     * 获取11选5是否需要排序
+     */
+    public boolean get11x5Sort() {
+        return isSort;
     }
 
     /**
      * 检测彩票号码长度是否符合规范
      */
-    public boolean checkLotterySize(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType) {
+    public boolean checkLotterySize(List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
         if (LOTTERY_TYPE_DLT.equals(lotteryType) || LOTTERY_TYPE_SSQ.equals(lotteryType)) {
             return lotteryValue != null && lotteryValue.size() >= 7;
         } else if (LOTTERY_TYPE_11X5.equals(lotteryType)) {
@@ -168,7 +157,7 @@ public class LotteryUtil {
     /**
      * 获取一注随机生成的彩票
      */
-    public void getRandomLottery(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType) {
+    public void getRandomLottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
         if (lotteryValue == null) {
             lotteryValue = new ArrayList<>();
         } else {
@@ -183,11 +172,16 @@ public class LotteryUtil {
      * @param lotteryValue 现有号码集合
      * @param lotteryType  彩票类型
      */
-    public void complementLottery(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType) {
+    public void complementLottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
         boolean isLucky = false;
         List<LotteryNumber> tempValue = new ArrayList<>(lotteryValue);
-        List<LotteryNumber> numberBallList = ActionConfig.getLotteryNumberBallList(lotteryType);
+        List<LotteryNumber> numberBallList = AppConfig.getLotteryNumberBallList(lotteryType);
         if (LOTTERY_TYPE_DLT.equals(lotteryType) || LOTTERY_TYPE_SSQ.equals(lotteryType)) {
+            // 大乐透 || 双色球
+            if (mSelectNumbers != null && isUseSelectNumber) {
+                // 使用自选好的号码池
+                numberBallList = mSelectNumbers;
+            }
             List<LotteryNumber> redBallList = new ArrayList<>();
             List<LotteryNumber> blueBallList = new ArrayList<>();
             for (LotteryNumber lotteryNumber : lotteryValue) {
@@ -213,6 +207,7 @@ public class LotteryUtil {
 
             while ((redBallList.size() + blueBallList.size()) < 7 && lotteryValue.size() < 7) {
                 if (isLucky) {
+                    // 使用字符串的MD5值生成号码
                     LotteryNumber numberBall;
                     if (lotteryValue.size() < redBallLength) {
                         numberBall = numberBallList.get(luckyByte[luckyIndex] % redBallSize);
@@ -225,7 +220,11 @@ public class LotteryUtil {
                         lotteryValue.add(numberBall);
                     }
                 } else {
+                    // 随机生成号码
                     LotteryNumber numberBall = numberBallList.get(new Random().nextInt(numberBallList.size()));
+                    if (!isUseSelectNumber && mSelectNumbers != null && mSelectNumbers.contains(numberBall)) {
+                        continue;
+                    }
                     if (!NUMBER_BALL_TYPE_NULL.type.equals(numberBall.getNumberType())) {
                         if (NUMBER_BALL_TYPE_RED.type.equals(numberBall.getNumberType())) {
                             if (!redBallList.contains(numberBall) && redBallList.size() < redBallLength) {
@@ -246,6 +245,7 @@ public class LotteryUtil {
             }
             Collections.sort(lotteryValue);
         } else if (LOTTERY_TYPE_11X5.equals(lotteryType)) {
+            // 11 选 5
             Random random = new Random(SystemClock.currentThreadTimeMillis());
             while (lotteryValue.size() < mMaxSize) {
                 LotteryNumber numberBall = numberBallList.get(random.nextInt(numberBallList.size()));
@@ -276,7 +276,7 @@ public class LotteryUtil {
      * @param lotteryType  彩票类型
      * @param data         近50期开奖记录
      */
-    public void getAILottery(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType, List<LotteryBean> data) {
+    public void getAILottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType, List<LotteryBean> data) {
         // 红色号码球出现次数
         Map<String, Integer> redBallWeightMap = new HashMap<>();
         // 蓝色号码球出现次数
@@ -313,7 +313,7 @@ public class LotteryUtil {
                 // 平均出现的次数
                 int matchingWeight = number.getNumberType().equals(NUMBER_BALL_TYPE_RED.type) ?
                         LOTTERY_TYPE_DLT.equals(lotteryType) ? 7 : 9 : LOTTERY_TYPE_DLT.equals(lotteryType) ? 8 : 3;
-                // 出现次数比平均次数少俩次的情况
+                // 出现次数比平均次数少俩以内的情况
                 if (weight != null && weight >= (matchingWeight - 2) && weight < matchingWeight) {
                     matchingSize++;
                 }
@@ -335,7 +335,7 @@ public class LotteryUtil {
      * @param params       0 彩票标签 1 输入的幸运字符串
      * @return 保存结果
      */
-    public String saveLottery(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType, String... params) {
+    public String saveLottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType, String... params) {
         if (!checkLotterySize(lotteryValue, lotteryType)) {
             return CREATE_LOTTERY_NUMBER_ERROR;
         }
@@ -376,7 +376,7 @@ public class LotteryUtil {
     /**
      * 检测彩票号码是否存在
      */
-    private boolean checkLotteryExist(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType) {
+    private boolean checkLotteryExist(List<LotteryNumber> lotteryValue, LotteryType lotteryType) {
         QueryBuilder<LotteryData> builder = mLotteryDataDao.queryBuilder();
         String lotteryLabel = lotteryType == LOTTERY_TYPE_11X5 ? mLotteryLabel : "";
         WhereCondition condition = TextUtils.isEmpty(lotteryLabel) ? LotteryDataDao.Properties.LotteryType.eq(lotteryType.type) :
@@ -408,10 +408,4 @@ public class LotteryUtil {
         return false;
     }
 
-    public class ShiYiXuanWuTypeBean {
-        public int size;
-        public int bonus;
-        public boolean isSort;
-        public String probability;
-    }
 }

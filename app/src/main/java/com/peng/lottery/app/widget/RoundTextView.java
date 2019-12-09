@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.Nullable;
+import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 
 import com.peng.lottery.R;
 
-public class RoundTextView extends android.support.v7.widget.AppCompatTextView {
+public class RoundTextView extends androidx.appcompat.widget.AppCompatTextView {
 
     public RoundTextView(Context context) {
         this(context, null);

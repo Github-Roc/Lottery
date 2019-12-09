@@ -1,6 +1,6 @@
 package com.peng.lottery.mvp.contract.fragment;
 
-import com.peng.lottery.app.config.ActionConfig;
+import com.peng.lottery.app.type.LotteryType;
 import com.peng.lottery.base.IView;
 import com.peng.lottery.mvp.model.db.bean.LotteryNumber;
 
@@ -13,6 +13,6 @@ public interface MainLotteryContract {
     }
 
     interface Presenter {
-        void getLotteryRecord(List<LotteryNumber> lotteryValue, ActionConfig.LotteryType lotteryType);
+        void getLotteryRecord(List<LotteryNumber> lotteryValue, LotteryType lotteryType);
     }
 }

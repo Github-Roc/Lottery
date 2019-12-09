@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.peng.lottery.R;
 import com.peng.lottery.app.config.AppConfig;
-import com.peng.lottery.app.config.SharedPreferencesConfig;
 import com.peng.lottery.base.BasePresenter;
 import com.peng.lottery.mvp.model.DataManager;
 
@@ -13,6 +12,9 @@ import java.util.Random;
 import javax.inject.Inject;
 
 public class SplashPresenter extends BasePresenter {
+
+    public static final String SPLASH_SLOGAN = "slogan";
+    public static final String SPLASH_ENDING = "ending";
 
     private static int[] mSplashImgRes = {
             R.mipmap.bg_app_splash01,
@@ -51,7 +53,7 @@ public class SplashPresenter extends BasePresenter {
     }
 
     public String getSloganText() {
-        String sloganText = (String) mSpHelper.get(SharedPreferencesConfig.SPLASH_SLOGAN, "");
+        String sloganText = (String) mSpHelper.get(SPLASH_SLOGAN, "");
         if (TextUtils.isEmpty(sloganText)) {
             sloganText = mSloganArr[new Random().nextInt(mSloganArr.length)];
         }
@@ -59,7 +61,7 @@ public class SplashPresenter extends BasePresenter {
     }
 
     public String getEndingText() {
-        String endingText = (String) mSpHelper.get(SharedPreferencesConfig.SPLASH_ENDING, "");
+        String endingText = (String) mSpHelper.get(SPLASH_ENDING, "");
         if (TextUtils.isEmpty(endingText)) {
             endingText = AppConfig.APP_TAG;
         }

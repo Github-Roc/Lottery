@@ -28,7 +28,7 @@
             android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginRight="@dimen/dp_12"
             android:layout_weight="1"
-            android:background="@drawable/shape_round_text_bg"
+            android:background="@drawable/shape_round_text_white_bg"
             android:gravity="center_vertical"
             android:lines="1"
             android:paddingLeft="@dimen/dp_10"
@@ -41,7 +41,7 @@
             android:id="@+id/ll_web_share"
             android:layout_width="@dimen/dp_40"
             android:layout_height="match_parent"
-            android:background="@drawable/selector_tab_bg"
+            android:background="@drawable/selector_bg_item_tab"
             android:gravity="center">
 
             <ImageView
@@ -55,7 +55,7 @@
             android:id="@+id/ll_web_finish"
             android:layout_width="@dimen/dp_40"
             android:layout_height="match_parent"
-            android:background="@drawable/selector_tab_bg"
+            android:background="@drawable/selector_bg_item_tab"
             android:gravity="center">
 
             <ImageView
@@ -77,7 +77,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/selector_tab_bg"
+            android:background="@drawable/selector_bg_item_tab"
             android:gravity="center">
 
             <ImageView
@@ -92,7 +92,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/selector_tab_bg"
+            android:background="@drawable/selector_bg_item_tab"
             android:gravity="center">
 
 
@@ -107,7 +107,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/selector_tab_bg"
+            android:background="@drawable/selector_bg_item_tab"
             android:gravity="center">
 
             <ImageView
@@ -122,7 +122,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/selector_tab_bg"
+            android:background="@drawable/selector_bg_item_tab"
             android:gravity="center">
 
             <ImageView
@@ -137,7 +137,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/selector_tab_bg"
+            android:background="@drawable/selector_bg_item_tab"
             android:gravity="center">
 
             <ImageView

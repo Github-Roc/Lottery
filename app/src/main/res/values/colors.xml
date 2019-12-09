@@ -15,23 +15,20 @@
     <color name="grey">#999999</color>
 
     <color name="app_color">#0082E6</color>
-    <color name="app_bg">#D1D1D1</color>
+    <color name="app_btn_normal">#0072BF</color>
+    <color name="app_btn_pressed">#358BC9</color>
     <color name="text_gray">#5E616D</color>
     <color name="text_red">#FF4043</color>
     <color name="text_yellow">#F9D367</color>
     <color name="text_blue">#2177B8</color>
-    <color name="dialog_loading_bg">#AA358BC9</color>
-    <color name="dialog_title_bg">#F3F3F3</color>
-    <color name="btn_delete_normal">#F54646</color>
-    <color name="btn_delete_pressed">#FF4043</color>
-    <color name="btn_confirm_normal">#0072BF</color>
-    <color name="btn_confirm_pressed">#358BC9</color>
-    <color name="btn_cancel_normal">#DFDFDF</color>
-    <color name="btn_cancel_pressed">#C6C6C6</color>
 
+    <color name="bg_page_default">#D5D4D5</color>
+    <color name="bg_grey">#FCF9FA</color>
     <color name="bg_ball_red">#F54646</color>
+    <color name="bg_ball_red_selected">#A54848</color>
     <color name="bg_ball_blue">#3399FF</color>
-    <color name="bg_text_gray">#E9EBF7</color>
-    <color name="bg_text_transparent_gray">#66E9EBF7</color>
+    <color name="bg_ball_blue_selected">#4288AA</color>
+    <color name="bg_transparent_gray_normal">#66E9EBF7</color>
+    <color name="bg_transparent_gray_pressed">#88E9EBF7</color>
 
 </resources>

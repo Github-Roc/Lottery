@@ -10,7 +10,7 @@
         android:id="@+id/rl_setting_slogan"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
-        android:background="@drawable/selector_tab_bg"
+        android:background="@drawable/selector_bg_item_tab"
         android:paddingLeft="@dimen/dp_24"
         android:paddingRight="@dimen/dp_24">
 
