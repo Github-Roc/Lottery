@@ -1,6 +1,6 @@
 # Lottery
 - 一款帮你解决彩票选号麻烦问题的软件。
-> 工作再忙也别忘了来注大乐透，毕竟你挣一千万比你中一千万难太多了！
+- 工作再忙也别忘了来注大乐透，毕竟你挣一千万比你中一千万难太多了！
 
 
 ## 功能介绍
@@ -12,9 +12,9 @@
 
 ## App效果预览图
 #### 首页
-|首页|
-|:---:|
-|![](https://github.com/peng-android/peng-android.github.io/blob/master/lottery/Screenshot_01.jpg)|
+|大乐透|11选5|
+|:---:|:---:|
+|![](https://github.com/peng-android/peng-android.github.io/blob/master/lottery/Screenshot_00.jpg)|![](https://github.com/peng-android/peng-android.github.io/blob/master/lottery/Screenshot_01.jpg)|
 
 #### 自选号码
 |单注生成|批量生成|
@@ -29,6 +29,7 @@
 
 ## APK 下载
 [下载 APK](https://github.com/peng-android/peng-android.github.io/blob/master/lottery/lottery.apk)
+
 ![](https://github.com/peng-android/peng-android.github.io/blob/master/lottery/QRcode.png)
 
 
