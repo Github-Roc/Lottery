@@ -276,7 +276,7 @@ public class LotteryHelper {
      * @param lotteryType  彩票类型
      * @param data         近50期开奖记录
      */
-    public void getAILottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType, List<LotteryBean> data) {
+    public void getSmartLottery(List<LotteryNumber> lotteryValue, LotteryType lotteryType, List<LotteryBean> data) {
         // 红色号码球出现次数
         Map<String, Integer> redBallWeightMap = new HashMap<>();
         // 蓝色号码球出现次数
@@ -305,24 +305,36 @@ public class LotteryHelper {
         while (true) {
             List<LotteryNumber> lottery = new ArrayList<>();
             getRandomLottery(lottery, lotteryType);
-            int matchingSize = 0;
+            // 红球号码出现次数大于平均出现次数的数量
+            int redMatchingSize = 0;
+            // 蓝球号码出现次数大于平均出现次数的数量
+            int blueMatchingSize = 0;
             for (LotteryNumber number : lottery) {
                 // 当前号码出现的次数
-                Integer weight = number.getNumberType().equals(NUMBER_BALL_TYPE_RED.type) ?
+                Integer weight = NUMBER_BALL_TYPE_RED.type.equals(number.getNumberType()) ?
                         redBallWeightMap.get(number.getNumberValue()) : blueBallWeightMap.get(number.getNumberValue());
-                // 平均出现的次数
+                // 平均出现的次数 (+1)
                 int matchingWeight = number.getNumberType().equals(NUMBER_BALL_TYPE_RED.type) ?
-                        LOTTERY_TYPE_DLT.equals(lotteryType) ? 7 : 9 : LOTTERY_TYPE_DLT.equals(lotteryType) ? 8 : 3;
-                // 出现次数比平均次数少俩以内的情况
-                if (weight != null && weight >= (matchingWeight - 2) && weight < matchingWeight) {
-                    matchingSize++;
+                        LOTTERY_TYPE_DLT.equals(lotteryType) ? 8 : 10 : LOTTERY_TYPE_DLT.equals(lotteryType) ? 9 : 4;
+                if (weight != null && weight > matchingWeight) {
+                    if (NUMBER_BALL_TYPE_RED.type.equals(number.getNumberType())) {
+                        redMatchingSize++;
+                    } else {
+                        blueMatchingSize++;
+                    }
                 }
             }
-            if (!checkLotteryExist(lottery, lotteryType) && matchingSize > 5) {
-                // 符合条件的号码 显示
-                lotteryValue.clear();
-                lotteryValue.addAll(lottery);
-                return;
+            if (!checkLotteryExist(lottery, lotteryType)) {
+                // 大乐透要有3个红球和1个蓝球大于平均出现次数
+                // 双色球要有3个或以上的红球大于平均出现次数
+                boolean isMatching = LOTTERY_TYPE_DLT.equals(lotteryType) ?
+                        (redMatchingSize >= 3 && blueMatchingSize >= 1) : redMatchingSize >= 3;
+                if (isMatching) {
+                    // 符合条件的号码 显示
+                    lotteryValue.clear();
+                    lotteryValue.addAll(lottery);
+                    return;
+                }
             }
         }
     }

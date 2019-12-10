@@ -51,7 +51,7 @@ public class MainLotteryPresenter extends BasePresenter<MainLotteryContract.View
     private void createLotteryValue(List<LotteryNumber> lotteryValue, LotteryType lotteryType, List<LotteryBean> data) {
         Observable.create((ObservableOnSubscribe<Integer>) emitter -> {
             try {
-                LotteryHelper.getInstance().getAILottery(lotteryValue, lotteryType, data);
+                LotteryHelper.getInstance().getSmartLottery(lotteryValue, lotteryType, data);
                 emitter.onNext(200);
             } catch (Exception e) {
                 emitter.onNext(404);
