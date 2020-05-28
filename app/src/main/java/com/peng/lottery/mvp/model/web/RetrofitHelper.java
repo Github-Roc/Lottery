@@ -7,11 +7,15 @@ import com.peng.lottery.app.type.LotteryType;
 import com.peng.lottery.mvp.model.web.bean.BaseBean;
 import com.peng.lottery.mvp.model.web.bean.LotteryBean;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -29,6 +33,18 @@ public class RetrofitHelper {
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request()
+                                .newBuilder()
+                                .addHeader("Content-Type", "application/json;charset=UTF-8")
+                                .addHeader("app_id", "kmwjhjpxi0ftiwln")
+                                .addHeader("app_secret", "bmNjR1hnTnJ0LzVLVGJyTjgzV0ZLdz09")
+                                .build();
+                        return chain.proceed(request);
+                    }
+                })
                 .build();
         mLotteryApi = new Retrofit.Builder()
                 .baseUrl(AppConfig.LOTTERY_URL)
